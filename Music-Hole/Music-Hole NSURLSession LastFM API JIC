@@ -1,0 +1,19 @@
+     Music-Hole NSURLSession LastFM API JIC
+
+        let url = NSURL(string: urlString)
+        guard let unwrappedURL = url else { fatalError("InvalidURL")}
+        
+        let session = NSURLSession.sharedSession()
+        
+        let task = session.dataTaskWithURL(unwrappedURL) { (data, response, error) in
+            guard let data = data else {fatalError("Data error: \(error?.localizedDescription)")}
+            
+            if let responseDictionary = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary {
+                if let responseDictionary = responseDictionary {
+                    NSOperationQueue.mainQueue().addOperationWithBlock({
+                        completion(responseDictionary)
+                    })
+                }
+            }
+        }
+        task.resume()

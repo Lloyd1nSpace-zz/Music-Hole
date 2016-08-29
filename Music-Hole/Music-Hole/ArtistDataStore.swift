@@ -1,0 +1,57 @@
+//
+//  ArtistDataStore.swift
+//  Music-Hole
+//
+//  Created by Lloyd W. Sykes on 7/30/16.
+//  Copyright © 2016 Lloyd W. Sykes. All rights reserved.
+//
+
+import Foundation
+
+class ArtistDataStore {
+    
+    static let sharedArtistData = ArtistDataStore()
+    var topArtists: [String] = []
+    var artistSearchResults: [String] = []
+    var artistBio = ""
+    var userSearchText = ""
+    
+    func getArtistNamesWithCompletion(completion: () -> ()) {
+        
+        LastFMApiClient.getArtistNamesWithCompletion { (artistsDict) in
+            self.topArtists.removeAll()
+            let artist = ArtistInfo.init(topArtistsDictionary: artistsDict)
+            
+            for artistName in artist.artistNames {
+                self.topArtists.append(artistName)
+            }
+            
+            completion()
+        }
+    }
+    
+    func searchArtistsWithCompletion(userText: String, completion: () -> ()) {
+        
+        LastFMApiClient.searchArtistsWithCompletion(userText, completion:  { (userSearchDictionary) in
+            
+            guard
+                let userSearchResults = userSearchDictionary["results"] as? NSDictionary,
+                let artistMatches = userSearchResults["artistmatches"] as? NSDictionary,
+                let artistArray = artistMatches["artist"] as? [NSDictionary] else {
+                    print("There was a problem pulling the user search results from the Data Store.")
+                    return
+            }
+            
+            for searchArtist in artistArray {
+                guard let artistName = searchArtist["name"] as? String else {
+                    print("There was a problem getting the artist name out of the user search results in the Data Store.")
+                    return
+                }
+                
+                self.artistSearchResults.append(artistName)
+                print("These are the names of the user search result: \(self.artistSearchResults)")
+                completion()
+            }
+        })
+    }
+}
