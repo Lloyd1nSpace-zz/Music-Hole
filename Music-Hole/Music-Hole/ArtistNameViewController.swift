@@ -8,30 +8,33 @@
 
 import UIKit
 import ChameleonFramework
+import SnapKit
 
-class ArtistNameTableViewController: UITableViewController {
+class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var orangeToYellowGradientColor: [UIColor!]!
+    var tableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.accessibilityLabel = "tableView"
-        self.tableView.accessibilityIdentifier = "tableView"
         self.viewCustomizations()
         self.artistDataStore.getArtistNamesWithCompletion {
             self.tableView.reloadData()
         }
+        
+        self.playingWithSerachBar()
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistDataStore.topArtists.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         self.orangeToYellowGradientColor = [UIColor.flatOrangeColorDark(), UIColor.flatOrangeColor(), UIColor.flatYellowColor(), UIColor.flatYellowColorDark(), UIColor.flatOrangeColor(), UIColor.flatOrangeColorDark()]
+        
         
         let cell = self.tableView.dequeueReusableCellWithIdentifier("artistName", forIndexPath: indexPath)
         cell.textLabel?.text = self.artistDataStore.topArtists[indexPath.row]
@@ -78,29 +81,57 @@ class ArtistNameTableViewController: UITableViewController {
         }
     }
     
-    @IBAction func searchTapped(sender: AnyObject) {
-
-        let searchController = UIAlertController(title: "Search", message: "", preferredStyle: .Alert)
-        searchController.addTextFieldWithConfigurationHandler { (artistName) in
-            artistName.placeholder = "Enter Artist Name Here"
-            artistName.textAlignment = NSTextAlignment.Center
-            self.artistDataStore.userSearchText = artistName.text!
+    func playingWithSerachBar() {
+        
+        let searchBar = UISearchBar()
+        self.view.addSubview(searchBar)
+        searchBar.snp_makeConstraints { (make) in
+            make.width.equalTo(self.view)
+            make.bottom.equalTo(self.view.snp_topMargin)
+            make.centerX.equalTo(self.view)
         }
-        let searchAction = UIAlertAction(title: "Search", style: .Default) { (userSearch) in
-            
-            
-            
-            
-            self.presentViewController(SearchTableViewController(), animated: true, completion: nil)
-        }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        searchController.addAction(searchAction)
-        searchController.addAction(cancelAction)
-       
-        self.presentViewController(searchController, animated: true, completion: nil)
+        searchBar.placeholder = "Enter Artist Name Here"
+        searchBar.hidden = true
     }
     
+    //    @IBAction func searchTapped(sender: AnyObject) {
+    //
+    //        let searchController = UIAlertController(title: "Search", message: "", preferredStyle: .Alert)
+    //        searchController.addTextFieldWithConfigurationHandler { (artistName) in
+    //            artistName.placeholder = "Enter Artist Name Here"
+    //            artistName.textAlignment = NSTextAlignment.Center
+    //            self.artistDataStore.userSearchText = artistName.text!
+    //        }
+    //        let searchAction = UIAlertAction(title: "Search", style: .Default) { (userSearch) in
+    //
+    //          //  self.artistDataStore.searchArtistsWithCompletion(self.artistDataStore.userSearchText, completion: {
+    //                 self.presentViewController(SearchTableViewController(), animated: true, completion: nil)
+    //           // })
+    //
+    //        }
+    //
+    //        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+    //        searchController.addAction(searchAction)
+    //        searchController.addAction(cancelAction)
+    //
+    //        self.presentViewController(searchController, animated: true, completion: nil)
+    //    }
+    
     func viewCustomizations() {
+
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.accessibilityLabel = "tableView"
+        self.tableView.accessibilityIdentifier = "tableView"
+        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
+   
+        self.view.addSubview(self.tableView)
+        self.tableView.snp_makeConstraints { (make) in
+            make.centerX.equalTo(self.view)
+            make.centerY.equalTo(self.view)
+            make.width.equalTo(self.view)
+            make.height.equalTo(self.view)
+        }
         
         self.view.backgroundColor = UIColor.flatYellowColorDark()
         
