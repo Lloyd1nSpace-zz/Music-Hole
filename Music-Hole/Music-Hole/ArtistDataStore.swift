@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ArtistDataStore {
     
@@ -14,6 +15,7 @@ class ArtistDataStore {
     var topArtists: [String] = []
     var artistSearchResults: [String] = []
     var artistBio = ""
+    var artistImage: UIImage!
     var userSearchText = ""
     
     func getArtistNamesWithCompletion(completion: () -> ()) {

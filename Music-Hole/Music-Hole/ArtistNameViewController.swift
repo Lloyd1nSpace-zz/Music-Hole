@@ -14,17 +14,17 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var orangeToYellowGradientColor: [UIColor!]!
-    var tableView = UITableView()
+    var artistTableView = UITableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.viewCustomizations()
         self.artistDataStore.getArtistNamesWithCompletion {
-            self.tableView.reloadData()
+            self.artistTableView.reloadData()
         }
         
-        self.playingWithSerachBar()
+        self.playingWithSearchBar()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +36,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.orangeToYellowGradientColor = [UIColor.flatOrangeColorDark(), UIColor.flatOrangeColor(), UIColor.flatYellowColor(), UIColor.flatYellowColorDark(), UIColor.flatOrangeColor(), UIColor.flatOrangeColorDark()]
         
         
-        let cell = self.tableView.dequeueReusableCellWithIdentifier("artistName", forIndexPath: indexPath)
+        let cell = self.artistTableView.dequeueReusableCellWithIdentifier("artistName", forIndexPath: indexPath)
         cell.textLabel?.text = self.artistDataStore.topArtists[indexPath.row]
         let cellColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: cell.frame, andColors: self.orangeToYellowGradientColor)
         cell.backgroundColor = cellColor
@@ -48,40 +48,77 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        let selectedArtist = self.artistDataStore.topArtists[(self.tableView.indexPathForSelectedRow?.row)!]
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+       
+        let destination = ArtistInfoViewController()
+        let selectedArtist = self.artistDataStore.topArtists[indexPath.row]
         let selectedArtistForURL = selectedArtist.stringByReplacingOccurrencesOfString(" ", withString: "+")
         
-        if let destination = segue.destinationViewController as? ArtistInfoViewController {
-            LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
-                guard
-                    let info = artistInfo["artist"] as? NSDictionary,
-                    let bioInfo = info["bio"] as? NSDictionary,
-                    let bio = bioInfo["content"] as? String,
-                    let imageInfo = info["image"] as? [NSDictionary] else {
-                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
-                        return
-                }
-                
-                let imageSize = imageInfo[3]
-                guard
-                    let imageURLasString = imageSize["#text"] as? String,
-                    let imageURL = NSURL(string: imageURLasString),
-                    let imageData = NSData(contentsOfURL: imageURL) else {
-                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
-                        return
-                }
-                
-                self.artistDataStore.artistBio = bio
-                destination.artistBioTextView.text = self.artistDataStore.artistBio
-                destination.artistImage.image = UIImage(data: imageData)
-                destination.title = selectedArtist
-            })
-        }
+        LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+                    return
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = NSURL(string: imageURLasString),
+                let imageData = NSData(contentsOfURL: imageURL) else {
+                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+                    return
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            //destination.artistImage.image = UIImage(data: imageData)
+            //destination.title = selectedArtist
+            
+        self.navigationController?.showViewController(destination, sender: "")
+        })
+        
+         self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
     }
+//
+//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        let selectedArtist = self.artistDataStore.topArtists[(self.artistTableView.indexPathForSelectedRow?.row)!]
+//        let selectedArtistForURL = selectedArtist.stringByReplacingOccurrencesOfString(" ", withString: "+")
+//        
+//        if let destination = segue.destinationViewController as? ArtistInfoViewController {
+//            LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
+//                guard
+//                    let info = artistInfo["artist"] as? NSDictionary,
+//                    let bioInfo = info["bio"] as? NSDictionary,
+//                    let bio = bioInfo["content"] as? String,
+//                    let imageInfo = info["image"] as? [NSDictionary] else {
+//                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+//                        return
+//                }
+//                
+//                let imageSize = imageInfo[3]
+//                guard
+//                    let imageURLasString = imageSize["#text"] as? String,
+//                    let imageURL = NSURL(string: imageURLasString),
+//                    let imageData = NSData(contentsOfURL: imageURL) else {
+//                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+//                        return
+//                }
+//                
+//                self.artistDataStore.artistBio = bio
+//                destination.artistBioTextView.text = self.artistDataStore.artistBio
+//                destination.artistImage.image = UIImage(data: imageData)
+//                destination.title = selectedArtist
+//            })
+//        }
+//    }
     
-    func playingWithSerachBar() {
+    func playingWithSearchBar() {
         
         let searchBar = UISearchBar()
         self.view.addSubview(searchBar)
@@ -119,14 +156,15 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func viewCustomizations() {
 
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.accessibilityLabel = "tableView"
-        self.tableView.accessibilityIdentifier = "tableView"
-        self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
-   
-        self.view.addSubview(self.tableView)
-        self.tableView.snp_makeConstraints { (make) in
+        
+        self.artistTableView.delegate = self
+        self.artistTableView.dataSource = self
+        self.artistTableView.accessibilityLabel = "tableView"
+        self.artistTableView.accessibilityIdentifier = "tableView"
+        self.artistTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
+        
+        self.view.addSubview(self.artistTableView)
+        self.artistTableView.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.view)
             make.centerY.equalTo(self.view)
             make.width.equalTo(self.view)
@@ -136,6 +174,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.view.backgroundColor = UIColor.flatYellowColorDark()
         
         if let navController = self.navigationController {
+
             navController.hidesNavigationBarHairline = true
             self.setStatusBarStyle(UIStatusBarStyleContrast)
             if let style = UIContentStyle(rawValue: 500) {

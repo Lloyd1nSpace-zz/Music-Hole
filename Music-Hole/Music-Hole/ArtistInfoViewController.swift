@@ -15,12 +15,14 @@ class ArtistInfoViewController: UIViewController {
     let artistDataStore = ArtistDataStore.sharedArtistData
     var artistBioTextView: UITextView!
     var artistImage: UIImageView!
-    
+   // var artistTestImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
+
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -66,6 +68,7 @@ class ArtistInfoViewController: UIViewController {
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.grayColor()
         self.artistBioTextView.addSubview(self.artistImage)
+        self.artistImage.image = self.artistDataStore.artistImage
         //self.artistImage.image = UIImage(named: "drake")
         self.view.backgroundColor = UIColor.flatYellowColorDark()
         self.setStatusBarStyle(UIStatusBarStyleContrast)

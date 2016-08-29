@@ -86,9 +86,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="3kd-8R-x4F"/>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="MqM-8j-0Yu"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kh6-da-wIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -113,7 +110,4 @@
             <point key="canvasLocation" x="517" y="404"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="MqM-8j-0Yu"/>
-    </inferredMetricsTieBreakers>
 </document>
