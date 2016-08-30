@@ -35,7 +35,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.orangeToYellowGradientColor = [UIColor.flatOrangeColorDark(), UIColor.flatOrangeColor(), UIColor.flatYellowColor(), UIColor.flatYellowColorDark(), UIColor.flatOrangeColor(), UIColor.flatOrangeColorDark()]
         
-        
         let cell = self.artistTableView.dequeueReusableCellWithIdentifier("artistName", forIndexPath: indexPath)
         cell.textLabel?.text = self.artistDataStore.topArtists[indexPath.row]
         let cellColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: cell.frame, andColors: self.orangeToYellowGradientColor)
@@ -49,7 +48,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-       
+        
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[indexPath.row]
         let selectedArtistForURL = selectedArtist.stringByReplacingOccurrencesOfString(" ", withString: "+")
@@ -76,14 +75,17 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.artistDataStore.artistBio = bio
             self.artistDataStore.artistImage = UIImage(data: imageData)
             
-        self.navigationController?.showViewController(destination, sender: "")
+            self.navigationController?.showViewController(destination, sender: "")
         })
         
-         self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
     
     func playingWithSearchBar() {
+        
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.searchTapped))
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem = searchButton
         
         let searchBar = UISearchBar()
         self.view.addSubview(searchBar)
@@ -95,6 +97,13 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         searchBar.placeholder = "Enter Artist Name Here"
         searchBar.hidden = true
     }
+    
+    @IBAction func searchTapped(sender: AnyObject) {
+        
+        print("Search Tapped!")
+        
+    }
+    
     
     //    @IBAction func searchTapped(sender: AnyObject) {
     //
@@ -120,13 +129,16 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     //    }
     
     func viewCustomizations() {
-
+        
+        self.view.backgroundColor = UIColor.flatYellowColorDark()
+        self.navigationController?.navigationBar.backgroundColor = UIColor.flatYellowColorDark()
+        self.navigationController?.navigationBar.topItem?.title = "Top Artists"
+        
         self.artistTableView.delegate = self
         self.artistTableView.dataSource = self
         self.artistTableView.accessibilityLabel = "tableView"
         self.artistTableView.accessibilityIdentifier = "tableView"
         self.artistTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
-        //self.artistTableView.
         
         self.view.addSubview(self.artistTableView)
         self.artistTableView.snp_makeConstraints { (make) in
@@ -136,10 +148,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             make.height.equalTo(self.view)
         }
         
-        self.view.backgroundColor = UIColor.flatYellowColorDark()
-        
         if let navController = self.navigationController {
-
+            
             navController.hidesNavigationBarHairline = true
             self.setStatusBarStyle(UIStatusBarStyleContrast)
             if let style = UIContentStyle(rawValue: 500) {
