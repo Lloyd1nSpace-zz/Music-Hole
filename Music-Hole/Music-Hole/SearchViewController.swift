@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
     
     func searchBarSetup() {
         
-        self.view.backgroundColor = Constants.mainColor
+        self.view.backgroundColor = UIColor.init(gradientStyle: UIGradientStyle.TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         
         let searchBar = UISearchBar()
         self.view.addSubview(searchBar)

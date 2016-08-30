@@ -93,7 +93,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.navigationController?.showViewController(searchVC, sender: "")
         
-        
     }
     
     func viewCustomizations() {
