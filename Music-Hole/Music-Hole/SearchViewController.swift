@@ -13,6 +13,28 @@ import SnapKit
 class SearchViewController: UIViewController {
     
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+   
+        self.searchBarSetup()
+    }
     
+    func searchBarSetup() {
+        
+        self.view.backgroundColor = UIColor.flatYellowColorDark()
+        
+        let searchBar = UISearchBar()
+        self.view.addSubview(searchBar)
+        searchBar.snp_makeConstraints { (make) in
+            make.width.equalTo(self.view)
+            make.centerY.equalTo(self.view.snp_top).offset(80)
+            make.centerX.equalTo(self.view)
+        }
 
+        searchBar.barTintColor = UIColor.flatYellowColorDark()
+        searchBar.translucent = true
+        
+        searchBar.placeholder = "Enter Artist Name Here"
+        
+    }
 }

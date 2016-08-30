@@ -10,5 +10,5 @@ import ChameleonFramework
 
 struct Constants {
     static let orangeToYellowColorArray = [UIColor.flatOrangeColorDark(), UIColor.flatOrangeColor(), UIColor.flatYellowColor(), UIColor.flatYellowColorDark(), UIColor.flatOrangeColor(), UIColor.flatOrangeColorDark()]
-    static let primaryText = UIColor.flatBlackColorDark()
+    static let primaryTextColor = UIColor.flatBlackColorDark()
 }

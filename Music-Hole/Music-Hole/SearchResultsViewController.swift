@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ChameleonFramework
+import SnapKit
 
 class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -23,7 +25,6 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistsDataStore.artistSearchResults.count
     }
@@ -37,7 +38,7 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         let outlineColor = UIColor.flatBlackColor()
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = outlineColor.CGColor
-        cell.textLabel?.textColor = Constants.primaryText
+        cell.textLabel?.textColor = Constants.primaryTextColor
         
         return cell
         

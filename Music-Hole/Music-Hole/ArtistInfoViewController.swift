@@ -57,7 +57,7 @@ class ArtistInfoViewController: UIViewController {
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 250, left: 10, bottom: 0, right: 10)
         self.artistBioTextView.backgroundColor = gradientColorScheme
         self.artistBioTextView.text = self.artistDataStore.artistBio
-        self.artistBioTextView.textColor = Constants.primaryText
+        self.artistBioTextView.textColor = Constants.primaryTextColor
         self.view.addSubview(self.artistBioTextView)
         
         self.artistImage = UIImageView()

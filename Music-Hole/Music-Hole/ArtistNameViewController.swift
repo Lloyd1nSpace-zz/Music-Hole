@@ -42,7 +42,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let outlineColor = UIColor.flatBlackColor()
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = outlineColor.CGColor
-        cell.textLabel?.textColor = Constants.primaryText
+        cell.textLabel?.textColor = Constants.primaryTextColor
         
         return cell
     }
@@ -92,15 +92,15 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         print("Search Tapped!")
         
-        let searchBar = UISearchBar()
-        self.artistTableView.addSubview(searchBar)
-        searchBar.snp_makeConstraints { (make) in
-            make.width.equalTo(self.view)
-            make.bottom.equalTo(self.view.snp_topMargin)
-            make.centerX.equalTo(self.view)
-        }
-        searchBar.placeholder = "Enter Artist Name Here"
-        searchBar.hidden = true
+        let searchVC = SearchViewController()
+        
+        self.navigationController?.showViewController(searchVC, sender: "")
+        
+//        self.presentViewController(searchVC, animated: false) {
+//            
+//            searchVC.navigationController?.navigationBar.backItem?.title = "Back"
+//            //  self.navigationController?.navigationBar.backItem?.title = "Back"
+//        }
         
     }
     
