@@ -39,5 +39,4 @@ class SearchTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
     }
-
 }

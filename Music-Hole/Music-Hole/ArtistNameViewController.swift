@@ -75,8 +75,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             
             self.artistDataStore.artistBio = bio
             self.artistDataStore.artistImage = UIImage(data: imageData)
-            //destination.artistImage.image = UIImage(data: imageData)
-            //destination.title = selectedArtist
             
         self.navigationController?.showViewController(destination, sender: "")
         })
@@ -84,39 +82,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
          self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
-//
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        
-//        let selectedArtist = self.artistDataStore.topArtists[(self.artistTableView.indexPathForSelectedRow?.row)!]
-//        let selectedArtistForURL = selectedArtist.stringByReplacingOccurrencesOfString(" ", withString: "+")
-//        
-//        if let destination = segue.destinationViewController as? ArtistInfoViewController {
-//            LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
-//                guard
-//                    let info = artistInfo["artist"] as? NSDictionary,
-//                    let bioInfo = info["bio"] as? NSDictionary,
-//                    let bio = bioInfo["content"] as? String,
-//                    let imageInfo = info["image"] as? [NSDictionary] else {
-//                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
-//                        return
-//                }
-//                
-//                let imageSize = imageInfo[3]
-//                guard
-//                    let imageURLasString = imageSize["#text"] as? String,
-//                    let imageURL = NSURL(string: imageURLasString),
-//                    let imageData = NSData(contentsOfURL: imageURL) else {
-//                        print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
-//                        return
-//                }
-//                
-//                self.artistDataStore.artistBio = bio
-//                destination.artistBioTextView.text = self.artistDataStore.artistBio
-//                destination.artistImage.image = UIImage(data: imageData)
-//                destination.title = selectedArtist
-//            })
-//        }
-//    }
     
     func playingWithSearchBar() {
         
@@ -156,12 +121,12 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func viewCustomizations() {
 
-        
         self.artistTableView.delegate = self
         self.artistTableView.dataSource = self
         self.artistTableView.accessibilityLabel = "tableView"
         self.artistTableView.accessibilityIdentifier = "tableView"
         self.artistTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
+        //self.artistTableView.
         
         self.view.addSubview(self.artistTableView)
         self.artistTableView.snp_makeConstraints { (make) in

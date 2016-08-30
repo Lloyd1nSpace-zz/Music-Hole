@@ -15,14 +15,11 @@ class ArtistInfoViewController: UIViewController {
     let artistDataStore = ArtistDataStore.sharedArtistData
     var artistBioTextView: UITextView!
     var artistImage: UIImageView!
-   // var artistTestImage: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
-
-        
     }
     
     override func viewWillAppear(animated: Bool) {
