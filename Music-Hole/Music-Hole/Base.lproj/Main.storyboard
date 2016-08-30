@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search Results View Controller-->
         <scene sceneID="Tn0-8L-GcA">
             <objects>
-                <viewController id="EcQ-hN-jjF" sceneMemberID="viewController">
+                <viewController id="EcQ-hN-jjF" customClass="SearchResultsViewController" customModule="Music_Hole" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="64K-bz-ThM"/>
                         <viewControllerLayoutGuide type="bottom" id="AsP-fX-8RP"/>
@@ -59,6 +59,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kh6-da-wIA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1291" y="404"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="2XM-HT-UM4">
+            <objects>
+                <viewController id="NWk-eQ-JNU" customClass="SearchViewController" customModule="Music_Hole" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="b4c-WX-RVj"/>
+                        <viewControllerLayoutGuide type="bottom" id="Dod-cf-sPS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fRN-ly-bBk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3pc-gm-1lJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="517" y="-315"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="T1q-AQ-5L4">

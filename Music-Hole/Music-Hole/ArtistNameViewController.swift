@@ -24,7 +24,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.artistTableView.reloadData()
         }
         
-        self.playingWithSearchBar()
+        self.searchButtonSetup()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -82,13 +82,18 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
-    func playingWithSearchBar() {
+    func searchButtonSetup() {
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.searchTapped))
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = searchButton
+    }
+    
+    @IBAction func searchTapped(sender: AnyObject) {
+        
+        print("Search Tapped!")
         
         let searchBar = UISearchBar()
-        self.view.addSubview(searchBar)
+        self.artistTableView.addSubview(searchBar)
         searchBar.snp_makeConstraints { (make) in
             make.width.equalTo(self.view)
             make.bottom.equalTo(self.view.snp_topMargin)
@@ -96,11 +101,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         searchBar.placeholder = "Enter Artist Name Here"
         searchBar.hidden = true
-    }
-    
-    @IBAction func searchTapped(sender: AnyObject) {
-        
-        print("Search Tapped!")
         
     }
     
@@ -138,6 +138,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.dataSource = self
         self.artistTableView.accessibilityLabel = "tableView"
         self.artistTableView.accessibilityIdentifier = "tableView"
+        self.artistTableView.backgroundColor = UIColor.flatYellowColorDark()
         self.artistTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
         
         self.view.addSubview(self.artistTableView)
