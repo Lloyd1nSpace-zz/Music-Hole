@@ -67,12 +67,12 @@ class ArtistInfoViewController: UIViewController {
         self.artistBioTextView.addSubview(self.artistImage)
         self.artistImage.image = self.artistDataStore.artistImage
         //self.artistImage.image = UIImage(named: "drake")
-        self.view.backgroundColor = UIColor.flatYellowColorDark()
+        self.view.backgroundColor = Constants.mainColor
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         if let navController = self.navigationController {
             navController.hidesNavigationBarHairline = true
             if let style = UIContentStyle(rawValue: 500) {
-                navController.setThemeUsingPrimaryColor(UIColor.flatYellowColorDark(), withSecondaryColor: UIColor.flatYellowColor(), usingFontName: "Artist Info", andContentStyle: style)
+                navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellowColor(), usingFontName: "Artist Info", andContentStyle: style)
             }
         }
     }

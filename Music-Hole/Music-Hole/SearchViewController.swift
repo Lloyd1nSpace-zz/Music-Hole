@@ -21,7 +21,7 @@ class SearchViewController: UIViewController {
     
     func searchBarSetup() {
         
-        self.view.backgroundColor = UIColor.flatYellowColorDark()
+        self.view.backgroundColor = Constants.mainColor
         
         let searchBar = UISearchBar()
         self.view.addSubview(searchBar)
@@ -31,7 +31,7 @@ class SearchViewController: UIViewController {
             make.centerX.equalTo(self.view)
         }
 
-        searchBar.barTintColor = UIColor.flatYellowColorDark()
+        searchBar.barTintColor = Constants.mainColor
         searchBar.translucent = true
         
         searchBar.placeholder = "Enter Artist Name Here"
