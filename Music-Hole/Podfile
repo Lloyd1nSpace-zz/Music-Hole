@@ -6,8 +6,6 @@ target 'Music-Hole' do
   use_frameworks!
 
   # Pods for Music-Hole
-  pod 'Alamofire'
-  pod 'SwiftyJSON'
   pod 'SnapKit'
   pod 'ChameleonFramework'
   pod 'ChameleonFramework/Swift'

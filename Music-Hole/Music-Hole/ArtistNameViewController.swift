@@ -14,13 +14,29 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var artistTableView = UITableView()
+    let searchBar = SearchViewController().searchBar
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.viewCustomizations()
-        self.artistDataStore.getArtistNamesWithCompletion {
-            self.artistTableView.reloadData()
+        
+        if let searchBarEmpty = self.searchBar.text?.isEmpty {
+            
+            self.artistDataStore.getArtistNamesWithCompletion {
+                
+                self.artistTableView.reloadData()
+                print("The searchBarText is empty: \(searchBarEmpty)")
+            }
+            
+        } else {
+ 
+            self.artistDataStore.searchArtistsWithCompletion(self.searchBar.text!, completion: { 
+                
+                self.artistTableView.reloadData()
+                
+            })
+            
         }
         
         self.searchButtonSetup()
@@ -125,4 +141,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
+    
+    
+    
 }

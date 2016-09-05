@@ -10,8 +10,9 @@ import UIKit
 import ChameleonFramework
 import SnapKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchBarDelegate {
     
+    let searchBar = UISearchBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,18 +24,28 @@ class SearchViewController: UIViewController {
         
         self.view.backgroundColor = UIColor.init(gradientStyle: UIGradientStyle.TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         
-        let searchBar = UISearchBar()
+        self.searchBar.delegate = self
         self.view.addSubview(searchBar)
-        searchBar.snp_makeConstraints { (make) in
+        self.searchBar.snp_makeConstraints { (make) in
             make.width.equalTo(self.view)
             make.centerY.equalTo(self.view.snp_top).offset(80)
             make.centerX.equalTo(self.view)
         }
 
-        searchBar.barTintColor = Constants.mainColor
-        searchBar.translucent = true
+        self.searchBar.barTintColor = Constants.mainColor
+        self.searchBar.translucent = true
         
-        searchBar.placeholder = "Enter Artist Name Here"
+        self.searchBar.placeholder = "Enter Artist Name Here"
+    
+        if self.searchBar.text?.isEmpty == false {
+            
+            print("There's text in the searchBar!")
+            
+            self.navigationController?.showViewController(ArtistNameViewController(), sender: nil)
+        }
+        
         
     }
+   
+    
 }
