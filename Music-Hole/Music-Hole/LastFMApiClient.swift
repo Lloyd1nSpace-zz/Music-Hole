@@ -10,7 +10,6 @@ import Foundation
 
 class LastFMApiClient: NSObject {
     
-    
     class func getArtistNamesWithCompletion(completion: (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.topArtistsAPIURL)&api_key=\(Secrets.lastFMAPIKey)&format=json"

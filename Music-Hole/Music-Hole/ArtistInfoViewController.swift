@@ -13,8 +13,10 @@ import ChameleonFramework
 class ArtistInfoViewController: UIViewController {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
-    var artistBioTextView: UITextView!
-    var artistImage: UIImageView!
+    var artistBioTextView = UITextView()
+    var artistDiscography = UIStackView()
+    var artistImage = UIImageView()
+    var testImage = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +54,6 @@ class ArtistInfoViewController: UIViewController {
     func createViews() {
         
         let gradientColorScheme = UIColor.init(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
-        self.artistBioTextView = UITextView()
         self.artistBioTextView.selectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 250, left: 10, bottom: 0, right: 10)
         self.artistBioTextView.backgroundColor = gradientColorScheme
@@ -60,13 +61,12 @@ class ArtistInfoViewController: UIViewController {
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.view.addSubview(self.artistBioTextView)
         
-        self.artistImage = UIImageView()
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.grayColor()
         self.artistBioTextView.addSubview(self.artistImage)
         self.artistImage.image = self.artistDataStore.artistImage
-        //self.artistImage.image = UIImage(named: "drake")
+        self.testImage.image = UIImage(named: "drake")
         self.view.backgroundColor = Constants.mainColor
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         if let navController = self.navigationController {
@@ -75,5 +75,22 @@ class ArtistInfoViewController: UIViewController {
                 navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellowColor(), usingFontName: "Artist Info", andContentStyle: style)
             }
         }
+        
+//        self.artistDiscography.distribution = UIStackViewDistribution.EqualSpacing
+//        self.artistDiscography.axis = UILayoutConstraintAxis.Horizontal
+//        self.artistDiscography.alignment = UIStackViewAlignment.Center
+//        self.artistDiscography.spacing = 2.0
+//        self.artistDiscography.addArrangedSubview(self.testImage)
+//        self.artistDiscography.backgroundColor = UIColor.flatLimeColor()
+//        self.view.addSubview(self.artistDiscography)
+//        self.view.snp_makeConstraints { (make) in
+//           make.top.equalTo(self.artistBioTextView.snp_bottom)
+//            make.bottom.equalTo(self.view)
+//            make.height.equalTo(self.view).dividedBy(4)
+//            make.width.equalTo(self.view)
+//        }
     }
+
+    
+    
 }
