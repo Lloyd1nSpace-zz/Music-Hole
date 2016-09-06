@@ -91,6 +91,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.navigationController?.showViewController(destination, sender: "")
         })
         
+        self.navigationController?.navigationItem.title = selectedArtist
         self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
