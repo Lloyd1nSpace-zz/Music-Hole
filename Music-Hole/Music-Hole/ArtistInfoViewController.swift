@@ -13,10 +13,16 @@ import ChameleonFramework
 class ArtistInfoViewController: UIViewController {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
+    var artistScrollView = UIScrollView()
     var artistBioTextView = UITextView()
+    var artistBioTextViewHeightConstraint = NSLayoutConstraint()
     var artistDiscography = UIStackView()
     var artistImage = UIImageView()
-    var testImage = UIImageView()
+    var expandButton = UIButton()
+    var bioLabel = UILabel()
+    var discographyLabel = UILabel()
+    var similarArtistsLabel = UILabel()
+    //var testImage = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,49 +30,35 @@ class ArtistInfoViewController: UIViewController {
         self.createViews()
     }
     
-    override func viewWillAppear(animated: Bool) {
-        self.bioConstraints()
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func bioConstraints() {
-        
-        self.createViews()
-        self.artistBioTextView.snp_makeConstraints { (make) in
-            make.width.equalTo(self.view)
-            make.height.equalTo(self.view).dividedBy(1.1)
-            make.centerX.equalTo(self.view)
-            make.bottom.equalTo(self.view)
-        }
-        
-        self.artistImage.snp_makeConstraints { (make) in
-            make.width.equalTo(self.artistBioTextView).dividedBy(1.5)
-            make.height.equalTo(self.artistBioTextView).dividedBy(2.5)
-            make.centerX.equalTo(self.artistBioTextView)
-            make.top.equalTo(self.artistBioTextView)
-        }
-    }
-    
     func createViews() {
         
-        let gradientColorScheme = UIColor.init(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
-        self.artistBioTextView.selectable = false
-        self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 250, left: 10, bottom: 0, right: 10)
-        self.artistBioTextView.backgroundColor = gradientColorScheme
-        self.artistBioTextView.text = self.artistDataStore.artistBio
-        self.artistBioTextView.textColor = Constants.primaryTextColor
-        self.view.addSubview(self.artistBioTextView)
+        self.view.addSubview(self.artistScrollView)
+        self.artistScrollView.addSubview(self.artistImage)
+        self.artistScrollView.addSubview(self.bioLabel)
+        self.artistScrollView.addSubview(self.artistBioTextView)
+        self.artistScrollView.addSubview(self.expandButton)
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.grayColor()
-        self.artistBioTextView.addSubview(self.artistImage)
         self.artistImage.image = self.artistDataStore.artistImage
-        self.testImage.image = UIImage(named: "drake")
+        //   self.testImage.image = UIImage(named: "drake")
+        
+        self.bioLabel.text = "Bio"
+        
+        let gradientColorScheme = UIColor.init(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
+        self.artistBioTextView.selectable = false
+        self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
+        self.artistBioTextView.backgroundColor = gradientColorScheme
+        self.artistBioTextView.text = self.artistDataStore.artistBio
+        self.artistBioTextView.textColor = Constants.primaryTextColor
+        self.artistBioTextView.scrollEnabled = false
+        
         self.view.backgroundColor = Constants.mainColor
         self.setStatusBarStyle(UIStatusBarStyleContrast)
         if let navController = self.navigationController {
@@ -76,21 +68,73 @@ class ArtistInfoViewController: UIViewController {
             }
         }
         
-//        self.artistDiscography.distribution = UIStackViewDistribution.EqualSpacing
-//        self.artistDiscography.axis = UILayoutConstraintAxis.Horizontal
-//        self.artistDiscography.alignment = UIStackViewAlignment.Center
-//        self.artistDiscography.spacing = 2.0
-//        self.artistDiscography.addArrangedSubview(self.testImage)
-//        self.artistDiscography.backgroundColor = UIColor.flatLimeColor()
-//        self.view.addSubview(self.artistDiscography)
-//        self.view.snp_makeConstraints { (make) in
-//           make.top.equalTo(self.artistBioTextView.snp_bottom)
-//            make.bottom.equalTo(self.view)
-//            make.height.equalTo(self.view).dividedBy(4)
-//            make.width.equalTo(self.view)
-//        }
+        self.expandButton.setTitle("Expand", forState: UIControlState.Normal)
+        self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
+        self.expandButton.backgroundColor = UIColor.flatForestGreenColor()
+        
+        self.viewConstraints()
+        
     }
-
+    
+    func viewConstraints() {
+        
+        self.artistScrollView.snp_makeConstraints { (make) in
+            make.width.equalTo(self.view)
+            make.height.equalTo(self.view)
+            make.centerX.equalTo(self.view)
+            make.centerY.equalTo(self.view)
+        }
+        
+        self.artistImage.snp_makeConstraints { (make) in
+            make.width.equalTo(self.artistScrollView).dividedBy(1.5)
+            make.height.equalTo(self.artistScrollView).dividedBy(2.5)
+            make.centerX.equalTo(self.artistScrollView)
+            make.top.equalTo(self.artistScrollView)
+            
+        }
+        
+        self.bioLabel.snp_makeConstraints { (make) in
+            make.top.equalTo(self.artistImage.snp_bottom)
+            make.bottom.equalTo(self.artistBioTextView.snp_top)
+            make.width.equalTo(self.artistScrollView).dividedBy(4)
+            make.height.equalTo(self.artistScrollView).dividedBy(8)
+        }
+        
+        self.expandButton.snp_makeConstraints { (make) in
+            make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
+            make.centerX.equalTo(self.artistScrollView).offset(150)
+        }
+        
+        
+        self.artistBioTextView.translatesAutoresizingMaskIntoConstraints = false
+        self.artistBioTextView.widthAnchor.constraintEqualToAnchor(self.artistScrollView.widthAnchor).active = true
+        self.artistBioTextView.centerXAnchor.constraintEqualToAnchor(self.artistScrollView.centerXAnchor).active = true
+        self.artistBioTextView.topAnchor.constraintEqualToAnchor(self.artistImage.bottomAnchor).active = true
+        
+        self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4)
+        self.artistBioTextViewHeightConstraint.active = true
+        
+    }
+    
+    
+    func expandButtonTapped(sender: UIButton) {
+        
+        print("Expand button tapped!")
+        
+        self.artistBioTextView.scrollEnabled = true
+        self.artistBioTextViewHeightConstraint.active = false
+        
+        UIView.animateWithDuration(0.3) {
+            
+            self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/3)
+            self.artistBioTextViewHeightConstraint.active = true
+            self.view.layoutIfNeeded()
+        }
+        
+        
+        
+        
+    }
     
     
 }
