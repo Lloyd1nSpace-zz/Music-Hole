@@ -43,6 +43,7 @@ class ArtistInfoViewController: UIViewController {
         self.artistScrollView.addSubview(self.artistBioTextView)
         self.artistScrollView.addSubview(self.expandButton)
         self.artistScrollView.addSubview(self.discographyLabel)
+        self.artistScrollView.addSubview(self.artistDiscography)
         
         self.artistScrollView.scrollEnabled = true
         
@@ -53,7 +54,6 @@ class ArtistInfoViewController: UIViewController {
         //   self.testImage.image = UIImage(named: "drake")
         
         self.bioLabel.text = "Bio"
-        self.discographyLabel.text = "Discography"
         
         let gradientColorScheme = UIColor.init(gradientStyle: .TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.artistBioTextView.selectable = false
@@ -74,6 +74,11 @@ class ArtistInfoViewController: UIViewController {
         self.expandButton.setTitle("Expand", forState: UIControlState.Normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
         self.expandButton.backgroundColor = UIColor.flatForestGreenColor()
+        
+        self.discographyLabel.text = "Discography"
+        
+        self.artistDiscography.axis = UILayoutConstraintAxis.Horizontal
+        self.artistDiscography.backgroundColor = UIColor.flatForestGreenColor()
         
         self.viewConstraints()
         
@@ -103,30 +108,35 @@ class ArtistInfoViewController: UIViewController {
             make.height.equalTo(self.artistScrollView).dividedBy(18)
         }
         
+        self.artistBioTextView.translatesAutoresizingMaskIntoConstraints = false
+        self.artistBioTextView.widthAnchor.constraintEqualToAnchor(self.artistScrollView.widthAnchor).active = true
+        self.artistBioTextView.centerXAnchor.constraintEqualToAnchor(self.artistScrollView.centerXAnchor).active = true
+        self.artistBioTextView.topAnchor.constraintEqualToAnchor(self.bioLabel.bottomAnchor).active = true
+        self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4)
+        self.artistBioTextViewHeightConstraint.active = true
+        
         self.expandButton.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
             make.centerX.equalTo(self.artistScrollView).offset(150)
         }
         
-        
-        self.artistBioTextView.translatesAutoresizingMaskIntoConstraints = false
-        self.artistBioTextView.widthAnchor.constraintEqualToAnchor(self.artistScrollView.widthAnchor).active = true
-        self.artistBioTextView.centerXAnchor.constraintEqualToAnchor(self.artistScrollView.centerXAnchor).active = true
-        self.artistBioTextView.topAnchor.constraintEqualToAnchor(self.bioLabel.bottomAnchor).active = true
-        
-        self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4)
-        self.artistBioTextViewHeightConstraint.active = true
-        
         self.discographyLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.expandButton)
-            make.bottom.equalTo(self.artistScrollView)
+            //  make.bottom.equalTo(self.artistScrollView)
             make.width.equalTo(self.artistScrollView).dividedBy(2)
             make.height.equalTo(self.artistScrollView).dividedBy(18)
         }
         
+        self.artistDiscography.snp_makeConstraints { (make) in
+            make.top.equalTo(self.discographyLabel.snp_bottom)
+            // make.bottom.equalTo(self.artistScrollView)
+            make.width.equalTo(self.artistScrollView)
+            make.height.equalTo(self.artistScrollView)
+            // make.centerX.equalTo(self.artistScrollView)
+            //make.centerY.equalTo(self.artistScrollView)
+        }
         
     }
-    
     
     func expandButtonTapped(sender: UIButton) {
         

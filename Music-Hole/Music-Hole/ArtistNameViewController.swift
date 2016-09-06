@@ -30,8 +30,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
         } else {
- 
-            self.artistDataStore.searchArtistsWithCompletion(self.searchBar.text!, completion: { 
+            
+            self.artistDataStore.searchArtistsWithCompletion(self.searchBar.text!, completion: {
                 
                 self.artistTableView.reloadData()
                 
@@ -91,7 +91,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.navigationController?.showViewController(destination, sender: "")
         })
         
-        self.navigationController?.navigationItem.title = selectedArtist
         self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
         
     }
@@ -141,8 +140,5 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellowColor(), usingFontName: "Artist Info", andContentStyle: style)
             }
         }
-    }
-    
-    
-    
+    }  
 }
