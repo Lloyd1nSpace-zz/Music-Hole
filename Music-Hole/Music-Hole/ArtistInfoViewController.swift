@@ -10,18 +10,19 @@ import UIKit
 import SnapKit
 import ChameleonFramework
 
-class ArtistInfoViewController: UIViewController {
+class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var artistScrollView = UIScrollView()
     var artistBioTextView = UITextView()
     var artistBioTextViewHeightConstraint = NSLayoutConstraint()
-    var artistDiscography = UIStackView()
     var artistImage = UIImageView()
-    var expandButton = UIButton()
     var bioLabel = UILabel()
+    var expandButton = UIButton()
     var discographyLabel = UILabel()
+    var artistDiscographyStackView = UIStackView()
     var similarArtistsLabel = UILabel()
+    var similarArtistsStackView = UIStackView()
     //var testImage = UIImageView()
     
     override func viewDidLoad() {
@@ -37,13 +38,17 @@ class ArtistInfoViewController: UIViewController {
     
     func createViews() {
         
+        self.artistScrollView.delegate = self
+        
         self.view.addSubview(self.artistScrollView)
         self.artistScrollView.addSubview(self.artistImage)
         self.artistScrollView.addSubview(self.bioLabel)
         self.artistScrollView.addSubview(self.artistBioTextView)
         self.artistScrollView.addSubview(self.expandButton)
         self.artistScrollView.addSubview(self.discographyLabel)
-        self.artistScrollView.addSubview(self.artistDiscography)
+        self.artistScrollView.addSubview(self.artistDiscographyStackView)
+        self.artistScrollView.addSubview(self.similarArtistsLabel)
+        self.artistScrollView.addSubview(self.similarArtistsStackView)
         
         self.artistScrollView.scrollEnabled = true
         
@@ -77,8 +82,10 @@ class ArtistInfoViewController: UIViewController {
         
         self.discographyLabel.text = "Discography"
         
-        self.artistDiscography.axis = UILayoutConstraintAxis.Horizontal
-        self.artistDiscography.backgroundColor = UIColor.flatForestGreenColor()
+        self.artistDiscographyStackView.axis = UILayoutConstraintAxis.Horizontal
+        self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreenColor()
+        
+        self.similarArtistsLabel.text = "Similar Artists"
         
         self.viewConstraints()
         
@@ -122,19 +129,36 @@ class ArtistInfoViewController: UIViewController {
         
         self.discographyLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.expandButton)
-            //  make.bottom.equalTo(self.artistScrollView)
             make.width.equalTo(self.artistScrollView).dividedBy(2)
             make.height.equalTo(self.artistScrollView).dividedBy(18)
         }
         
-        self.artistDiscography.snp_makeConstraints { (make) in
+        self.artistDiscographyStackView.snp_makeConstraints { (make) in
             make.top.equalTo(self.discographyLabel.snp_bottom)
             // make.bottom.equalTo(self.artistScrollView)
             make.width.equalTo(self.artistScrollView)
-            make.height.equalTo(self.artistScrollView)
+            make.height.equalTo(self.view).dividedBy(4)
             // make.centerX.equalTo(self.artistScrollView)
             //make.centerY.equalTo(self.artistScrollView)
         }
+        
+        self.similarArtistsLabel.snp_makeConstraints { (make) in
+            make.top.equalTo(self.artistDiscographyStackView.snp_bottom)
+            make.width.equalTo(self.artistScrollView).dividedBy(2)
+            make.height.equalTo(self.artistScrollView).dividedBy(18)
+        }
+        
+        self.similarArtistsStackView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.similarArtistsLabel.snp_bottom)
+            make.width.equalTo(self.artistScrollView)
+            make.height.equalTo(self.view).dividedBy(4)
+        }
+    
+        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        
+        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
+        
+        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
         
     }
     
