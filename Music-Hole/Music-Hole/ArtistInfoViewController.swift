@@ -38,20 +38,14 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
+//        self.edgesForExtendedLayout = UIRectEdge.None
+//        self.extendedLayoutIncludesOpaqueBars = false
+        self.artistScrollView = UIScrollView(frame: self.view.bounds)
         self.artistScrollView.delegate = self
-        
-        self.view.addSubview(self.artistScrollView)
-        self.artistScrollView.addSubview(self.artistImage)
-        self.artistScrollView.addSubview(self.bioLabel)
-        self.artistScrollView.addSubview(self.artistBioTextView)
-        self.artistScrollView.addSubview(self.expandButton)
-        self.artistScrollView.addSubview(self.discographyLabel)
-        self.artistScrollView.addSubview(self.artistDiscographyStackView)
-        self.artistScrollView.addSubview(self.similarArtistsLabel)
-        self.artistScrollView.addSubview(self.similarArtistsStackView)
-        
+        self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+        self.artistScrollView.userInteractionEnabled = true
         self.artistScrollView.scrollEnabled = true
-        
+
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.grayColor()
@@ -86,6 +80,16 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreenColor()
         
         self.similarArtistsLabel.text = "Similar Artists"
+        
+        self.view.addSubview(self.artistScrollView)
+        self.artistScrollView.addSubview(self.artistImage)
+        self.artistScrollView.addSubview(self.bioLabel)
+        self.artistScrollView.addSubview(self.artistBioTextView)
+        self.artistScrollView.addSubview(self.expandButton)
+        self.artistScrollView.addSubview(self.discographyLabel)
+        self.artistScrollView.addSubview(self.artistDiscographyStackView)
+        self.artistScrollView.addSubview(self.similarArtistsLabel)
+        self.artistScrollView.addSubview(self.similarArtistsStackView)
         
         self.viewConstraints()
         
@@ -154,11 +158,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             make.height.equalTo(self.view).dividedBy(4)
         }
     
-        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
-        
-        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
-        
-        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
+//        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+//        
+//        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
+//        
+//        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
         
     }
     
