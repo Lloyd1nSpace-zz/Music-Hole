@@ -38,14 +38,14 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-//        self.edgesForExtendedLayout = UIRectEdge.None
 //        self.extendedLayoutIncludesOpaqueBars = false
-        self.artistScrollView = UIScrollView(frame: self.view.bounds)
+//        self.artistScrollView = UIScrollView(frame: self.view.bounds)
+        self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
         self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.artistScrollView.userInteractionEnabled = true
         self.artistScrollView.scrollEnabled = true
-
+        
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.grayColor()
@@ -72,7 +72,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.expandButton.setTitle("Expand", forState: UIControlState.Normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), forControlEvents: UIControlEvents.TouchUpInside)
-        self.expandButton.backgroundColor = UIColor.flatForestGreenColor()
+        self.expandButton.backgroundColor = UIColor.flatRedColorDark()
+        self.expandButton.layer.cornerRadius = 7
         
         self.discographyLabel.text = "Discography"
         
@@ -105,8 +106,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         }
         
         self.artistImage.snp_makeConstraints { (make) in
-            make.width.equalTo(self.artistScrollView).dividedBy(1.5)
-            make.height.equalTo(self.artistScrollView).dividedBy(2.5)
+            make.width.equalTo(self.view).dividedBy(1.5)
+            make.height.equalTo(self.view).dividedBy(2.5)
             make.centerX.equalTo(self.artistScrollView)
             make.top.equalTo(self.artistScrollView)
             
@@ -115,16 +116,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.bioLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistImage.snp_bottom)
             make.bottom.equalTo(self.artistBioTextView.snp_top)
-            make.width.equalTo(self.artistScrollView).dividedBy(4)
-            make.height.equalTo(self.artistScrollView).dividedBy(18)
+            make.width.equalTo(self.view).dividedBy(4)
+            make.height.equalTo(self.view).dividedBy(18)
         }
         
         self.artistBioTextView.translatesAutoresizingMaskIntoConstraints = false
         self.artistBioTextView.widthAnchor.constraintEqualToAnchor(self.artistScrollView.widthAnchor).active = true
         self.artistBioTextView.centerXAnchor.constraintEqualToAnchor(self.artistScrollView.centerXAnchor).active = true
         self.artistBioTextView.topAnchor.constraintEqualToAnchor(self.bioLabel.bottomAnchor).active = true
-        self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4)
+        self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 1/4)
         self.artistBioTextViewHeightConstraint.active = true
+        
+        print("This is the constant for artistBioTextViewHeightConstraint: \(self.artistBioTextViewHeightConstraint.constant)")
         
         self.expandButton.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
@@ -133,68 +136,82 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discographyLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.expandButton)
-            make.width.equalTo(self.artistScrollView).dividedBy(2)
-            make.height.equalTo(self.artistScrollView).dividedBy(18)
+            make.width.equalTo(self.view).dividedBy(2)
+            make.height.equalTo(self.view).dividedBy(18)
         }
         
         self.artistDiscographyStackView.snp_makeConstraints { (make) in
             make.top.equalTo(self.discographyLabel.snp_bottom)
-            // make.bottom.equalTo(self.artistScrollView)
-            make.width.equalTo(self.artistScrollView)
+            make.width.equalTo(self.view)
             make.height.equalTo(self.view).dividedBy(4)
-            // make.centerX.equalTo(self.artistScrollView)
-            //make.centerY.equalTo(self.artistScrollView)
         }
         
         self.similarArtistsLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistDiscographyStackView.snp_bottom)
-            make.width.equalTo(self.artistScrollView).dividedBy(2)
-            make.height.equalTo(self.artistScrollView).dividedBy(18)
+            make.width.equalTo(self.view).dividedBy(2)
+            make.height.equalTo(self.view).dividedBy(18)
         }
         
         self.similarArtistsStackView.snp_makeConstraints { (make) in
             make.top.equalTo(self.similarArtistsLabel.snp_bottom)
-            make.width.equalTo(self.artistScrollView)
+            make.width.equalTo(self.view)
             make.height.equalTo(self.view).dividedBy(4)
         }
-    
-//        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
-//        
-//        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
-//        
-//        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
         
+        //        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
+        //        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        //
+        //        self.artistScrollView.contentSize.height = viewsHeights
+        //
+        //        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
     }
     
-    func expandButtonTapped(sender: UIButton) {
+    @IBAction func expandButtonTapped(sender: UIButton) {
         
         print("Expand button tapped!")
         
-        // if self.artistBioTextViewHeightConstraint === self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4) {
+        if self.isBioBig() {
+            
+            self.makeBioSmaller()
+            
+        } else {
+            
+            self.expandBio()
+        }
+    }
+    
+    func isBioBig() -> Bool {
         
-        self.artistBioTextViewHeightConstraint.active = false
+        switch self.artistBioTextViewHeightConstraint.constant {
+            
+        case 125:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func expandBio() {
+        
         self.artistBioTextView.scrollEnabled = true
         
         UIView.animateWithDuration(0.3) {
             
-            self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/2)
-            self.artistBioTextViewHeightConstraint.active = true
+            self.artistBioTextViewHeightConstraint.constant += 125
             self.view.layoutIfNeeded()
-            //    }
             
         }
-        //else {
-        //
-        //            self.artistBioTextViewHeightConstraint.active = false
-        //            self.artistBioTextView.scrollEnabled = false
-        //
-        //            UIView.animateWithDuration(0.3) {
-        //
-        //                self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.artistScrollView.heightAnchor, multiplier: 1/4)
-        //                self.artistBioTextViewHeightConstraint.active = true
-        //                self.view.layoutIfNeeded()
-        //            }
-        //  }
+    }
+    
+    func makeBioSmaller() {
         
+        self.artistBioTextView.scrollEnabled = false
+        
+        UIView.animateWithDuration(0.3) {
+            
+            self.artistBioTextViewHeightConstraint.constant -= 125
+            self.view.layoutIfNeeded()
+            
+        }
     }
 }
