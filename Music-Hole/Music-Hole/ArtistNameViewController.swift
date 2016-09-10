@@ -36,7 +36,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.artistTableView.reloadData()
                 
             })
-            
         }
         
         self.searchButtonSetup()

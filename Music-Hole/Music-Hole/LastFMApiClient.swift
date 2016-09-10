@@ -71,6 +71,34 @@ class LastFMApiClient: NSObject {
         task.resume()
     }
     
+    class func getSimilarArtistsWityhCompletion(artistName: String, completion: (NSDictionary) -> ()) {
+        
+        let urlString = "\(Secrets.artistBioURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
+        guard let url = NSURL(string: urlString) else {
+            fatalError("Was unable to unwrap the URL when trying to pull similar artists.")
+        }
+        
+        let session = NSURLSession.sharedSession()
+        let task = session.dataTaskWithURL(url) { (data, response, error) in
+            
+            if let data = data {
+                if let responseDictionary = try? NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary {
+                    if let responseDictionary = responseDictionary {
+                        NSOperationQueue.mainQueue().addOperationWithBlock({
+                            completion(responseDictionary)
+                        })
+                    }
+                }
+                
+            } else if let error = error {
+                fatalError("There was a network error when trying to get similar artists: \(error.localizedDescription)")
+            }
+            
+        }
+        
+        task.resume()
+    }
+    
     class func searchArtistsWithCompletion(artistName: String, completion: (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.searchArtistURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"

@@ -40,10 +40,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
 //        self.extendedLayoutIncludesOpaqueBars = false
 //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-        self.edgesForExtendedLayout = UIRectEdge.None
+      //  self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
-        self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
-        self.artistScrollView.userInteractionEnabled = true
+        //self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
+       // self.artistScrollView.userInteractionEnabled = true
         self.artistScrollView.scrollEnabled = true
         
         self.artistImage.layer.masksToBounds = true

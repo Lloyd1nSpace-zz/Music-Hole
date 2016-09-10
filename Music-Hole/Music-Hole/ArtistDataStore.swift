@@ -16,6 +16,9 @@ class ArtistDataStore {
     var artistBio = ""
     var artistImage: UIImage!
     var userSearchText = ""
+    // var similarArtistName = ""
+    var similarArtistsNames = [String]()
+    var similarArtistImages = [String]()
     
     func getArtistNamesWithCompletion(completion: () -> ()) {
         
@@ -28,6 +31,32 @@ class ArtistDataStore {
             }
             
             completion()
+        }
+    }
+    
+    func getSimilarArtistsWithCompletion(artistName: String, completion: () -> ()) {
+        
+        LastFMApiClient.getSimilarArtistsWityhCompletion(artistName) { (artistDict) in
+            
+            guard
+                let artistInfo = artistDict["artist"] as? NSDictionary,
+                let similarArtists = artistInfo["similar"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the data store.")
+            }
+            
+            for  index in 0..<similarArtists.count {
+                
+                guard
+                    let similarArtistNames = similarArtists[index]["name"] as? [String],
+                    let similarArtistsImages = similarArtists[index]["image"] as? [NSDictionary],
+                    let artistImageAsURL = similarArtistsImages[3]["#text"] as? [String] else {
+                        fatalError("There was an error unwrapping similar artists information in the data store.")
+                }
+                
+                self.similarArtistsNames = similarArtistNames
+                self.similarArtistImages = artistImageAsURL
+            
+            }
         }
     }
     
