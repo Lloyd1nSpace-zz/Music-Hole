@@ -93,7 +93,6 @@ class LastFMApiClient: NSObject {
             } else if let error = error {
                 fatalError("There was a network error when trying to get similar artists: \(error.localizedDescription)")
             }
-            
         }
         
         task.resume()

@@ -16,7 +16,6 @@ class ArtistDataStore {
     var artistBio = ""
     var artistImage: UIImage!
     var userSearchText = ""
-    // var similarArtistName = ""
     var similarArtistsNames = [String]()
     var similarArtistImages = [String]()
     

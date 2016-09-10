@@ -21,8 +21,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var expandButton = UIButton()
     var discographyLabel = UILabel()
     var artistDiscographyStackView = UIStackView()
+    var artistDiscographyImage = UIImageView()
     var similarArtistsLabel = UILabel()
     var similarArtistsStackView = UIStackView()
+    var similarArtistsImage = UIImageView()
+    var similarArtistsName = UILabel()
     //var testImage = UIImageView()
     
     override func viewDidLoad() {
@@ -38,12 +41,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-//        self.extendedLayoutIncludesOpaqueBars = false
-//        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-      //  self.edgesForExtendedLayout = UIRectEdge.None
+        //        self.extendedLayoutIncludesOpaqueBars = false
+        //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
+        //  self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
         //self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
-       // self.artistScrollView.userInteractionEnabled = true
+        // self.artistScrollView.userInteractionEnabled = true
         self.artistScrollView.scrollEnabled = true
         
         self.artistImage.layer.masksToBounds = true
@@ -158,12 +161,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             make.height.equalTo(self.view).dividedBy(4)
         }
         
-        //        let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
-        //        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
-        //
-        //        self.artistScrollView.contentSize.height = viewsHeights
-        //
-        //        self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
+        //   let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
+        // let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        
+        //self.artistScrollView.contentSize.height = viewsHeights
+        
+        // self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
     }
     
     @IBAction func expandButtonTapped(sender: UIButton) {
