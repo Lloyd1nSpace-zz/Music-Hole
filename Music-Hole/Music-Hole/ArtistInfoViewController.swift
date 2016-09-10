@@ -24,8 +24,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var artistDiscographyImage = UIImageView()
     var similarArtistsLabel = UILabel()
     var similarArtistsStackView = UIStackView()
-    var similarArtistsImage = UIImageView()
-    var similarArtistsName = UILabel()
+    var similarArtistImage = UIImageView()
+    var similarArtistName = UILabel()
     //var testImage = UIImageView()
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-        //  self.edgesForExtendedLayout = UIRectEdge.None
+        self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
         //self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         // self.artistScrollView.userInteractionEnabled = true
@@ -85,6 +85,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.similarArtistsLabel.text = "Similar Artists"
         
+        for image in self.artistDataStore.similarArtistImages {
+            
+            self.similarArtistImage.image = UIImage(contentsOfFile: image)
+ 
+        }
+        
+        for name in self.artistDataStore.similarArtistsNames {
+            
+            self.similarArtistName.text = name
+   
+        }
+        
         self.view.addSubview(self.artistScrollView)
         self.artistScrollView.addSubview(self.artistImage)
         self.artistScrollView.addSubview(self.bioLabel)
@@ -94,6 +106,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.addSubview(self.artistDiscographyStackView)
         self.artistScrollView.addSubview(self.similarArtistsLabel)
         self.artistScrollView.addSubview(self.similarArtistsStackView)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistName)
         
         self.viewConstraints()
         
@@ -160,6 +174,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             make.width.equalTo(self.view)
             make.height.equalTo(self.view).dividedBy(4)
         }
+        
+        self.similarArtistsStackView.alignment = UIStackViewAlignment.Center
+        self.similarArtistsStackView.distribution = UIStackViewDistribution.EqualSpacing
         
         //   let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
         // let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
