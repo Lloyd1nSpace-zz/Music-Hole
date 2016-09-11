@@ -41,10 +41,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
+        
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-        self.edgesForExtendedLayout = UIRectEdge.None
-        self.artistScrollView.delegate = self
+        //  self.edgesForExtendedLayout = UIRectEdge.None
+        //  self.artistScrollView.delegate = self
         //self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         // self.artistScrollView.userInteractionEnabled = true
         self.artistScrollView.scrollEnabled = true
@@ -88,13 +89,13 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         for image in self.artistDataStore.similarArtistImages {
             
             self.similarArtistImage.image = UIImage(contentsOfFile: image)
- 
+            
         }
         
         for name in self.artistDataStore.similarArtistsNames {
             
             self.similarArtistName.text = name
-   
+            
         }
         
         self.view.addSubview(self.artistScrollView)
@@ -115,7 +116,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func viewConstraints() {
         
+        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        
         self.artistScrollView.snp_makeConstraints { (make) in
+            //    make.top.equalTo(self.view)
             make.width.equalTo(self.view)
             make.height.equalTo(self.view)
             make.centerX.equalTo(self.view)
@@ -144,7 +148,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 1/4)
         self.artistBioTextViewHeightConstraint.active = true
         
-        print("This is the constant for artistBioTextViewHeightConstraint: \(self.artistBioTextViewHeightConstraint.constant)")
+        //  print("This is the constant for artistBioTextViewHeightConstraint: \(self.artistBioTextViewHeightConstraint.constant)")
         
         self.expandButton.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
@@ -161,6 +165,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             make.top.equalTo(self.discographyLabel.snp_bottom)
             make.width.equalTo(self.view)
             make.height.equalTo(self.view).dividedBy(4)
+            
         }
         
         self.similarArtistsLabel.snp_makeConstraints { (make) in
@@ -179,7 +184,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.distribution = UIStackViewDistribution.EqualSpacing
         
         //   let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
-        // let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        
         
         //self.artistScrollView.contentSize.height = viewsHeights
         
