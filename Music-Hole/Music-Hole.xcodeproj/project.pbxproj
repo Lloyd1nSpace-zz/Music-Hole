@@ -24,6 +24,11 @@
 		6E3F931A1D4CFBF100E1BF6E /* LastFMApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */; };
 		6E6619001D75DB1800FAA0E4 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */; };
 		6E9287C01D7DDD19000A3EB9 /* MyMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */; };
+		6ED26A401D86217C00286636 /* drake1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3B1D86217C00286636 /* drake1.jpg */; };
+		6ED26A411D86217C00286636 /* drake5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3C1D86217C00286636 /* drake5.jpg */; };
+		6ED26A421D86217C00286636 /* drake3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3D1D86217C00286636 /* drake3.jpg */; };
+		6ED26A431D86217C00286636 /* drake2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3E1D86217C00286636 /* drake2.jpg */; };
+		6ED26A441D86217C00286636 /* drake4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3F1D86217C00286636 /* drake4.jpg */; };
 		755A4CD7E34E0A3204678E04 /* Pods_Music_HoleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44433E378CE27DB1F11F7BAE /* Pods_Music_HoleTests.framework */; };
 		9D1319A40316A0B11AEF0100 /* Pods_Music_HoleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12E0E23665990F5CEEA51919 /* Pods_Music_HoleUITests.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +78,11 @@
 		6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMApiClient.swift; sourceTree = "<group>"; };
 		6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMusicViewController.swift; sourceTree = "<group>"; };
+		6ED26A3B1D86217C00286636 /* drake1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake1.jpg; sourceTree = "<group>"; };
+		6ED26A3C1D86217C00286636 /* drake5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake5.jpg; sourceTree = "<group>"; };
+		6ED26A3D1D86217C00286636 /* drake3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake3.jpg; sourceTree = "<group>"; };
+		6ED26A3E1D86217C00286636 /* drake2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake2.jpg; sourceTree = "<group>"; };
+		6ED26A3F1D86217C00286636 /* drake4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake4.jpg; sourceTree = "<group>"; };
 		A2418D1DF187C86C8FF914F9 /* Pods-Music-HoleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleTests/Pods-Music-HoleTests.release.xcconfig"; sourceTree = "<group>"; };
 		E08546A200501CFB8D8B5051 /* Pods-Music-HoleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleUITests/Pods-Music-HoleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA7BCDDFF370642FBA86050 /* Pods-Music-Hole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-Hole.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-Hole/Pods-Music-Hole.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +165,11 @@
 				6E3F93131D4CF9F100E1BF6E /* Secrets.swift */,
 				6E3F92E51D4CF93500E1BF6E /* Main.storyboard */,
 				6E3F92E81D4CF93500E1BF6E /* Assets.xcassets */,
+				6ED26A3B1D86217C00286636 /* drake1.jpg */,
+				6ED26A3C1D86217C00286636 /* drake5.jpg */,
+				6ED26A3D1D86217C00286636 /* drake3.jpg */,
+				6ED26A3E1D86217C00286636 /* drake2.jpg */,
+				6ED26A3F1D86217C00286636 /* drake4.jpg */,
 				6E3F92EA1D4CF93500E1BF6E /* LaunchScreen.storyboard */,
 				6E3F92ED1D4CF93500E1BF6E /* Info.plist */,
 			);
@@ -306,8 +321,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E3F92EC1D4CF93500E1BF6E /* LaunchScreen.storyboard in Resources */,
+				6ED26A411D86217C00286636 /* drake5.jpg in Resources */,
+				6ED26A401D86217C00286636 /* drake1.jpg in Resources */,
 				6E3F92E91D4CF93500E1BF6E /* Assets.xcassets in Resources */,
+				6ED26A441D86217C00286636 /* drake4.jpg in Resources */,
 				6E3F92E71D4CF93500E1BF6E /* Main.storyboard in Resources */,
+				6ED26A431D86217C00286636 /* drake2.jpg in Resources */,
+				6ED26A421D86217C00286636 /* drake3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

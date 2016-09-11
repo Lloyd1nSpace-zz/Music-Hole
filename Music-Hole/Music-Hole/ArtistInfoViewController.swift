@@ -107,6 +107,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.addSubview(self.artistDiscographyStackView)
         self.artistScrollView.addSubview(self.similarArtistsLabel)
         self.artistScrollView.addSubview(self.similarArtistsStackView)
+        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
+        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
         self.similarArtistsStackView.addArrangedSubview(self.similarArtistName)
         
@@ -147,8 +149,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextViewHeightConstraint = self.artistBioTextView.heightAnchor.constraintEqualToAnchor(self.view.heightAnchor, multiplier: 1/4)
         self.artistBioTextViewHeightConstraint.active = true
         
-        //  print("This is the constant for artistBioTextViewHeightConstraint: \(self.artistBioTextViewHeightConstraint.constant)")
-        
         self.expandButton.snp_makeConstraints { (make) in
             make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
             make.centerX.equalTo(self.artistScrollView).offset(150)
@@ -179,6 +179,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             make.height.equalTo(self.view).dividedBy(4)
         }
         
+        self.artistDiscographyStackView.alignment = UIStackViewAlignment.Center
+        self.artistDiscographyStackView.distribution = UIStackViewDistribution.EqualSpacing
         self.similarArtistsStackView.alignment = UIStackViewAlignment.Center
         self.similarArtistsStackView.distribution = UIStackViewDistribution.EqualSpacing
         
