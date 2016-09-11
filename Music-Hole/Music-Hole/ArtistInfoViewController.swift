@@ -45,10 +45,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
         //  self.edgesForExtendedLayout = UIRectEdge.None
-        //  self.artistScrollView.delegate = self
+        self.artistScrollView.delegate = self
         //self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         // self.artistScrollView.userInteractionEnabled = true
-        self.artistScrollView.scrollEnabled = true
+        //   self.artistScrollView.scrollEnabled = true
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -116,7 +116,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func viewConstraints() {
         
-        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
         
         self.artistScrollView.snp_makeConstraints { (make) in
             //    make.top.equalTo(self.view)
@@ -185,6 +184,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         //   let viewsWidths = self.artistImage.frame.width + self.bioLabel.frame.width + self.artistBioTextView.frame.width + self.discographyLabel.frame.width + self.artistDiscographyStackView.frame.width + self.similarArtistsLabel.frame.width + self.similarArtistsStackView.frame.width
         
+        //  let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
         
         //self.artistScrollView.contentSize.height = viewsHeights
         
