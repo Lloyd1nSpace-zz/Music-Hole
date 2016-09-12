@@ -42,9 +42,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-        self.extendedLayoutIncludesOpaqueBars = false
-        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-        self.edgesForExtendedLayout = UIRectEdge.None
+//        self.extendedLayoutIncludesOpaqueBars = false
+//        self.artistScrollView = UIScrollView(frame: self.view.bounds)
+//        self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
         self.artistScrollView.autoresizingMask = UIViewAutoresizing.FlexibleHeight
         self.artistScrollView.userInteractionEnabled = true
