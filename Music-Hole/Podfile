@@ -8,14 +8,5 @@ target 'Music-Hole' do
   # Pods for Music-Hole
 
 
-  target 'Music-HoleTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'Music-HoleUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
 
 end
