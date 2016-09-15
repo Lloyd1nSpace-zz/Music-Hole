@@ -85,6 +85,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // }
         
         self.expandButton.setTitle("Expand", for: UIControlState())
+        self.expandButton.isUserInteractionEnabled = true
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: UIControlEvents.touchUpInside)
         // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
@@ -110,10 +111,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         }
         
-        self.artistScrollView.addSubview(self.contentView)
-        self.view.addSubview(self.artistScrollView)
-    
-        //CHANGE SCROLLVIEW TO CONTENT VIEW HEREEEEE!!!!!! AHHHHH
+        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
+        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistName)
         
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
@@ -124,19 +125,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistsStackView)
         
-        
-//        self.artistScrollView.addSubview(self.artistImage)
-//        self.artistScrollView.addSubview(self.bioLabel)
-//        self.artistScrollView.addSubview(self.artistBioTextView)
-//        self.artistScrollView.addSubview(self.expandButton)
-//        self.artistScrollView.addSubview(self.discographyLabel)
-//        self.artistScrollView.addSubview(self.artistDiscographyStackView)
-//        self.artistScrollView.addSubview(self.similarArtistsLabel)
-//        self.artistScrollView.addSubview(self.similarArtistsStackView)
-        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
-        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
-        self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
-        self.similarArtistsStackView.addArrangedSubview(self.similarArtistName)
+        self.artistScrollView.addSubview(self.contentView)
+        self.view.addSubview(self.artistScrollView)
         
         self.viewConstraints()
         
@@ -156,21 +146,14 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0)
         self.artistScrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
         self.artistScrollView.heightAnchor.constraint(equalToConstant: viewsHeights)
-//        self.artistScrollView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 500).isActive = true
-        
-//        self.testContainerView.translatesAutoresizingMaskIntoConstraints = false
-//        self.testContainerView.leftAnchor.constraint(equalTo: self.artistScrollView.leftAnchor, constant: 30)
-//        self.testContainerView.rightAnchor.constraint(equalTo: self.artistScrollView.rightAnchor, constant: 30)
-//        self.testContainerView.topAnchor.constraint(equalTo: self.artistScrollView.topAnchor, constant: 10)
-//        self.testContainerView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 10)
-        
-        
+
         
         self.artistImage.translatesAutoresizingMaskIntoConstraints = false
         self.artistImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/1.5).isActive = true
         self.artistImage.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/2.5).isActive = true
         self.artistImage.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor).isActive = true
         self.artistImage.topAnchor.constraint(equalTo: self.artistScrollView.topAnchor).isActive = true
+        
         
         self.bioLabel.translatesAutoresizingMaskIntoConstraints = false
         self.bioLabel.topAnchor.constraint(equalTo: self.artistImage.bottomAnchor).isActive = true
@@ -214,9 +197,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing
         self.similarArtistsStackView.alignment = UIStackViewAlignment.center
         self.similarArtistsStackView.distribution = UIStackViewDistribution.equalSpacing
-        
-        //  self.artistScrollView.contentSize = CGSize(width: self.view.frame.width, height: viewsHeights)
-        // self.artistScrollView.contentSize = CGSize(width: viewsWidths, height: viewsHeights)
+
     }
     
     @IBAction func expandButtonTapped(_ sender: UIButton) {
