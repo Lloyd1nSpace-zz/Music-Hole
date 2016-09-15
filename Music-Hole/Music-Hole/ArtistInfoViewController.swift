@@ -90,6 +90,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
+        self.contentView.bringSubview(toFront: self.expandButton)
         
         self.discographyLabel.text = "Discography"
         
@@ -119,7 +120,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
         self.contentView.addSubview(self.artistBioTextView)
-        self.contentView.addSubview(self.expandButton)
+        self.contentView.insertSubview(self.expandButton, aboveSubview: self.artistScrollView)
         self.contentView.addSubview(self.discographyLabel)
         self.contentView.addSubview(self.artistDiscographyStackView)
         self.contentView.addSubview(self.similarArtistsLabel)
@@ -171,7 +172,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
         self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
-        self.expandButton.isUserInteractionEnabled = true 
+        self.expandButton.isUserInteractionEnabled = true
+        self.expandButton.addTarget(self, action:#selector(expandButtonTapped), for: .touchUpInside)
         
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
         self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
@@ -201,7 +203,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
 
     }
     
-    @IBAction func expandButtonTapped(_ sender: UIButton) {
+    func expandButtonTapped() {
         
         print("Expand button tapped!")
         
