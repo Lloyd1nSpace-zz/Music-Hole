@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import ChameleonFramework
-import SnapKit
+//import ChameleonFramework
+//import SnapKit
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
     
@@ -16,36 +16,39 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        
         self.searchBarSetup()
     }
     
     func searchBarSetup() {
         
-        self.view.backgroundColor = UIColor.init(gradientStyle: UIGradientStyle.TopToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
+      //  self.view.backgroundColor = UIColor.init(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         
         self.searchBar.delegate = self
         self.view.addSubview(searchBar)
-        self.searchBar.snp_makeConstraints { (make) in
-            make.width.equalTo(self.view)
-            make.centerY.equalTo(self.view.snp_top).offset(80)
-            make.centerX.equalTo(self.view)
-        }
-
+        
+        self.searchBar.translatesAutoresizingMaskIntoConstraints = false
+        self.searchBar.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.searchBar.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant: 80).isActive = true
+        self.searchBar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
+        //  self.searchBar.snp_makeConstraints { (make) in
+        //    make.width.equalTo(self.view)
+        //  make.centerY.equalTo(self.view.snp_top).offset(80)
+        //make.centerX.equalTo(self.view)
+        //}
+        
         self.searchBar.barTintColor = Constants.mainColor
-        self.searchBar.translucent = true
+        self.searchBar.isTranslucent = true
         
         self.searchBar.placeholder = "Enter Artist Name Here"
-    
+        
         if self.searchBar.text?.isEmpty == false {
             
             print("There's text in the searchBar!")
             
-            self.navigationController?.showViewController(ArtistNameViewController(), sender: nil)
+            self.navigationController?.show(ArtistNameViewController(), sender: nil)
         }
         
-        
-    }
-   
-    
+    } 
 }

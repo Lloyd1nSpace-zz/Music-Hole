@@ -6,9 +6,7 @@ target 'Music-Hole' do
   use_frameworks!
 
   # Pods for Music-Hole
-  pod 'SnapKit'
-  pod 'ChameleonFramework'
-  pod 'ChameleonFramework/Swift'
+
 
   target 'Music-HoleTests' do
     inherit! :search_paths

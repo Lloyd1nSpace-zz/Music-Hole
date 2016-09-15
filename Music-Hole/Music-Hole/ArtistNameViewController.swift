@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import ChameleonFramework
-import SnapKit
+//import ChameleonFramework
+//import SnapKit
 
 class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -41,29 +41,30 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.searchButtonSetup()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistDataStore.topArtists.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.artistTableView.dequeueReusableCellWithIdentifier("artistName", forIndexPath: indexPath)
-        cell.textLabel?.text = self.artistDataStore.topArtists[indexPath.row]
-        let cellColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
-        cell.backgroundColor = cellColor
-        let outlineColor = UIColor.flatBlackColor()
+        let cell = self.artistTableView.dequeueReusableCell(withIdentifier: "artistName", for: indexPath)
+        cell.textLabel?.text = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
+      //  let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
+        cell.backgroundColor = UIColor.yellow
+     //   let outlineColor = UIColor.flatBlack()
+        let outlineColor = UIColor.black
         cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = outlineColor.CGColor
+        cell.layer.borderColor = outlineColor.cgColor
         cell.textLabel?.textColor = Constants.primaryTextColor
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let destination = ArtistInfoViewController()
-        let selectedArtist = self.artistDataStore.topArtists[indexPath.row]
-        let selectedArtistForURL = selectedArtist.stringByReplacingOccurrencesOfString(" ", withString: "+")
+        let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
+        let selectedArtistForURL = selectedArtist.replacingOccurrences(of: " ", with: "+")
         
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
@@ -78,8 +79,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             let imageSize = imageInfo[3]
             guard
                 let imageURLasString = imageSize["#text"] as? String,
-                let imageURL = NSURL(string: imageURLasString),
-                let imageData = NSData(contentsOfURL: imageURL) else {
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
                     print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
                     return
             }
@@ -87,26 +88,26 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.artistDataStore.artistBio = bio
             self.artistDataStore.artistImage = UIImage(data: imageData)
             
-            self.navigationController?.showViewController(destination, sender: "")
+            self.navigationController?.show(destination, sender: "")
         })
         
-        self.artistTableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.artistTableView.deselectRow(at: indexPath, animated: true)
         
     }
     
     func searchButtonSetup() {
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(self.searchTapped))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(self.searchTapped))
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem = searchButton
     }
     
-    @IBAction func searchTapped(sender: AnyObject) {
+    @IBAction func searchTapped(_ sender: AnyObject) {
         
         print("Search Tapped!")
         
         let searchVC = SearchViewController()
         
-        self.navigationController?.showViewController(searchVC, sender: "")
+        self.navigationController?.show(searchVC, sender: "")
         
     }
     
@@ -121,23 +122,30 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.accessibilityLabel = "tableView"
         self.artistTableView.accessibilityIdentifier = "tableView"
         self.artistTableView.backgroundColor = Constants.mainColor
-        self.artistTableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "artistName")
+        self.artistTableView.register(UITableViewCell.self, forCellReuseIdentifier: "artistName")
         
         self.view.addSubview(self.artistTableView)
-        self.artistTableView.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view)
-            make.width.equalTo(self.view)
-            make.height.equalTo(self.view)
-        }
+        
+        self.artistTableView.translatesAutoresizingMaskIntoConstraints = false
+        self.artistTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.artistTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.artistTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.artistTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
+        
+      //  self.artistTableView.snp.makeConstraints { (make) in
+        //    make.centerX.equalTo(self.view)
+          //  make.centerY.equalTo(self.view)
+           // make.width.equalTo(self.view)
+            //make.height.equalTo(self.view)
+       // }
         
         if let navController = self.navigationController {
             
-            navController.hidesNavigationBarHairline = true
-            self.setStatusBarStyle(UIStatusBarStyleContrast)
-            if let style = UIContentStyle(rawValue: 500) {
-                navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellowColor(), usingFontName: "Artist Info", andContentStyle: style)
-            }
+         //   navController.hidesNavigationBarHairline = true
+          //  self.setStatusBarStyle(UIStatusBarStyleContrast)
+         //   if let style = UIContentStyle(rawValue: 500) {
+           //     navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellow(), usingFontName: "Artist Info", andContentStyle: style)
+            //}
         }
     }  
 }

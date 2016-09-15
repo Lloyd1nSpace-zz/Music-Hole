@@ -19,7 +19,7 @@ class ArtistDataStore {
     var similarArtistsNames = [String]()
     var similarArtistImages = [String]()
     
-    func getArtistNamesWithCompletion(completion: () -> ()) {
+    func getArtistNamesWithCompletion(_ completion: @escaping () -> ()) {
         
         LastFMApiClient.getArtistNamesWithCompletion { (artistsDict) in
             self.topArtists.removeAll()
@@ -33,7 +33,7 @@ class ArtistDataStore {
         }
     }
     
-    func getSimilarArtistsWithCompletion(artistName: String, completion: () -> ()) {
+    func getSimilarArtistsWithCompletion(_ artistName: String, completion: () -> ()) {
         
         LastFMApiClient.getSimilarArtistsWityhCompletion(artistName) { (artistDict) in
             
@@ -59,7 +59,7 @@ class ArtistDataStore {
         }
     }
     
-    func searchArtistsWithCompletion(userText: String, completion: () -> ()) {
+    func searchArtistsWithCompletion(_ userText: String, completion: @escaping () -> ()) {
         
         LastFMApiClient.searchArtistsWithCompletion(userText, completion:  { (userSearchDictionary) in
             

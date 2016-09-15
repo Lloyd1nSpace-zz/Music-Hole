@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import ChameleonFramework
-import SnapKit
+//import ChameleonFramework
+// import SnapKit
 
 class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -25,26 +25,26 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistsDataStore.artistSearchResults.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = self.searchResultsTableView.dequeueReusableCellWithIdentifier("searchResults", forIndexPath: indexPath)
-        cell.textLabel?.text = self.artistsDataStore.artistSearchResults[indexPath.row]
-        let cellColor = UIColor.init(gradientStyle: .LeftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
-        cell.backgroundColor = cellColor
-        let outlineColor = UIColor.flatBlackColor()
+        let cell = self.searchResultsTableView.dequeueReusableCell(withIdentifier: "searchResults", for: indexPath)
+        cell.textLabel?.text = self.artistsDataStore.artistSearchResults[(indexPath as NSIndexPath).row]
+   //     let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
+     //   cell.backgroundColor = cellColor
+        let outlineColor = UIColor.black
         cell.layer.borderWidth = 0.5
-        cell.layer.borderColor = outlineColor.CGColor
+        cell.layer.borderColor = outlineColor.cgColor
         cell.textLabel?.textColor = Constants.primaryTextColor
         
         return cell
         
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
     }
     
@@ -54,12 +54,18 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         self.searchResultsTableView.accessibilityIdentifier = "tableView"
         
         self.view.addSubview(self.searchResultsTableView)
-        self.searchResultsTableView.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.view)
-            make.centerY.equalTo(self.view)
-            make.width.equalTo(self.view)
-            make.height.equalTo(self.view)
-        }
+        self.searchResultsTableView.translatesAutoresizingMaskIntoConstraints = false
+        self.searchResultsTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.searchResultsTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.searchResultsTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.searchResultsTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
+        
+        // self.searchResultsTableView.snp.makeConstraints { (make) in
+        //          make.centerX.equalTo(self.view)
+        //        make.centerY.equalTo(self.view)
+        //      make.width.equalTo(self.view)
+        //    make.height.equalTo(self.view)
+        // }
     }
     
 }
