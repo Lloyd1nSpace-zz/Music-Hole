@@ -59,32 +59,32 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.bioLabel.text = "Bio"
         
-     //   let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
+        //   let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.artistBioTextView.isSelectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
-       // self.artistBioTextView.backgroundColor = gradientColorScheme
+        // self.artistBioTextView.backgroundColor = gradientColorScheme
         self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
         self.view.backgroundColor = Constants.mainColor
-  //      self.setStatusBarStyle(UIStatusBarStyleContrast)
-    //    if let navController = self.navigationController {
-      //      navController.hidesNavigationBarHairline = true
+        //      self.setStatusBarStyle(UIStatusBarStyleContrast)
+        //    if let navController = self.navigationController {
+        //      navController.hidesNavigationBarHairline = true
         //    if let style = UIContentStyle(rawValue: 500) {
-          //      navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellow(), usingFontName: "Artist Info", andContentStyle: style)
-           // }
-       // }
+        //      navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellow(), usingFontName: "Artist Info", andContentStyle: style)
+        // }
+        // }
         
         self.expandButton.setTitle("Expand", for: UIControlState())
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: UIControlEvents.touchUpInside)
-       // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
+        // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
         
         self.discographyLabel.text = "Discography"
         
         self.artistDiscographyStackView.axis = UILayoutConstraintAxis.horizontal
-      //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
+        //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
         self.artistDiscographyStackView.backgroundColor = UIColor.green
         
         self.similarArtistsLabel.text = "Similar Artists"
@@ -121,7 +121,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func viewConstraints() {
         
-        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+        //  let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
         
         self.artistScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.artistScrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
@@ -129,42 +129,17 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         
-        //   self.artistScrollView.snp_makeConstraints { (make) in
-        //     make.width.equalTo(self.view)
-        //   make.height.equalTo(self.view).offset(viewsHeights)
-        // make.centerX.equalTo(self.view)
-        //make.centerY.equalTo(self.view)
-        // }
-        
-        
         self.artistImage.translatesAutoresizingMaskIntoConstraints = false
         self.artistImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/1.5).isActive = true
         self.artistImage.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/2.5).isActive = true
         self.artistImage.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor).isActive = true
         self.artistImage.topAnchor.constraint(equalTo: self.artistScrollView.topAnchor).isActive = true
         
-        
-        //     self.artistImage.snp_makeConstraints { (make) in
-        //       make.width.equalTo(self.view).dividedBy(1.5)
-        //     make.height.equalTo(self.view).dividedBy(2.5)
-        //   make.centerX.equalTo(self.artistScrollView)
-        //  make.top.equalTo(self.artistScrollView)
-        
-        //}
-        
         self.bioLabel.translatesAutoresizingMaskIntoConstraints = false
         self.bioLabel.topAnchor.constraint(equalTo: self.artistImage.bottomAnchor).isActive = true
         self.bioLabel.bottomAnchor.constraint(equalTo: self.artistBioTextView.topAnchor).isActive = true
         self.bioLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/4).isActive = true
         self.bioLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
-        
-        
-        //     self.bioLabel.snp_makeConstraints { (make) in
-        //       make.top.equalTo(self.artistImage.snp_bottom)
-        //     make.bottom.equalTo(self.artistBioTextView.snp_top)
-        //   make.width.equalTo(self.view).dividedBy(4)
-        // make.height.equalTo(self.view).dividedBy(18)
-        // }
         
         self.artistBioTextView.translatesAutoresizingMaskIntoConstraints = false
         self.artistBioTextView.widthAnchor.constraint(equalTo: self.artistScrollView.widthAnchor).isActive = true
@@ -177,57 +152,25 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
         self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
         
-        
-        //  self.expandButton.snp.makeConstraints { (make) in
-        //    make.top.equalTo(self.artistBioTextView.snp_bottom).offset(10)
-        //   make.centerX.equalTo(self.artistScrollView).offset(150)
-        // }
-        
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
         self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
         self.discographyLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2).isActive = true
         self.discographyLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
-        
-        //  self.discographyLabel.snp.makeConstraints { (make) in
-        //    make.top.equalTo(self.expandButton)
-        //  make.width.equalTo(self.view).dividedBy(2)
-        //make.height.equalTo(self.view).dividedBy(18)
-        //}
-        
         
         self.artistDiscographyStackView.translatesAutoresizingMaskIntoConstraints = false
         self.artistDiscographyStackView.topAnchor.constraint(equalTo: self.discographyLabel.bottomAnchor).isActive = true
         self.artistDiscographyStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.artistDiscographyStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
         
-        //   self.artistDiscographyStackView.snp.makeConstraints { (make) in
-        //     make.top.equalTo(self.discographyLabel.snp_bottom)
-        //   make.width.equalTo(self.view)
-        //  make.height.equalTo(self.view).dividedBy(4)
-        
-        // }
-        
         self.similarArtistsLabel.translatesAutoresizingMaskIntoConstraints = false
         self.similarArtistsLabel.topAnchor.constraint(equalTo: self.artistDiscographyStackView.bottomAnchor).isActive = true
         self.similarArtistsLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2).isActive = true
         self.similarArtistsLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
         
-        //    self.similarArtistsLabel.snp.makeConstraints { (make) in
-        //      make.top.equalTo(self.artistDiscographyStackView.snp_bottom)
-        //    make.width.equalTo(self.view).dividedBy(2)
-        //  make.height.equalTo(self.view).dividedBy(18)
-        //}
-        
         self.similarArtistsStackView.translatesAutoresizingMaskIntoConstraints = false
         self.similarArtistsStackView.topAnchor.constraint(equalTo: self.similarArtistsLabel.bottomAnchor)
         self.similarArtistsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
         self.similarArtistsStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4)
-        
-        //  self.similarArtistsStackView.snp.makeConstraints { (make) in
-        //    make.top.equalTo(self.similarArtistsLabel.snp_bottom)
-        //  make.width.equalTo(self.view)
-        // make.height.equalTo(self.view).dividedBy(4)
-        // }
         
         self.artistDiscographyStackView.alignment = UIStackViewAlignment.center
         self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing

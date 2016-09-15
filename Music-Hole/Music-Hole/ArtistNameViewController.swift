@@ -131,21 +131,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         self.artistTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.artistTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
-        
-      //  self.artistTableView.snp.makeConstraints { (make) in
-        //    make.centerX.equalTo(self.view)
-          //  make.centerY.equalTo(self.view)
-           // make.width.equalTo(self.view)
-            //make.height.equalTo(self.view)
-       // }
-        
-        if let navController = self.navigationController {
-            
-         //   navController.hidesNavigationBarHairline = true
-          //  self.setStatusBarStyle(UIStatusBarStyleContrast)
-         //   if let style = UIContentStyle(rawValue: 500) {
-           //     navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellow(), usingFontName: "Artist Info", andContentStyle: style)
-            //}
-        }
+
     }  
 }
