@@ -107,7 +107,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         for name in self.artistDataStore.similarArtistsNames {
             
-            self.similarArtistName.text = name
+           // self.similarArtistName.text = name
             
         }
         
