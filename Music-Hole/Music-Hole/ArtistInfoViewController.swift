@@ -49,6 +49,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
         self.artistScrollView.isUserInteractionEnabled = true
         self.artistScrollView.isScrollEnabled = true
+        self.artistScrollView.backgroundColor = UIColor.yellow
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -173,8 +174,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextViewHeightConstraint.isActive = true
         
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
-        self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10)
-        self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150)
+        self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
+        self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
         
         
         //  self.expandButton.snp.makeConstraints { (make) in
