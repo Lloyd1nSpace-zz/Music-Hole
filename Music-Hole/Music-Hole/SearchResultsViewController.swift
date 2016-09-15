@@ -60,12 +60,6 @@ class SearchResultsViewController: UIViewController, UITableViewDelegate, UITabl
         self.searchResultsTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.searchResultsTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
         
-        // self.searchResultsTableView.snp.makeConstraints { (make) in
-        //          make.centerX.equalTo(self.view)
-        //        make.centerY.equalTo(self.view)
-        //      make.width.equalTo(self.view)
-        //    make.height.equalTo(self.view)
-        // }
     }
     
 }
