@@ -45,7 +45,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.contentView.backgroundColor = UIColor.purple
         self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 900)
-        
+        //need to change the width and height of contentview frame so that they are not magic numbers
         
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
@@ -90,7 +90,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
-        self.contentView.bringSubview(toFront: self.expandButton)
         
         self.discographyLabel.text = "Discography"
         
@@ -172,8 +171,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
         self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
-        self.expandButton.isUserInteractionEnabled = true
-        self.expandButton.addTarget(self, action:#selector(expandButtonTapped), for: .touchUpInside)
         
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
         self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
