@@ -49,6 +49,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
         self.artistScrollView.isUserInteractionEnabled = true
         self.artistScrollView.isScrollEnabled = true
+        self.artistScrollView.backgroundColor = UIColor.blue
+        self.artistScrollView.alwaysBounceVertical = true
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -122,11 +124,16 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
         
+        
+        // CGRect.infinite
         self.artistScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.artistScrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.artistScrollView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
+        self.artistScrollView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 30).isActive = true
+        self.artistScrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.artistScrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
         self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        
+        //        self.artistScrollView.addConstraints([NSLayoutConstraint.constraints(withVisualFormat: <#T##String#>, options: <#T##NSLayoutFormatOptions#>, metrics: <#T##[String : Any]?#>, views: <#T##[String : Any]#>)"H:|[imageView]|" options:0 metrics: 0 views:viewsDictionary])
         
         //   self.artistScrollView.snp_makeConstraints { (make) in
         //     make.width.equalTo(self.view)
