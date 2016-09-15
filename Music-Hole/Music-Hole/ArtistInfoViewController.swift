@@ -43,6 +43,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
+        self.contentView.backgroundColor = UIColor.purple
+        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 900)
+        
+        
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
         //        self.edgesForExtendedLayout = UIRectEdge.None
@@ -53,8 +57,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.backgroundColor = UIColor.blue
         self.artistScrollView.alwaysBounceVertical = true
         self.artistScrollView.preservesSuperviewLayoutMargins = false
+        self.artistScrollView.contentSize = contentView.bounds.size
         
-        self.contentView.backgroundColor = UIColor.purple
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -106,19 +110,29 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         }
         
-        self.view.addSubview(self.artistScrollView)
         self.artistScrollView.addSubview(self.contentView)
+        self.view.addSubview(self.artistScrollView)
+    
+        //CHANGE SCROLLVIEW TO CONTENT VIEW HEREEEEE!!!!!! AHHHHH
         
-        //CHANGE SCROLLVIEW TO CONTENT VIEW HEREEEEE!!!!!! AHHHHH 
+        self.contentView.addSubview(self.artistImage)
+        self.contentView.addSubview(self.bioLabel)
+        self.contentView.addSubview(self.artistBioTextView)
+        self.contentView.addSubview(self.expandButton)
+        self.contentView.addSubview(self.discographyLabel)
+        self.contentView.addSubview(self.artistDiscographyStackView)
+        self.contentView.addSubview(self.similarArtistsLabel)
+        self.contentView.addSubview(self.similarArtistsStackView)
         
-        self.artistScrollView.addSubview(self.artistImage)
-        self.artistScrollView.addSubview(self.bioLabel)
-        self.artistScrollView.addSubview(self.artistBioTextView)
-        self.artistScrollView.addSubview(self.expandButton)
-        self.artistScrollView.addSubview(self.discographyLabel)
-        self.artistScrollView.addSubview(self.artistDiscographyStackView)
-        self.artistScrollView.addSubview(self.similarArtistsLabel)
-        self.artistScrollView.addSubview(self.similarArtistsStackView)
+        
+//        self.artistScrollView.addSubview(self.artistImage)
+//        self.artistScrollView.addSubview(self.bioLabel)
+//        self.artistScrollView.addSubview(self.artistBioTextView)
+//        self.artistScrollView.addSubview(self.expandButton)
+//        self.artistScrollView.addSubview(self.discographyLabel)
+//        self.artistScrollView.addSubview(self.artistDiscographyStackView)
+//        self.artistScrollView.addSubview(self.similarArtistsLabel)
+//        self.artistScrollView.addSubview(self.similarArtistsStackView)
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
