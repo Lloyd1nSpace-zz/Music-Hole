@@ -16,8 +16,8 @@ class ArtistDataStore {
     var artistBio = ""
     var artistImage: UIImage!
     var userSearchText = ""
-    var similarArtistsNames = [String]()
     var similarArtistImages = [String]()
+    var similarArtistsNames = [String]()
     
     func getArtistNamesWithCompletion(_ completion: @escaping () -> ()) {
         
@@ -37,25 +37,57 @@ class ArtistDataStore {
         
         LastFMApiClient.getSimilarArtistsWityhCompletion(artistName) { (artistDict) in
             
+            //            guard
+            //                let artistInfo = artistDict["artist"] as? NSDictionary,
+            //                let similarArtists = artistInfo["similar"] as? [NSDictionary] else {
+            //                    fatalError("There was an error unwrapping the similar artists information in the data store.")
+            //            }
+            //
+            //            for  index in 0..<similarArtists.count {
+            //
+            //                guard
+            //                    let similarArtistsImages = similarArtists[index]["image"] as? [NSDictionary],
+            //                    let similarArtistNames = similarArtists[index]["name"] as? [String],
+            //                    let artistImageAsURL = similarArtistsImages[3]["#text"] as? [String] else {
+            //                        fatalError("There was an error unwrapping similar artists information in the data store.")
+            //                }
+            
             guard
                 let artistInfo = artistDict["artist"] as? NSDictionary,
-                let similarArtists = artistInfo["similar"] as? [NSDictionary] else {
+                let similarArtistsDict = artistInfo["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
                     fatalError("There was an error unwrapping the similar artists information in the data store.")
             }
             
-            for  index in 0..<similarArtists.count {
+            for artists in similarArtists {
                 
-                guard
-                    let similarArtistNames = similarArtists[index]["name"] as? [String],
-                    let similarArtistsImages = similarArtists[index]["image"] as? [NSDictionary],
-                    let artistImageAsURL = similarArtistsImages[3]["#text"] as? [String] else {
-                        fatalError("There was an error unwrapping similar artists information in the data store.")
+                if let artistNames = artists["name"] as? String {
+                    self.similarArtistsNames.append(artistNames)
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
                 }
                 
-                self.similarArtistsNames = similarArtistNames
-                self.similarArtistImages = artistImageAsURL
+               // if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                  //  for images in artistImageDict {
+                        
+//                        guard let imageSize = images[3] as? NSDictionary else {
+//                            fatalError("There was a problem unwrapping image size")
+//                        }
+//                        guard let imageAsString = imageSize["#text"] as? String else {
+//                            fatalError("There was a problem unwrapping similar artists images in the data store.")
+//                        }
+//                        
+//                        self.similarArtistsNames.append(imageAsString)
+                        
+                 //   }
+                }
+          //  }
             
-            }
+            //  self.similarArtistImages = artistImageAsURL
+            //    self.similarArtistsNames = similarArtistNames
+            
+            // }
         }
     }
     

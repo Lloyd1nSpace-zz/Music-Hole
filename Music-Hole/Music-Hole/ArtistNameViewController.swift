@@ -38,7 +38,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             })
         }
         
-        self.searchButtonSetup()
+     self.artistDataStore.getSimilarArtistsWithCompletion("Drake") { 
+        print("These are the similar artists names in relation to Drake: \(self.artistDataStore.similarArtistsNames)")
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -49,9 +51,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = self.artistTableView.dequeueReusableCell(withIdentifier: "artistName", for: indexPath)
         cell.textLabel?.text = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
-      //  let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
+        //  let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
         cell.backgroundColor = UIColor.yellow
-     //   let outlineColor = UIColor.flatBlack()
+        //   let outlineColor = UIColor.flatBlack()
         let outlineColor = UIColor.black
         cell.layer.borderWidth = 0.5
         cell.layer.borderColor = outlineColor.cgColor
@@ -131,6 +133,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         self.artistTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.artistTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
-
+        
+        self.searchButtonSetup()
+        
     }  
 }
