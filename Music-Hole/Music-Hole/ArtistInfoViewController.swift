@@ -171,6 +171,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
         self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
+        self.expandButton.isUserInteractionEnabled = true 
         
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
         self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
