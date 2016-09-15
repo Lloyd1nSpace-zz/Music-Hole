@@ -28,6 +28,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var similarArtistImage = UIImageView()
     var similarArtistName = UILabel()
     //var testImage = UIImageView()
+    var contentView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.isScrollEnabled = true
         self.artistScrollView.backgroundColor = UIColor.blue
         self.artistScrollView.alwaysBounceVertical = true
+        self.artistScrollView.preservesSuperviewLayoutMargins = false
+        
+        self.contentView.backgroundColor = UIColor.purple
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -103,6 +107,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         }
         
         self.view.addSubview(self.artistScrollView)
+        self.artistScrollView.addSubview(self.contentView)
+        
+        //CHANGE SCROLLVIEW TO CONTENT VIEW HEREEEEE!!!!!! AHHHHH 
+        
         self.artistScrollView.addSubview(self.artistImage)
         self.artistScrollView.addSubview(self.bioLabel)
         self.artistScrollView.addSubview(self.artistBioTextView)
@@ -122,16 +130,27 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func viewConstraints() {
         
-        //  let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
-        
+        let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
+
         
         // CGRect.infinite
         self.artistScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.artistScrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.artistScrollView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 30).isActive = true
-        self.artistScrollView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.artistScrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+         self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.artistScrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0)
+        self.artistScrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0)
+        self.artistScrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
+        self.artistScrollView.heightAnchor.constraint(equalToConstant: viewsHeights)
+//        self.artistScrollView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 500).isActive = true
+        
+//        self.testContainerView.translatesAutoresizingMaskIntoConstraints = false
+//        self.testContainerView.leftAnchor.constraint(equalTo: self.artistScrollView.leftAnchor, constant: 30)
+//        self.testContainerView.rightAnchor.constraint(equalTo: self.artistScrollView.rightAnchor, constant: 30)
+//        self.testContainerView.topAnchor.constraint(equalTo: self.artistScrollView.topAnchor, constant: 10)
+//        self.testContainerView.bottomAnchor.constraint(equalTo: self.similarArtistsStackView.bottomAnchor, constant: 10)
+        
+        
         
         self.artistImage.translatesAutoresizingMaskIntoConstraints = false
         self.artistImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/1.5).isActive = true
@@ -175,6 +194,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.topAnchor.constraint(equalTo: self.similarArtistsLabel.bottomAnchor)
         self.similarArtistsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
         self.similarArtistsStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4)
+        self.similarArtistsStackView.backgroundColor = UIColor.yellow
         
         self.artistDiscographyStackView.alignment = UIStackViewAlignment.center
         self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing
