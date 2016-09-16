@@ -25,7 +25,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var similarArtistsLabel = UILabel()
     var similarArtistsStackView = UIStackView()
     var similarArtistsImages = UIImageView()
-    var similarArtistsNames = UILabel()
+    var similarArtistsNames = [UILabel()]
     //var testImage = UIImageView()
     var contentView = UIView()
     
@@ -84,17 +84,22 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
         
         self.similarArtistsLabel.text = "Similar Artists"
+
         
-        for name in self.artistDataStore.similarArtistsNames {
-            
-            self.similarArtistsNames.text = name
-            
-        }
+        
+        
+        
         
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
-        self.similarArtistsStackView.addArrangedSubview(self.similarArtistsNames)
+        
+        
+        for nameLabel in self.similarArtistsNames {
+            self.similarArtistsStackView.addArrangedSubview(nameLabel)
+        }
+        
+       // self.similarArtistsStackView.addArrangedSubview(self.similarArtistsNames)
         
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
