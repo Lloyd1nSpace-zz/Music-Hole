@@ -43,22 +43,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-        self.contentView.backgroundColor = UIColor.purple
         self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 900)
-        
-        
-        //        self.extendedLayoutIncludesOpaqueBars = false
-        //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
-        //        self.edgesForExtendedLayout = UIRectEdge.None
         self.artistScrollView.delegate = self
-        self.artistScrollView.autoresizingMask = UIViewAutoresizing.flexibleHeight
-        self.artistScrollView.isUserInteractionEnabled = true
-        self.artistScrollView.isScrollEnabled = true
         self.artistScrollView.backgroundColor = UIColor.blue
-        self.artistScrollView.alwaysBounceVertical = true
-        self.artistScrollView.preservesSuperviewLayoutMargins = false
-        self.artistScrollView.contentSize = contentView.bounds.size
-        
+        self.artistScrollView.contentSize = self.contentView.bounds.size
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -84,8 +72,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // }
         // }
         
-        self.expandButton.setTitle("Expand", for: UIControlState())
-        self.expandButton.isUserInteractionEnabled = true
+        self.expandButton.setTitle("Expand", for: UIControlState.normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: UIControlEvents.touchUpInside)
         // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
@@ -135,25 +122,21 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     func viewConstraints() {
         
         let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsStackView.frame.height
-
         
-        // CGRect.infinite
         self.artistScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.artistScrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.artistScrollView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-         self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.artistScrollView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
         self.artistScrollView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0)
         self.artistScrollView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0)
         self.artistScrollView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
         self.artistScrollView.heightAnchor.constraint(equalToConstant: viewsHeights)
-
         
         self.artistImage.translatesAutoresizingMaskIntoConstraints = false
         self.artistImage.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/1.5).isActive = true
         self.artistImage.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/2.5).isActive = true
         self.artistImage.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor).isActive = true
         self.artistImage.topAnchor.constraint(equalTo: self.artistScrollView.topAnchor).isActive = true
-        
         
         self.bioLabel.translatesAutoresizingMaskIntoConstraints = false
         self.bioLabel.topAnchor.constraint(equalTo: self.artistImage.bottomAnchor).isActive = true
@@ -188,16 +171,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
         
         self.similarArtistsStackView.translatesAutoresizingMaskIntoConstraints = false
-        self.similarArtistsStackView.topAnchor.constraint(equalTo: self.similarArtistsLabel.bottomAnchor)
-        self.similarArtistsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor)
-        self.similarArtistsStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4)
-        self.similarArtistsStackView.backgroundColor = UIColor.yellow
+        self.similarArtistsStackView.topAnchor.constraint(equalTo: self.similarArtistsLabel.bottomAnchor).isActive = true
+        self.similarArtistsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.similarArtistsStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
         
         self.artistDiscographyStackView.alignment = UIStackViewAlignment.center
         self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing
         self.similarArtistsStackView.alignment = UIStackViewAlignment.center
         self.similarArtistsStackView.distribution = UIStackViewDistribution.equalSpacing
-
+        
     }
     
     @IBAction func expandButtonTapped(_ sender: UIButton) {
