@@ -17,7 +17,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var artistBioTextViewHeightConstraint = NSLayoutConstraint()
     var artistImage = UIImageView()
     var bioLabel = UILabel()
-    var expandButton = UIButton(type: UIButtonType.custom)
+    var expandButton = UIButton()
     var discographyLabel = UILabel()
     var artistDiscographyStackView = UIStackView()
     var artistDiscographyImage = UIImageView()
@@ -54,7 +54,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //   self.testImage.image = UIImage(named: "drake")
         
         self.bioLabel.text = "Bio"
-        
         //   let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.artistBioTextView.isSelectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
@@ -85,7 +84,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
         
         self.similarArtistsLabel.text = "Similar Artists"
-        
         
         for name in self.artistDataStore.similarArtistsNames {
             
