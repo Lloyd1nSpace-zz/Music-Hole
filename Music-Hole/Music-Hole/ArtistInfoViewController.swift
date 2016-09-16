@@ -17,15 +17,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var artistBioTextViewHeightConstraint = NSLayoutConstraint()
     var artistImage = UIImageView()
     var bioLabel = UILabel()
-    var expandButton = UIButton()
+    var expandButton = UIButton(type: UIButtonType.custom)
     var discographyLabel = UILabel()
     var artistDiscographyStackView = UIStackView()
     var artistDiscographyImage = UIImageView()
     var artistDiscographyLabel = UILabel()
     var similarArtistsLabel = UILabel()
     var similarArtistsStackView = UIStackView()
-    var similarArtistImage = UIImageView()
-    var similarArtistName = UILabel()
+    var similarArtistsImages = UIImageView()
+    var similarArtistsNames = UILabel()
     //var testImage = UIImageView()
     var contentView = UIView()
     
@@ -59,6 +59,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextView.isSelectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
         // self.artistBioTextView.backgroundColor = gradientColorScheme
+        self.artistBioTextView.backgroundColor = UIColor.yellow
         self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
@@ -71,36 +72,31 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // }
         // }
         
-        self.expandButton.setTitle("Expand", for: UIControlState.normal)
-        self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: UIControlEvents.touchUpInside)
+        self.expandButton.setTitle("Expand", for: .normal)
+        self.expandButton.setTitleColor(UIColor.black, for: .normal)
+        self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: .touchUpInside)
         // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
         
         self.discographyLabel.text = "Discography"
         
-        self.artistDiscographyStackView.axis = UILayoutConstraintAxis.horizontal
+        self.artistDiscographyStackView.axis = .horizontal
         //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
-        self.artistDiscographyStackView.backgroundColor = UIColor.green
         
         self.similarArtistsLabel.text = "Similar Artists"
         
-        for image in self.artistDataStore.similarArtistImages {
-            
-            self.similarArtistImage.image = UIImage(contentsOfFile: image)
-            
-        }
         
         for name in self.artistDataStore.similarArtistsNames {
             
-            self.similarArtistName.text = name
+            self.similarArtistsNames.text = name
             
         }
         
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
-        self.similarArtistsStackView.addArrangedSubview(self.similarArtistImage)
-        self.similarArtistsStackView.addArrangedSubview(self.similarArtistName)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
+        self.similarArtistsStackView.addArrangedSubview(self.similarArtistsNames)
         
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
