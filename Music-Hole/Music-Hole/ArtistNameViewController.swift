@@ -8,7 +8,6 @@
 
 import UIKit
 //import ChameleonFramework
-//import SnapKit
 
 class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

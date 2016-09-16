@@ -8,7 +8,6 @@
 
 import UIKit
 //import ChameleonFramework
-// import SnapKit
 
 class SearchResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

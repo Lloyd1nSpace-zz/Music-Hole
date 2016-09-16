@@ -7,7 +7,6 @@
 //
 
 import UIKit
-//import SnapKit
 //import ChameleonFramework
 
 class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
