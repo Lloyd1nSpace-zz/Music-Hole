@@ -55,14 +55,14 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
         
-        LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
+        LastFMApiClient.getArtistBioWithCompletion(selectedArtist, completion: { (artistInfo) in
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
                 let bioInfo = info["bio"] as? NSDictionary,
                 let bio = bioInfo["content"] as? String,
                 let imageInfo = info["image"] as? [NSDictionary] else {
-                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
-                    return
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+                   // return
             }
             
             let imageSize = imageInfo[3]
@@ -70,8 +70,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let imageURLasString = imageSize["#text"] as? String,
                 let imageURL = URL(string: imageURLasString),
                 let imageData = try? Data(contentsOf: imageURL) else {
-                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
-                    return
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+                  //  return
             }
             
             self.artistDataStore.artistBio = bio
