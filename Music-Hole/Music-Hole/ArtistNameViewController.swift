@@ -153,6 +153,5 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
         
         self.searchButtonSetup()
-        
     }
 }

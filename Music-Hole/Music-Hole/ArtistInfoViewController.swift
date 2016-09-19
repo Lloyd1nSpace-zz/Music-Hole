@@ -63,7 +63,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
         self.view.backgroundColor = Constants.mainColor
-
+        
         self.expandButton.setTitle("Expand", for: .normal)
         self.expandButton.setTitleColor(UIColor.black, for: .normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: .touchUpInside)
@@ -72,10 +72,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.layer.cornerRadius = 7
         
         self.discographyLabel.text = "Discography"
-        
-        self.artistDiscographyStackView.axis = .horizontal
-        //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
-        
         self.similarArtistsLabel.text = "Similar Artists"
         
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
@@ -99,7 +95,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.addArrangedSubview(similarArtist3)
         self.similarArtistsStackView.addArrangedSubview(similarArtist4)
         self.similarArtistsStackView.addArrangedSubview(similarArtist5)
-
+        
         let similarImage1 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[0])
         let similarImage2 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[1])
         let similarImage3 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[2])
@@ -190,13 +186,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.similarArtistsStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
         
-        self.artistDiscographyStackView.alignment = UIStackViewAlignment.center
-        self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing
-        self.similarArtistsStackView.alignment = UIStackViewAlignment.center
-        self.similarArtistsStackView.distribution = UIStackViewDistribution.equalSpacing
-        
-        self.view.layoutIfNeeded()
-        
+        self.artistDiscographyStackView.axis = .horizontal
+        self.artistDiscographyStackView.alignment = .center
+        self.artistDiscographyStackView.distribution = .equalSpacing
+        self.similarArtistsStackView.axis = .horizontal
+        self.similarArtistsStackView.alignment = .center
+        self.similarArtistsStackView.distribution = .equalSpacing
     }
     
     @IBAction func expandButtonTapped(_ sender: UIButton) {
@@ -232,7 +227,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             self.artistBioTextViewHeightConstraint.constant += 125
             self.view.layoutIfNeeded()
-            
         })
     }
     
@@ -244,7 +238,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             self.artistBioTextViewHeightConstraint.constant -= 125
             self.view.layoutIfNeeded()
-            
         })
     }
 }
