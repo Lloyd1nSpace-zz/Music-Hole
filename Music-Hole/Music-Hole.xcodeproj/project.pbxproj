@@ -28,6 +28,7 @@
 		6ED26A431D86217C00286636 /* drake2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3E1D86217C00286636 /* drake2.jpg */; };
 		6ED26A441D86217C00286636 /* drake4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 6ED26A3F1D86217C00286636 /* drake4.jpg */; };
 		A4352CD11D8AF1EC00835BBD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4352CD01D8AF1EC00835BBD /* Secrets.swift */; };
+		A4C43C151D904D0D004D5D2B /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C43C141D904D0D004D5D2B /* Spotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -59,6 +60,7 @@
 		6ED26A3F1D86217C00286636 /* drake4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = drake4.jpg; sourceTree = "<group>"; };
 		A2418D1DF187C86C8FF914F9 /* Pods-Music-HoleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleTests/Pods-Music-HoleTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4352CD01D8AF1EC00835BBD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		A4C43C141D904D0D004D5D2B /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		E08546A200501CFB8D8B5051 /* Pods-Music-HoleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleUITests/Pods-Music-HoleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA7BCDDFF370642FBA86050 /* Pods-Music-Hole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-Hole.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-Hole/Pods-Music-Hole.debug.xcconfig"; sourceTree = "<group>"; };
 		F40D028D0D446D5902BBF9E0 /* Pods_Music_Hole.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Music_Hole.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4FC7283FA5B9210EF7EC9AE4 /* Pods_Music_Hole.framework in Frameworks */,
+				A4C43C151D904D0D004D5D2B /* Spotify.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +82,7 @@
 		1D2EC45FAA7D033CF4516B94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4C43C141D904D0D004D5D2B /* Spotify.framework */,
 				F40D028D0D446D5902BBF9E0 /* Pods_Music_Hole.framework */,
 				44433E378CE27DB1F11F7BAE /* Pods_Music_HoleTests.framework */,
 				12E0E23665990F5CEEA51919 /* Pods_Music_HoleUITests.framework */,
@@ -409,6 +413,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Music-Hole/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lloyd1nspace.Music-Hole";
@@ -427,6 +435,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Music-Hole/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.lloyd1nspace.Music-Hole";
