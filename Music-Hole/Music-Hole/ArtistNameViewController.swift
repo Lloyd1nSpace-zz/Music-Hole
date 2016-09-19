@@ -48,7 +48,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
-        let selectedArtistForURL = selectedArtist.replacingOccurrences(of: " ", with: "+")
+        let formattedArtistName = self.formatArtistName(selectedArtistName: selectedArtist)
+    
+        let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
@@ -113,6 +115,18 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         })
         
         self.artistTableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func formatArtistName(selectedArtistName: String) -> String {
+        var formattedArtistName = ""
+        
+        if selectedArtistName.contains("+") {
+            formattedArtistName = selectedArtistName.replacingOccurrences(of: "+", with: "%2B")
+        } else if selectedArtistName.contains("é") {
+            formattedArtistName = selectedArtistName.replacingOccurrences(of: "é", with: "%C3%A9")
+        }
+        
+        return formattedArtistName
     }
     
     func searchButtonSetup() {

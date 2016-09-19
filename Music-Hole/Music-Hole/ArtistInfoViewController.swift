@@ -42,10 +42,17 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 900)
+        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: self.view.bounds.height + 350)
+        self.contentView.backgroundColor = UIColor.clear //this is for debugging purposes
+        
+        //        self.extendedLayoutIncludesOpaqueBars = false
+        //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
+        //        self.edgesForExtendedLayout = UIRectEdge.None
+
         self.artistScrollView.delegate = self
         self.artistScrollView.backgroundColor = UIColor.blue
         self.artistScrollView.contentSize = self.contentView.bounds.size
+        self.artistScrollView.delaysContentTouches = false
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -127,7 +134,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(self.artistScrollView)
         
         self.viewConstraints()
-        
     }
     
     func viewConstraints() {
@@ -194,7 +200,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.distribution = .equalSpacing
     }
     
-    @IBAction func expandButtonTapped(_ sender: UIButton) {
+    func expandButtonTapped() {
         
         print("Expand button tapped!")
         
