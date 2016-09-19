@@ -40,34 +40,17 @@ class LastFMApiClient: NSObject {
         task.resume()
     }
     
-    class func formatArtistName(artistName: String) -> String {
-        var artistNameCharacters = Array(artistName.characters)
-        var formattedArtistName = ""
-//        let characters = ["+", "é"]
-        
-//        var artistNameCopy = artistName
-//        artistNameCopy.replacingOccurrences(of: "+", with: "\+\")
-        
-        for (index, character) in artistNameCharacters.enumerated() {
-            if character == "+" {
-                artistNameCharacters.insert("\\", at: index)
-            }
-        }
-        
-        formattedArtistName = String(artistNameCharacters)
-        
-        return formattedArtistName
-    }
+    
     
     class func getArtistBioWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
         
         print("pre-formatted name: \(artistName)")
+//        
+//        let modifiedArtistName = self.formatArtistName(artistName: artistName)
+//        
+//        print("formatted artist name: \(modifiedArtistName)")
         
-        let modifiedArtistName = self.formatArtistName(artistName: artistName)
-        
-        print("formatted artist name: \(modifiedArtistName)")
-        
-        let urlString = "\(Secrets.artistBioURL)&artist=\(modifiedArtistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
+        let urlString = "\(Secrets.artistBioURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
         guard let url = URL(string: urlString) else {
             fatalError("There was a problem unwrapping the URL when trying to get the Artist Bio in the API Client.")
         }

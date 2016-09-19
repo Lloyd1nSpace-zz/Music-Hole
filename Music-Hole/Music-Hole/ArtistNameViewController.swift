@@ -65,7 +65,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
-        let selectedArtistForURL = selectedArtist.replacingOccurrences(of: " ", with: "+")
+        let modifySelectedArtistName = selectedArtist.replacingOccurrences(of: "+", with: "%2B")
+        let selectedArtistForURL = modifySelectedArtistName.replacingOccurrences(of: " ", with: "+")
         
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
