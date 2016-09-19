@@ -42,7 +42,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 100, height: 900)
+        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 900, height: 900)
+        self.contentView.backgroundColor = UIColor.purple
         //need to change the width and height of contentview frame so that they are not magic numbers
         
         //        self.extendedLayoutIncludesOpaqueBars = false
@@ -52,6 +53,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.delegate = self
         self.artistScrollView.backgroundColor = UIColor.blue
         self.artistScrollView.contentSize = self.contentView.bounds.size
+        self.artistScrollView.delaysContentTouches = false
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -105,11 +107,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
         self.contentView.addSubview(self.artistBioTextView)
-        self.contentView.insertSubview(self.expandButton, aboveSubview: self.artistScrollView)
         self.contentView.addSubview(self.discographyLabel)
         self.contentView.addSubview(self.artistDiscographyStackView)
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistsStackView)
+        self.contentView.addSubview(self.expandButton)
         
         self.artistScrollView.addSubview(self.contentView)
         self.view.addSubview(self.artistScrollView)
