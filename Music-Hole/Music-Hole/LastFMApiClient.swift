@@ -44,7 +44,7 @@ class LastFMApiClient: NSObject {
     
     class func getArtistBioWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
         
-        print("pre-formatted name: \(artistName)")
+//        print("pre-formatted name: \(artistName)")
 //        
 //        let modifiedArtistName = self.formatArtistName(artistName: artistName)
 //        
