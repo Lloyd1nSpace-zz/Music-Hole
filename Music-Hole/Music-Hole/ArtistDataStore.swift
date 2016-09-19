@@ -33,50 +33,6 @@ class ArtistDataStore {
         }
     }
     
-    func getSimilarArtistsWithCompletion(_ artistName: String, completion: () -> ()) {
-        
-        LastFMApiClient.getSimilarArtistsWityhCompletion(artistName) { (artistDict) in
-            
-            guard
-                let artistInfo = artistDict["artist"] as? NSDictionary,
-                let similarArtistsDict = artistInfo["similar"] as? NSDictionary,
-                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
-                    fatalError("There was an error unwrapping the similar artists information in the data store.")
-            }
-            
-            for artists in similarArtists {
-                
-                if let artistNames = artists["name"] as? String {
-                    
-                    self.similarArtistsNames.append(artistNames)
-                    print("These are the similar artist names: \(self.similarArtistsNames)")
-                } else {
-                    print("There was an error unwrapping the similar artists Name in the data store.")
-                }
-                
-                if let artistImageDict = artists["image"] as? [NSDictionary] {
-                    
-                    for images in artistImageDict {
-                        
-//                        guard let imageSize = images[3] as? NSDictionary else {
-//                            fatalError("There was a problem unwrapping image size")
-//                        }
-                        guard let imageAsString = images["#text"] as? String else {
-                            fatalError("There was a problem unwrapping similar artists images in the data store.")
-                        }
-
-                        self.similarArtistImages.append(imageAsString)
-                        print("These are the similar artist URL Strings: \(self.similarArtistImages)")
-                   }
-                }
-            }
-            //  self.similarArtistImages = artistImageAsURL
-            //    self.similarArtistsNames = similarArtistNames
-            
-            // }
-        }
-    }
-    
     func searchArtistsWithCompletion(_ userText: String, completion: @escaping () -> ()) {
         
         LastFMApiClient.searchArtistsWithCompletion(userText, completion:  { (userSearchDictionary) in

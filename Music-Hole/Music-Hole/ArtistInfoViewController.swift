@@ -25,7 +25,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var similarArtistsLabel = UILabel()
     var similarArtistsStackView = UIStackView()
     var similarArtistsImages = UIImageView()
-    var similarArtistsNames = [UILabel()]
+    var similarArtistsNames = [UILabel]()
     //var testImage = UIImageView()
     var contentView = UIView()
     
@@ -84,22 +84,28 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //  self.artistDiscographyStackView.backgroundColor = UIColor.flatForestGreen()
         
         self.similarArtistsLabel.text = "Similar Artists"
-
-        
-        
-        
-        
         
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
         self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
         
+        let similarArtist1 = UILabel()
+        let similarArtist2 = UILabel()
+        let similarArtist3 = UILabel()
+        let similarArtist4 = UILabel()
+        let similarArtist5 = UILabel()
         
-        for nameLabel in self.similarArtistsNames {
-            self.similarArtistsStackView.addArrangedSubview(nameLabel)
-        }
+        similarArtist1.text = self.artistDataStore.similarArtistsNames[0]
+        similarArtist2.text = self.artistDataStore.similarArtistsNames[1]
+        similarArtist3.text = self.artistDataStore.similarArtistsNames[2]
+        similarArtist4.text = self.artistDataStore.similarArtistsNames[3]
+        similarArtist5.text = self.artistDataStore.similarArtistsNames[4]
         
-       // self.similarArtistsStackView.addArrangedSubview(self.similarArtistsNames)
+        self.similarArtistsStackView.addArrangedSubview(similarArtist1)
+        self.similarArtistsStackView.addArrangedSubview(similarArtist2)
+        self.similarArtistsStackView.addArrangedSubview(similarArtist3)
+        self.similarArtistsStackView.addArrangedSubview(similarArtist4)
+        self.similarArtistsStackView.addArrangedSubview(similarArtist5)
         
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
@@ -177,6 +183,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyStackView.distribution = UIStackViewDistribution.equalSpacing
         self.similarArtistsStackView.alignment = UIStackViewAlignment.center
         self.similarArtistsStackView.distribution = UIStackViewDistribution.equalSpacing
+        
+        self.view.layoutIfNeeded()
         
     }
     

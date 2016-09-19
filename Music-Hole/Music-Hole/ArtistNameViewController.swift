@@ -37,9 +37,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             })
         }
         
-     self.artistDataStore.getSimilarArtistsWithCompletion("Drake") { 
-        print("These are the similar artists names in relation to Drake: \(self.artistDataStore.similarArtistsNames)")
-        }
+//     self.artistDataStore.getSimilarArtistsWithCompletion("Drake") { 
+//        print("These are the similar artists names in relation to Drake: \(self.artistDataStore.similarArtistsNames)")
+//        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,6 +67,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
         let selectedArtistForURL = selectedArtist.replacingOccurrences(of: " ", with: "+")
         
+        self.artistDataStore.similarArtistsNames.removeAll()
+        
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
@@ -89,7 +91,42 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             self.artistDataStore.artistBio = bio
             self.artistDataStore.artistImage = UIImage(data: imageData)
             
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the data store.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
+                }
+            }
+
             self.navigationController?.show(destination, sender: "")
+            
         })
         
         self.artistTableView.deselectRow(at: indexPath, animated: true)
