@@ -116,7 +116,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.view.addSubview(self.artistScrollView)
         
         self.viewConstraints()
-        // setting up a new branch
     }
     
     func viewConstraints() {
