@@ -35,7 +35,7 @@ class LastFMApiClient: NSObject {
             } else if let error = error {
                 print("There was a problem unwrapping the data in the API Client or a general networking error: \(error.localizedDescription)")
             }
-        }) 
+        })
         
         task.resume()
     }
@@ -66,34 +66,7 @@ class LastFMApiClient: NSObject {
             } else if let error = error {
                 fatalError("There's been an error unwrapping the data or a general network error: \(error.localizedDescription)")
             }
-        }) 
-        
-        task.resume()
-    }
-    
-    class func getSimilarArtistsWityhCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
-        
-        let urlString = "\(Secrets.artistBioURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
-        guard let url = URL(string: urlString) else {
-            fatalError("Was unable to unwrap the URL when trying to pull similar artists.")
-        }
-        
-        let session = URLSession.shared
-        let task = session.dataTask(with: url, completionHandler: { (data, response, error) in
-            
-            if let data = data {
-                if let responseDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    if let responseDictionary = responseDictionary {
-                        OperationQueue.main.addOperation({
-                            completion(responseDictionary)
-                        })
-                    }
-                }
-                
-            } else if let error = error {
-                fatalError("There was a network error when trying to get similar artists: \(error.localizedDescription)")
-            }
-        }) 
+        })
         
         task.resume()
     }
@@ -122,7 +95,7 @@ class LastFMApiClient: NSObject {
             } else if let error = error {
                 fatalError("There was a problem unwrapping data or general network error: \(error.localizedDescription)")
             }
-        }) 
+        })
         
         task.resume()
     }

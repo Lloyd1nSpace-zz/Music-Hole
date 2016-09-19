@@ -63,14 +63,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
         self.view.backgroundColor = Constants.mainColor
-        //      self.setStatusBarStyle(UIStatusBarStyleContrast)
-        //    if let navController = self.navigationController {
-        //      navController.hidesNavigationBarHairline = true
-        //    if let style = UIContentStyle(rawValue: 500) {
-        //      navController.setThemeUsingPrimaryColor(Constants.mainColor, withSecondaryColor: UIColor.flatYellow(), usingFontName: "Artist Info", andContentStyle: style)
-        // }
-        // }
-        
+
         self.expandButton.setTitle("Expand", for: .normal)
         self.expandButton.setTitleColor(UIColor.black, for: .normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: .touchUpInside)

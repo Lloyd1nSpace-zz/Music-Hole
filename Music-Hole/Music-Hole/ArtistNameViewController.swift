@@ -20,26 +20,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.viewCustomizations()
         
-        if let searchBarEmpty = self.searchBar.text?.isEmpty {
-            
-            self.artistDataStore.getArtistNamesWithCompletion {
-                
-                self.artistTableView.reloadData()
-                print("The searchBarText is empty: \(searchBarEmpty)")
-            }
-            
-        } else {
-            
-            self.artistDataStore.searchArtistsWithCompletion(self.searchBar.text!, completion: {
-                
-                self.artistTableView.reloadData()
-                
-            })
+        self.artistDataStore.getArtistNamesWithCompletion {
+            self.artistTableView.reloadData()
         }
-        
-//     self.artistDataStore.getSimilarArtistsWithCompletion("Drake") { 
-//        print("These are the similar artists names in relation to Drake: \(self.artistDataStore.similarArtistsNames)")
-//        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -76,7 +59,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let bioInfo = info["bio"] as? NSDictionary,
                 let bio = bioInfo["content"] as? String,
                 let imageInfo = info["image"] as? [NSDictionary] else {
-                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
                     return
             }
             
@@ -85,7 +68,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let imageURLasString = imageSize["#text"] as? String,
                 let imageURL = URL(string: imageURLasString),
                 let imageData = try? Data(contentsOf: imageURL) else {
-                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameTableViewController")
+                    print("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
                     return
             }
             
@@ -96,13 +79,13 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let artistDict = artistInfo["artist"] as? NSDictionary,
                 let similarArtistsDict = artistDict["similar"] as? NSDictionary,
                 let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
-                    fatalError("There was an error unwrapping the similar artists information in the data store.")
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
             }
             
             for artists in similarArtists {
                 
                 if let artistNames = artists["name"] as? String {
-
+                    
                     self.artistDataStore.similarArtistsNames.append(artistNames)
                     print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
                 } else {
@@ -125,13 +108,11 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 }
             }
-
-            self.navigationController?.show(destination, sender: "")
             
+            self.navigationController?.show(destination, sender: "")
         })
         
         self.artistTableView.deselectRow(at: indexPath, animated: true)
-        
     }
     
     func searchButtonSetup() {
@@ -173,5 +154,5 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.searchButtonSetup()
         
-    }  
+    }
 }
