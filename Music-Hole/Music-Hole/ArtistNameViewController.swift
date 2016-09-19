@@ -124,6 +124,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
             formattedArtistName = selectedArtistName.replacingOccurrences(of: "+", with: "%2B")
         } else if selectedArtistName.contains("é") {
             formattedArtistName = selectedArtistName.replacingOccurrences(of: "é", with: "%C3%A9")
+        } else {
+            formattedArtistName = selectedArtistName
         }
         
         return formattedArtistName
