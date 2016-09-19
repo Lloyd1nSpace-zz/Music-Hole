@@ -135,11 +135,11 @@
             </objects>
             <point key="canvasLocation" x="449" y="-318"/>
         </scene>
-        <!--My Music-->
+        <!--Navigation Controller-->
         <scene sceneID="0hd-nJ-YIC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gIW-0C-sxu" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="My Music" id="Ray-yT-bqb"/>
+                    <tabBarItem key="tabBarItem" id="Ray-yT-bqb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gD7-IG-83W">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

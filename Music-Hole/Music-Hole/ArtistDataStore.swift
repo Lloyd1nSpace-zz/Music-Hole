@@ -37,21 +37,6 @@ class ArtistDataStore {
         
         LastFMApiClient.getSimilarArtistsWityhCompletion(artistName) { (artistDict) in
             
-            //            guard
-            //                let artistInfo = artistDict["artist"] as? NSDictionary,
-            //                let similarArtists = artistInfo["similar"] as? [NSDictionary] else {
-            //                    fatalError("There was an error unwrapping the similar artists information in the data store.")
-            //            }
-            //
-            //            for  index in 0..<similarArtists.count {
-            //
-            //                guard
-            //                    let similarArtistsImages = similarArtists[index]["image"] as? [NSDictionary],
-            //                    let similarArtistNames = similarArtists[index]["name"] as? [String],
-            //                    let artistImageAsURL = similarArtistsImages[3]["#text"] as? [String] else {
-            //                        fatalError("There was an error unwrapping similar artists information in the data store.")
-            //                }
-            
             guard
                 let artistInfo = artistDict["artist"] as? NSDictionary,
                 let similarArtistsDict = artistInfo["similar"] as? NSDictionary,
