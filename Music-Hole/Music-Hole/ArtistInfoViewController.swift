@@ -106,6 +106,24 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsStackView.addArrangedSubview(similarArtist3)
         self.similarArtistsStackView.addArrangedSubview(similarArtist4)
         self.similarArtistsStackView.addArrangedSubview(similarArtist5)
+
+        let similarImage1 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[0])
+        let similarImage2 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[1])
+        let similarImage3 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[2])
+        let similarImage4 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[3])
+        let similarImage5 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[4])
+        
+        let similarView1 = UIImageView(image: similarImage1)
+        let similarView2 = UIImageView(image: similarImage2)
+        let similarView3 = UIImageView(image: similarImage3)
+        let similarView4 = UIImageView(image: similarImage4)
+        let similarView5 = UIImageView(image: similarImage5)
+        
+        self.similarArtistsStackView.addArrangedSubview(similarView1)
+        self.similarArtistsStackView.addArrangedSubview(similarView2)
+        self.similarArtistsStackView.addArrangedSubview(similarView3)
+        self.similarArtistsStackView.addArrangedSubview(similarView4)
+        self.similarArtistsStackView.addArrangedSubview(similarView5)
         
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)

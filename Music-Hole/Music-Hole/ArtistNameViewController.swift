@@ -68,6 +68,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectedArtistForURL = selectedArtist.replacingOccurrences(of: " ", with: "+")
         
         self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
         
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
