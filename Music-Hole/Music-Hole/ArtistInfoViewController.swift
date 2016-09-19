@@ -42,9 +42,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func createViews() {
         
-        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: 900, height: 900)
-        self.contentView.backgroundColor = UIColor.purple
-        //need to change the width and height of contentview frame so that they are not magic numbers
+        self.contentView.frame = CGRect(x: 0.0, y: 0.0, width: self.view.bounds.width, height: self.view.bounds.height + 350)
+        self.contentView.backgroundColor = UIColor.clear //this is for debugging purposes
         
         //        self.extendedLayoutIncludesOpaqueBars = false
         //        self.artistScrollView = UIScrollView(frame: self.view.bounds)
@@ -107,11 +106,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
         self.contentView.addSubview(self.artistBioTextView)
+        self.contentView.addSubview(self.expandButton)
         self.contentView.addSubview(self.discographyLabel)
         self.contentView.addSubview(self.artistDiscographyStackView)
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistsStackView)
-        self.contentView.addSubview(self.expandButton)
         
         self.artistScrollView.addSubview(self.contentView)
         self.view.addSubview(self.artistScrollView)
