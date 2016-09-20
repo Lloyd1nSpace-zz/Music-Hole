@@ -108,10 +108,20 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         //  self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
         
+        
+        self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
+        
+        self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton2.backgroundColor = UIColor.green
+        
+        self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton3.backgroundColor = UIColor.green
+        
+        self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton4.backgroundColor = UIColor.green
+        
+        self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton5.backgroundColor = UIColor.green
         
         self.artistDiscographyStackView.addArrangedSubview(self.discogButton1)
@@ -145,10 +155,19 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarButton4.setBackgroundImage(similarImage4, for: .normal)
         self.similarButton5.setBackgroundImage(similarImage5, for: .normal)
         
+        self.similarButton1.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton1.backgroundColor = UIColor.green
+        
+        self.similarButton2.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton2.backgroundColor = UIColor.green
+        
+        self.similarButton3.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton3.backgroundColor = UIColor.green
+        
+        self.similarButton4.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton4.backgroundColor = UIColor.green
+        
+        self.similarButton5.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton5.backgroundColor = UIColor.green
         
         self.similarArtist1.text = self.artistDataStore.similarArtistsNames[0]
@@ -362,12 +381,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyStackView.distribution = .equalSpacing
         self.similarArtistsImagesStackView.axis = .horizontal
         self.similarArtistsLabelsStackView.axis = .horizontal
-    
+        
         //self.similarArtistsStackView.alignment = .center
         //  self.similarArtistsStackView.distribution = .equalSpacing
     }
     
-    func expandButtonTapped() {
+    @IBAction func expandButtonTapped() {
         
         print("Expand button tapped!")
         
@@ -379,6 +398,17 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             self.expandBio()
         }
+    }
+    
+    @IBAction func discogButtonTapped() {
+        
+        print("Discography button tapped!")
+        
+    }
+    
+    @IBAction func similarArtistButtonTapped() {
+        
+        print("Similar artists button tapped!")
     }
     
     func isBioBig() -> Bool {
