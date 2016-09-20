@@ -108,7 +108,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         //  self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
         
-        
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
         
