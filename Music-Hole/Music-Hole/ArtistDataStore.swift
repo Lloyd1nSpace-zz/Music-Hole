@@ -18,6 +18,7 @@ class ArtistDataStore {
     var userSearchText = ""
     var similarArtistImages = [String]()
     var similarArtistsNames = [String]()
+    var artistDiscogphraphy = [Album]()
     
     func getArtistNamesWithCompletion(_ completion: @escaping () -> ()) {
         

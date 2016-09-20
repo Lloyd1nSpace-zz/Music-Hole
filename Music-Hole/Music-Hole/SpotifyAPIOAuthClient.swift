@@ -7,3 +7,9 @@
 //
 
 import Foundation
+
+struct SpotifyAPIOAuthClient {
+    
+    static let encodedRedirectURI = "musichole%3A%2F%2Fgetdata"
+    
+}

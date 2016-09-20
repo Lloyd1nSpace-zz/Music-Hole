@@ -11,5 +11,9 @@ import Foundation
 class SpotifyAPIClient {
     
     static let baseURLString = "https://api.spotify.com/v1/"
+    static let store = ArtistDataStore.sharedArtistData
     
+    class func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping (NSDictionary) ->() ) {
+        
+    }
 }
