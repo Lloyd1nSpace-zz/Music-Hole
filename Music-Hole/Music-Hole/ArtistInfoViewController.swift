@@ -32,8 +32,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var discogLabel3 = UILabel()
     var discogLabel4 = UILabel()
     var discogLabel5 = UILabel()
-   // var artistDiscographyImage = UIImageView()
-   // var artistDiscographyLabel = UILabel()
+    // var artistDiscographyImage = UIImageView()
+    // var artistDiscographyLabel = UILabel()
     var similarArtistsLabel = UILabel()
     var similarArtistsImagesStackView = UIStackView()
     let similarButton1 = UIButton()
@@ -51,7 +51,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     //var similarArtistsImages = UIImageView()
     // var similarArtistsNames = [UILabel]()
     //var testImage = UIImageView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -104,13 +104,34 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.discographyLabel.text = "Discography"
         self.similarArtistsLabel.text = "Similar Artists"
         
-//        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
-//        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
+        //        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyImage)
+        //        self.artistDiscographyStackView.addArrangedSubview(self.artistDiscographyLabel)
         //  self.similarArtistsStackView.addArrangedSubview(self.similarArtistsImages)
         
+        self.discogButton1.backgroundColor = UIColor.green
+        self.discogButton2.backgroundColor = UIColor.green
+        self.discogButton3.backgroundColor = UIColor.green
+        self.discogButton4.backgroundColor = UIColor.green
+        self.discogButton5.backgroundColor = UIColor.green
         
         self.artistDiscographyStackView.addArrangedSubview(self.discogButton1)
+        self.artistDiscographyStackView.addArrangedSubview(self.discogButton2)
+        self.artistDiscographyStackView.addArrangedSubview(self.discogButton3)
+        self.artistDiscographyStackView.addArrangedSubview(self.discogButton4)
+        self.artistDiscographyStackView.addArrangedSubview(self.discogButton5)
+        self.artistDiscographyStackView.addArrangedSubview(self.discographyLabelsStackView)
         
+        self.discogLabel1.text = "test"
+        self.discogLabel2.text = "test"
+        self.discogLabel3.text = "test"
+        self.discogLabel4.text = "test"
+        self.discogLabel5.text = "test"
+        
+        self.discographyLabelsStackView.addArrangedSubview(self.discogLabel1)
+        self.discographyLabelsStackView.addArrangedSubview(self.discogLabel2)
+        self.discographyLabelsStackView.addArrangedSubview(self.discogLabel3)
+        self.discographyLabelsStackView.addArrangedSubview(self.discogLabel4)
+        self.discographyLabelsStackView.addArrangedSubview(self.discogLabel5)
         
         let similarImage1 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[0])
         let similarImage2 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[1])
@@ -150,6 +171,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsLabelsStackView.addArrangedSubview(self.similarArtist5)
         self.similarArtistsLabelsStackView.addArrangedSubview(self.similarArtistsLabelsStackView)
         
+        self.view.addSubview(self.artistScrollView)
+        self.artistScrollView.addSubview(self.contentView)
+        
         self.contentView.addSubview(self.artistImage)
         self.contentView.addSubview(self.bioLabel)
         self.contentView.addSubview(self.artistBioTextView)
@@ -158,9 +182,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistDiscographyStackView)
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistsImagesStackView)
-        
-        self.artistScrollView.addSubview(self.contentView)
-        self.view.addSubview(self.artistScrollView)
         
         self.viewConstraints()
     }
@@ -211,8 +232,62 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.artistDiscographyStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
         
+        self.discogButton1.translatesAutoresizingMaskIntoConstraints = false
+        self.discogButton1.widthAnchor.constraint(equalTo: self.artistDiscographyStackView.widthAnchor, multiplier: 1/5).isActive = true
+        self.discogButton1.heightAnchor.constraint(equalTo: self.artistDiscographyStackView.heightAnchor, multiplier: 0.9).isActive = true
+        self.discogButton1.leftAnchor.constraint(equalTo: self.artistDiscographyStackView.leftAnchor).isActive = true
+        
+        self.discogButton2.translatesAutoresizingMaskIntoConstraints = false
+        self.discogButton2.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogButton2.heightAnchor.constraint(equalTo: self.discogButton1.heightAnchor).isActive = true
+        self.discogButton2.leftAnchor.constraint(equalTo: self.discogButton1.rightAnchor).isActive = true
+        
+        self.discogButton3.translatesAutoresizingMaskIntoConstraints = false
+        self.discogButton3.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogButton3.heightAnchor.constraint(equalTo: self.discogButton1.heightAnchor).isActive = true
+        self.discogButton3.leftAnchor.constraint(equalTo: self.discogButton2.rightAnchor).isActive = true
+        
+        self.discogButton4.translatesAutoresizingMaskIntoConstraints = false
+        self.discogButton4.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogButton4.heightAnchor.constraint(equalTo: self.discogButton1.heightAnchor).isActive = true
+        self.discogButton4.leftAnchor.constraint(equalTo: self.discogButton3.rightAnchor).isActive = true
+        
+        self.discogButton5.translatesAutoresizingMaskIntoConstraints = false
+        self.discogButton5.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogButton5.heightAnchor.constraint(equalTo: self.discogButton1.heightAnchor).isActive = true
+        self.discogButton5.rightAnchor.constraint(equalTo: self.artistDiscographyStackView.rightAnchor).isActive = true
+        
+        self.discographyLabelsStackView.translatesAutoresizingMaskIntoConstraints = false
+        self.discographyLabelsStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+        self.discographyLabelsStackView.heightAnchor.constraint(equalTo: self.artistDiscographyStackView.heightAnchor, multiplier: 0.1).isActive = true
+        
+        self.discogLabel1.translatesAutoresizingMaskIntoConstraints = false
+        self.discogLabel1.topAnchor.constraint(equalTo: self.discogButton1.bottomAnchor).isActive = true
+        self.discogLabel1.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogLabel1.heightAnchor.constraint(equalTo: self.discographyLabelsStackView.heightAnchor).isActive = true
+        
+        self.discogLabel2.translatesAutoresizingMaskIntoConstraints = false
+        self.discogLabel2.topAnchor.constraint(equalTo: self.discogButton2.bottomAnchor).isActive = true
+        self.discogLabel2.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogLabel2.heightAnchor.constraint(equalTo: self.discographyLabelsStackView.heightAnchor).isActive = true
+        
+        self.discogLabel3.translatesAutoresizingMaskIntoConstraints = false
+        self.discogLabel3.topAnchor.constraint(equalTo: self.discogButton3.bottomAnchor).isActive = true
+        self.discogLabel3.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogLabel3.heightAnchor.constraint(equalTo: self.discographyLabelsStackView.heightAnchor).isActive = true
+        
+        self.discogLabel4.translatesAutoresizingMaskIntoConstraints = false
+        self.discogLabel4.topAnchor.constraint(equalTo: self.discogButton4.bottomAnchor).isActive = true
+        self.discogLabel4.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogLabel4.heightAnchor.constraint(equalTo: self.discographyLabelsStackView.heightAnchor).isActive = true
+        
+        self.discogLabel5.translatesAutoresizingMaskIntoConstraints = false
+        self.discogLabel5.topAnchor.constraint(equalTo: self.discogButton5.bottomAnchor).isActive = true
+        self.discogLabel5.widthAnchor.constraint(equalTo: self.discogButton1.widthAnchor).isActive = true
+        self.discogLabel5.heightAnchor.constraint(equalTo: self.discographyLabelsStackView.heightAnchor).isActive = true
+        
         self.similarArtistsLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.similarArtistsLabel.topAnchor.constraint(equalTo: self.artistDiscographyStackView.bottomAnchor).isActive = true
+        self.similarArtistsLabel.topAnchor.constraint(equalTo: self.artistDiscographyStackView.bottomAnchor, constant: 20).isActive = true
         self.similarArtistsLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2).isActive = true
         self.similarArtistsLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
         
@@ -281,10 +356,13 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtist5.heightAnchor.constraint(equalTo: self.similarArtistsImagesStackView.heightAnchor, multiplier: 0.1).isActive = true
         
         self.artistDiscographyStackView.axis = .horizontal
-        self.artistDiscographyStackView.alignment = .center
+        self.discographyLabelsStackView.axis = .horizontal
+        self.discographyLabelsStackView.distribution = .equalCentering
+        //self.artistDiscographyStackView.alignment = .center
         self.artistDiscographyStackView.distribution = .equalSpacing
         self.similarArtistsImagesStackView.axis = .horizontal
         self.similarArtistsLabelsStackView.axis = .horizontal
+    
         //self.similarArtistsStackView.alignment = .center
         //  self.similarArtistsStackView.distribution = .equalSpacing
     }
