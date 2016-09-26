@@ -16,4 +16,9 @@ struct SpotifyAPIOAuthClient {
         static let token = "https://accounts.spotify.com/api/token"
         static let oauth = "https://accounts.spotify.com/authorize?client_id=\(Secrets.spotifyAPIClientID)&response_type=code&redirect_uri=\(SpotifyAPIOAuthClient.encodedRedirectURI)"
     }
+    
+    static func spotifyAccessTokenRequest(url: NSURL) {
+        
+    }
+    
 }
