@@ -62,7 +62,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let bio = bioInfo["content"] as? String,
                 let imageInfo = info["image"] as? [NSDictionary] else {
                     fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
-                   // return
             }
             
             let imageSize = imageInfo[3]
@@ -71,7 +70,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
                 let imageURL = URL(string: imageURLasString),
                 let imageData = try? Data(contentsOf: imageURL) else {
                     fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
-                  //  return
             }
             
             self.artistDataStore.artistBio = bio
