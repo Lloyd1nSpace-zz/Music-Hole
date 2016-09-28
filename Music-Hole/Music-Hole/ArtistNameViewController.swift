@@ -170,4 +170,37 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.searchButtonSetup()
     }
+    
+    func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
+        
+        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistName: artistName) { (rihannasAlbums) in
+            
+            guard let allAlbums = rihannasAlbums["items"] as? [[String:AnyObject]]            else {
+                    print("could not get list of albums")
+                    return
+            }
+            
+            for album in allAlbums {
+                guard
+                    let albumName = album["name"] as? String,
+                    let albumImages = album["images"] as? [[String:AnyObject]],
+                    let albumImageInfo = albumImages[albumImages.count-1] as? [String:AnyObject],
+                    let albumImageURLString = albumImageInfo["url"] as? String
+                else {
+                    print("could not get specific album info")
+                    return
+                }
+                
+                if albumImageURLString != nil {
+                    let albumImageURL = URL(string: albumImageURLString)
+                    let albumImageData = Data(contentsOf: albumImageURL!)
+                    let finalAlbumImage = UIImage(data: albumImageData)
+                    
+                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage)
+                    
+                    self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+                }
+            }
+        }
+    }
 }

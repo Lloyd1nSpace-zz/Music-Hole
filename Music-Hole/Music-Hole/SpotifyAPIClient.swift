@@ -15,7 +15,7 @@ class SpotifyAPIClient {
     
     class func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping (NSDictionary) ->() ) {
         
-        let urlString = "https://api.spotify.com/v1/artists/\(Secrets.spotifyAPIClientID)/albums"
+        let urlString = "https://api.spotify.com/v1/artists/\(Secrets.spotifyAPIClientID)/albums?album_type=album"
         guard let url = URL(string: urlString) else {
             fatalError("There was a problem unwrapping the URL when trying to get the artist discography from Spotify")
         }
