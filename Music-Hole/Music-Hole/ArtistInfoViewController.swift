@@ -142,61 +142,37 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel4)
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel5)
         
-        guard
-            let url1 = URL(string: self.artistDataStore.similarArtistImages[0]),
-            let url2 = URL(string: self.artistDataStore.similarArtistImages[1]),
-            let url3 = URL(string: self.artistDataStore.similarArtistImages[2]),
-            let url4 = URL(string: self.artistDataStore.similarArtistImages[3]),
-            let url5 = URL(string: self.artistDataStore.similarArtistImages[4]) else {
-                fatalError("There was an issue unwrapping the image URLs from ArtistInfoVC")
-        }
-        
-        do {
-            
-            let data1 = try Data(contentsOf: url1)
-            let data2 = try Data(contentsOf: url2)
-            let data3 = try Data(contentsOf: url3)
-            let data4 = try Data(contentsOf: url4)
-            let data5 = try Data(contentsOf: url5)
-            
-            let similarImage1 = UIImage(data: data1)
-            let similarImage2 = UIImage(data: data2)
-            let similarImage3 = UIImage(data: data3)
-            let similarImage4 = UIImage(data: data4)
-            let similarImage5 = UIImage(data: data5)
-            
-            self.similarButton1.setBackgroundImage(similarImage1, for: .normal)
-            self.similarButton2.setBackgroundImage(similarImage2, for: .normal)
-            self.similarButton3.setBackgroundImage(similarImage3, for: .normal)
-            self.similarButton4.setBackgroundImage(similarImage4, for: .normal)
-            self.similarButton5.setBackgroundImage(similarImage5, for: .normal)
-            
-            
-        } catch {
-            
-            print("There was an issue unwrapping the Data for the images in ArtistInfoVC")
-        }
-        
-        self.similarButton1.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton1.backgroundColor = UIColor.green
-        
-        self.similarButton2.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton2.backgroundColor = UIColor.green
-        
-        self.similarButton3.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton3.backgroundColor = UIColor.green
-        
-        self.similarButton4.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton4.backgroundColor = UIColor.green
-        
-        self.similarButton5.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton5.backgroundColor = UIColor.green
+        self.similarImageButtonSetup()
         
         self.similarArtist1.text = self.artistDataStore.similarArtistsNames[0]
         self.similarArtist2.text = self.artistDataStore.similarArtistsNames[1]
         self.similarArtist3.text = self.artistDataStore.similarArtistsNames[2]
         self.similarArtist4.text = self.artistDataStore.similarArtistsNames[3]
         self.similarArtist5.text = self.artistDataStore.similarArtistsNames[4]
+        
+        self.similarArtist1.font.withSize(8)
+        self.similarArtist2.font.withSize(8)
+        self.similarArtist3.font.withSize(8)
+        self.similarArtist4.font.withSize(8)
+        self.similarArtist5.font.withSize(8)
+        
+        //        self.similarArtist1.adjustsFontSizeToFitWidth = true
+        //        self.similarArtist2.adjustsFontSizeToFitWidth = true
+        //        self.similarArtist3.adjustsFontSizeToFitWidth = true
+        //        self.similarArtist4.adjustsFontSizeToFitWidth = true
+        //        self.similarArtist5.adjustsFontSizeToFitWidth = true
+        
+        self.similarArtist1.textColor = UIColor.white
+        self.similarArtist2.textColor = UIColor.white
+        self.similarArtist3.textColor = UIColor.white
+        self.similarArtist4.textColor = UIColor.white
+        self.similarArtist5.textColor = UIColor.white
+        
+        self.similarArtist1.textAlignment = .center
+        self.similarArtist2.textAlignment = .center
+        self.similarArtist3.textAlignment = .center
+        self.similarArtist4.textAlignment = .center
+        self.similarArtist5.textAlignment = .center
         
         self.similarArtistsImagesStackView.addArrangedSubview(similarButton1)
         self.similarArtistsImagesStackView.addArrangedSubview(similarButton2)
@@ -335,7 +311,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsImagesStackView.translatesAutoresizingMaskIntoConstraints = false
         self.similarArtistsImagesStackView.topAnchor.constraint(equalTo: self.similarArtistsLabel.bottomAnchor).isActive = true
         self.similarArtistsImagesStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.similarArtistsImagesStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
+        self.similarArtistsImagesStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/6).isActive = true
         
         self.similarButton1.translatesAutoresizingMaskIntoConstraints = false
         self.similarButton1.widthAnchor.constraint(equalTo: self.similarArtistsImagesStackView.widthAnchor, multiplier: 1/5).isActive = true
@@ -406,6 +382,59 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         //self.similarArtistsStackView.alignment = .center
         //  self.similarArtistsStackView.distribution = .equalSpacing
+    }
+    
+    func similarImageButtonSetup() {
+        
+        guard
+            let url1 = URL(string: self.artistDataStore.similarArtistImages[0]),
+            let url2 = URL(string: self.artistDataStore.similarArtistImages[1]),
+            let url3 = URL(string: self.artistDataStore.similarArtistImages[2]),
+            let url4 = URL(string: self.artistDataStore.similarArtistImages[3]),
+            let url5 = URL(string: self.artistDataStore.similarArtistImages[4]) else {
+                fatalError("There was an issue unwrapping the image URLs from ArtistInfoVC")
+        }
+        
+        do {
+            
+            let data1 = try Data(contentsOf: url1)
+            let data2 = try Data(contentsOf: url2)
+            let data3 = try Data(contentsOf: url3)
+            let data4 = try Data(contentsOf: url4)
+            let data5 = try Data(contentsOf: url5)
+            
+            let similarImage1 = UIImage(data: data1)
+            let similarImage2 = UIImage(data: data2)
+            let similarImage3 = UIImage(data: data3)
+            let similarImage4 = UIImage(data: data4)
+            let similarImage5 = UIImage(data: data5)
+            
+            self.similarButton1.setBackgroundImage(similarImage1, for: .normal)
+            self.similarButton2.setBackgroundImage(similarImage2, for: .normal)
+            self.similarButton3.setBackgroundImage(similarImage3, for: .normal)
+            self.similarButton4.setBackgroundImage(similarImage4, for: .normal)
+            self.similarButton5.setBackgroundImage(similarImage5, for: .normal)
+            
+            
+        } catch {
+            
+            print("There was an issue unwrapping the Data for the images in ArtistInfoVC")
+        }
+        
+        self.similarButton1.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton1.backgroundColor = UIColor.green
+        
+        self.similarButton2.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton2.backgroundColor = UIColor.green
+        
+        self.similarButton3.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton3.backgroundColor = UIColor.green
+        
+        self.similarButton4.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton4.backgroundColor = UIColor.green
+        
+        self.similarButton5.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton5.backgroundColor = UIColor.green
     }
     
     @IBAction func expandButtonTapped() {
