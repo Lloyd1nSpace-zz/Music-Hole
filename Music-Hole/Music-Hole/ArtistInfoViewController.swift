@@ -142,23 +142,28 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel4)
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel5)
         
-        
-        var url: URL?
-        
-        for (index, _) in self.artistDataStore.similarArtistImages.enumerated() {
-            
-             url = URL(string: self.artistDataStore.similarArtistImages[index])
+        guard
+            let url1 = URL(string: self.artistDataStore.similarArtistImages[0]),
+            let url2 = URL(string: self.artistDataStore.similarArtistImages[1]),
+            let url3 = URL(string: self.artistDataStore.similarArtistImages[2]),
+            let url4 = URL(string: self.artistDataStore.similarArtistImages[3]),
+            let url5 = URL(string: self.artistDataStore.similarArtistImages[4]) else {
+                fatalError("There was an issue unwrapping the image URLs from ArtistInfoVC")
         }
         
         do {
             
-            let data = try Data(contentsOf: url!)
+            let data1 = try Data(contentsOf: url1)
+            let data2 = try Data(contentsOf: url2)
+            let data3 = try Data(contentsOf: url3)
+            let data4 = try Data(contentsOf: url4)
+            let data5 = try Data(contentsOf: url5)
             
-            let similarImage1 = UIImage(data: data)
-            let similarImage2 = UIImage(data: data)
-            let similarImage3 = UIImage(data: data)
-            let similarImage4 = UIImage(data: data)
-            let similarImage5 = UIImage(data: data)
+            let similarImage1 = UIImage(data: data1)
+            let similarImage2 = UIImage(data: data2)
+            let similarImage3 = UIImage(data: data3)
+            let similarImage4 = UIImage(data: data4)
+            let similarImage5 = UIImage(data: data5)
             
             self.similarButton1.setBackgroundImage(similarImage1, for: .normal)
             self.similarButton2.setBackgroundImage(similarImage2, for: .normal)
