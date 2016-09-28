@@ -31,4 +31,18 @@ class ArtistInfo {
             self.artistNames.append(artistsName)
         }
     }
+    
+    class func formatArtistName(selectedArtistName: String) -> String {
+        var formattedArtistName = ""
+        
+        if selectedArtistName.contains("+") {
+            formattedArtistName = selectedArtistName.replacingOccurrences(of: "+", with: "%2B")
+        } else if selectedArtistName.contains("é") {
+            formattedArtistName = selectedArtistName.replacingOccurrences(of: "é", with: "%C3%A9")
+        } else {
+            formattedArtistName = selectedArtistName
+        }
+        
+        return formattedArtistName
+    }
 }

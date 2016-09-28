@@ -13,6 +13,13 @@ class SpotifyAPIClient {
     static let baseURLString = "https://api.spotify.com/v1/"
     static let store = ArtistDataStore.sharedArtistData
     
+    class func getArtistIDWithCompletion(artistName: String, completion: @escaping (String) ->()) {
+        
+        if 
+        
+        let artistURLString = "https://api.spotify.com/v1/search?q=\(artistName)&type=artist"
+    }
+    
     class func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping (NSDictionary) ->() ) {
         
         let urlString = "https://api.spotify.com/v1/artists/\(Secrets.spotifyAPIClientID)/albums?album_type=album"
