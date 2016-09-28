@@ -460,6 +460,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func similarArtistButtonTapped() {
         
         print("Similar artists button tapped!")
+    
+    
+        
+        
+        
+    
     }
     
     func isBioBig() -> Bool {
