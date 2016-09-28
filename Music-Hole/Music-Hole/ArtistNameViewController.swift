@@ -23,6 +23,11 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistDataStore.getArtistNamesWithCompletion {
             self.artistTableView.reloadData()
         }
+        
+        getArtistDiscographyWithCompletion(artistName: "Drake") { 
+            print("called discography function")
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -173,33 +178,30 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistName: artistName) { (rihannasAlbums) in
+        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistName: artistName) { (allArtistAlbums) in
             
-            guard let allAlbums = rihannasAlbums["items"] as? [[String:AnyObject]]            else {
+            guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
+                else {
                     print("could not get list of albums")
-                    return
-            }
+                    return }
             
             for album in allAlbums {
                 guard
                     let albumName = album["name"] as? String,
-                    let albumImages = album["images"] as? [[String:AnyObject]],
-                    let albumImageInfo = albumImages[albumImages.count-1] as? [String:AnyObject],
-                    let albumImageURLString = albumImageInfo["url"] as? String
+                    let albumImages = album["images"] as? [[String:String]],
+                    let albumImageInfo = albumImages[albumImages.count-1] as? [String:String],
+                    let albumImageURLString = albumImageInfo["url"]
                 else {
                     print("could not get specific album info")
                     return
                 }
                 
-                if albumImageURLString != nil {
                     let albumImageURL = URL(string: albumImageURLString)
-                    let albumImageData = Data(contentsOf: albumImageURL!)
-                    let finalAlbumImage = UIImage(data: albumImageData)
-                    
-                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage)
-                    
+                    let albumImageData = try? Data(contentsOf: albumImageURL!)
+                    let finalAlbumImage = UIImage(data: albumImageData!)
+                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
+                    print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
                     self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
-                }
             }
         }
     }
