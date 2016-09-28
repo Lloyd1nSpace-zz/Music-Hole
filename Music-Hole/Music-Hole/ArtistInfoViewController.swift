@@ -143,17 +143,35 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel4)
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel5)
         
-        let similarImage1 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[0])
-        let similarImage2 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[1])
-        let similarImage3 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[2])
-        let similarImage4 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[3])
-        let similarImage5 = UIImage(contentsOfFile: self.artistDataStore.similarArtistImages[4])
         
-        self.similarButton1.setBackgroundImage(similarImage1, for: .normal)
-        self.similarButton2.setBackgroundImage(similarImage2, for: .normal)
-        self.similarButton3.setBackgroundImage(similarImage3, for: .normal)
-        self.similarButton4.setBackgroundImage(similarImage4, for: .normal)
-        self.similarButton5.setBackgroundImage(similarImage5, for: .normal)
+        var url: URL?
+        
+        for (index, _) in self.artistDataStore.similarArtistImages.enumerated() {
+            
+             url = URL(string: self.artistDataStore.similarArtistImages[index])
+        }
+        
+        do {
+            
+            let data = try Data(contentsOf: url!)
+            
+            let similarImage1 = UIImage(data: data)
+            let similarImage2 = UIImage(data: data)
+            let similarImage3 = UIImage(data: data)
+            let similarImage4 = UIImage(data: data)
+            let similarImage5 = UIImage(data: data)
+            
+            self.similarButton1.setBackgroundImage(similarImage1, for: .normal)
+            self.similarButton2.setBackgroundImage(similarImage2, for: .normal)
+            self.similarButton3.setBackgroundImage(similarImage3, for: .normal)
+            self.similarButton4.setBackgroundImage(similarImage4, for: .normal)
+            self.similarButton5.setBackgroundImage(similarImage5, for: .normal)
+            
+            
+        } catch {
+            
+            print("There was an issue unwrapping the Data for the images in ArtistInfoVC")
+        }
         
         self.similarButton1.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton1.backgroundColor = UIColor.green
