@@ -18,7 +18,11 @@ struct SpotifyAPIOAuthClient {
     }
     
     static func spotifyAccessTokenRequest(url: NSURL) {
+        guard let code = url.value(forKey: "code") else { fatalError("Unable to parse url") }
+        print("code: \(code)")
         
+        let combinedString = Secrets.spotifyAPIClientID + ":" + Secrets.spotifyAPISecret
+//        guard let combinedEncodedString = combinedString.base64 else { fatalError("unable to encode string") }
     }
     
 }

@@ -58,4 +58,10 @@ class ArtistDataStore {
             }
         })
     }
+    
+    func getArtistDiscographyWithCompletion(completion: @escaping () -> ()) {
+        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistName: "Drake") { (drakesAlbums) in
+            
+        }
+    }
 }
