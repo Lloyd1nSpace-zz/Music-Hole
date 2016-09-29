@@ -56,6 +56,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
+        
+        self.getArtistDiscographyWithCompletion(artistName: "Drake") {
+            print("called discography function")
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -443,4 +447,35 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             self.view.layoutIfNeeded()
         })
     }
+    
+    func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
+        
+        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistName: artistName) { (allArtistAlbums) in
+            
+            guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
+                else {
+                    print("could not get list of albums")
+                    return }
+            
+            for album in allAlbums {
+                guard
+                    let albumName = album["name"] as? String,
+                    let albumImages = album["images"] as? [[String:String]],
+                    let albumImageInfo = albumImages[albumImages.count-1] as? [String:String],
+                    let albumImageURLString = albumImageInfo["url"]
+                    else {
+                        print("could not get specific album info")
+                        return
+                }
+                
+                let albumImageURL = URL(string: albumImageURLString)
+                let albumImageData = try? Data(contentsOf: albumImageURL!)
+                let finalAlbumImage = UIImage(data: albumImageData!)
+                let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
+                print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
+                self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+            }
+        }
+    }
+
 }

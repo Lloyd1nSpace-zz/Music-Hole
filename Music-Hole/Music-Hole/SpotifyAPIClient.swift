@@ -13,7 +13,9 @@ class SpotifyAPIClient {
     static let baseURLString = "https://api.spotify.com/v1/"
     static let store = ArtistDataStore.sharedArtistData
     
-    class func getArtistIDWithCompletion(artistName: String, completion: @escaping (String) ->()) {
+    class func getArtistID(artistName: String) -> String {
+        
+        var artistID = ""
         
         let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artistName)
         let formattedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
@@ -29,11 +31,21 @@ class SpotifyAPIClient {
             
             if let data = data {
                 if let responseDictionary = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    
-                    
-                    
+
                     if let responseDictionary = responseDictionary {
-                        print("blah")
+                        
+                        guard let
+                            artistSearchResults = responseDictionary["artists"] as? [String: AnyObject],
+                            let spotifyArtistInfo = artistSearchResults["items"] as? [[String:AnyObject]],
+                            let specificSpotifyArtistInfo = spotifyArtistInfo[0] as? [String:AnyObject],
+                            let spotifyArtistID =
+                        else {
+                            print("could not unwrap artist information from search")
+                            return
+                        }
+                        
+                        completion(artistID)
+                        
                     } else {
                         print("There was problem unwrapping the responseDictionary in the API Client.")
                     }
