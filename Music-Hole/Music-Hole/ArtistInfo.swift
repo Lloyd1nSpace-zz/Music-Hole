@@ -10,7 +10,6 @@ import Foundation
 
 class ArtistInfo {
     
-    let artistsDataStore = ArtistDataStore.sharedArtistData
     var artistNames: [String] = []
     var artistBio = ""
     

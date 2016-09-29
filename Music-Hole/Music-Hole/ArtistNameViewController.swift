@@ -55,6 +55,11 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
         
+//        self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) { 
+//            
+//             self.navigationController?.show(destination, sender: "")
+//        }
+        
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
                 let info = artistInfo["artist"] as? NSDictionary,

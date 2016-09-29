@@ -17,5 +17,4 @@ struct Constants {
     static let orangeToYellowColorArray = [UIColor.orange, UIColor.yellow, UIColor.orange]
     static let primaryTextColor = UIColor.black
     static let mainColor = UIColor.black
-    
 }

@@ -34,6 +34,68 @@ class ArtistDataStore {
         }
     }
     
+    func getArtistBioWithCompletion(artistName: String, _ completion: @escaping () -> ()) {
+    
+        self.similarArtistsNames.removeAll()
+        self.similarArtistImages.removeAll()
+        
+        LastFMApiClient.getArtistBioWithCompletion(artistName) { (artistInfo) in
+
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistBio = bio
+            self.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+                    
+                    self.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.similarArtistImages)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func searchArtistsWithCompletion(_ userText: String, completion: @escaping () -> ()) {
         
         LastFMApiClient.searchArtistsWithCompletion(userText, completion:  { (userSearchDictionary) in
