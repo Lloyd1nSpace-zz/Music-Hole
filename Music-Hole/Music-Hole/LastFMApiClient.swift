@@ -40,8 +40,6 @@ class LastFMApiClient: NSObject {
         task.resume()
     }
     
-    
-    
     class func getArtistBioWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.artistBioURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"

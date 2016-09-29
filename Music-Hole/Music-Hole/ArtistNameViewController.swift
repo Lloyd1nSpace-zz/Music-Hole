@@ -49,16 +49,16 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
         let formattedArtistName = self.formatArtistName(selectedArtistName: selectedArtist)
-    
+        
         let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
         
-//        self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) { 
-//            
-//             self.navigationController?.show(destination, sender: "")
-//        }
+        //        self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+        //
+        //             self.navigationController?.show(destination, sender: "")
+        //        }
         
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard

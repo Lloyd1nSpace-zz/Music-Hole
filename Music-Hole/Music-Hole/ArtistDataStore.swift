@@ -35,12 +35,12 @@ class ArtistDataStore {
     }
     
     func getArtistBioWithCompletion(artistName: String, _ completion: @escaping () -> ()) {
-    
+        
         self.similarArtistsNames.removeAll()
         self.similarArtistImages.removeAll()
         
         LastFMApiClient.getArtistBioWithCompletion(artistName) { (artistInfo) in
-
+            
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
                 let bioInfo = info["bio"] as? NSDictionary,

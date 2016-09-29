@@ -168,7 +168,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsLabelsStackView.addArrangedSubview(self.similarArtist3)
         self.similarArtistsLabelsStackView.addArrangedSubview(self.similarArtist4)
         self.similarArtistsLabelsStackView.addArrangedSubview(self.similarArtist5)
-
+        
         self.view.addSubview(self.artistScrollView)
         self.artistScrollView.addSubview(self.contentView)
         
@@ -187,7 +187,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func viewConstraints() {
         
-    //    let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyImageStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsImagesStackView.frame.height
+        //    let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyImageStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsImagesStackView.frame.height
         
         self.artistScrollView.translatesAutoresizingMaskIntoConstraints = false
         self.artistScrollView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
@@ -451,9 +451,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         // Refresh this VC to reflect the info for the similar artist that was selected.
         
-
-        for artist in self.artistDataStore.similarArtistsNames {
         
+        for artist in self.artistDataStore.similarArtistsNames {
+            
             if artist == self.similarArtist1.text || artist == self.similarArtist2.text || artist == self.similarArtist3.text || artist == self.similarArtist4.text || artist == self.similarArtist5.text {
                 
             }
