@@ -22,8 +22,7 @@ class SpotifyAPIClient {
         
         let artistURLString = "https://api.spotify.com/v1/search?q=\(formattedArtistForURL)&type=artist"
         guard let artistURL = URL(string: artistURLString) else {
-            print("could not unwrap artist url string")
-            return
+            return("could not unwrap artist url string")
         }
         
         let session = URLSession.shared
@@ -37,14 +36,14 @@ class SpotifyAPIClient {
                         guard let
                             artistSearchResults = responseDictionary["artists"] as? [String: AnyObject],
                             let spotifyArtistInfo = artistSearchResults["items"] as? [[String:AnyObject]],
-                            let specificSpotifyArtistInfo = spotifyArtistInfo[0] as? [String:AnyObject],
-                            let spotifyArtistID =
+                            let matchSpotifyArtistInfo = spotifyArtistInfo[0] as? [String:AnyObject],
+                            let matchSpotifyArtistID = matchSpotifyArtistInfo["id"] as? String
                         else {
                             print("could not unwrap artist information from search")
                             return
                         }
                         
-                        completion(artistID)
+                        artistID = matchSpotifyArtistID
                         
                     } else {
                         print("There was problem unwrapping the responseDictionary in the API Client.")
@@ -59,11 +58,12 @@ class SpotifyAPIClient {
         
         task.resume()
         
+        return(artistID)
     }
     
-    class func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping (NSDictionary) ->() ) {
+    class func getArtistDiscographyWithCompletion(artistID: String, completion: @escaping (NSDictionary) ->() ) {
         
-        let urlString = "https://api.spotify.com/v1/artists/\(Secrets.spotifyAPIClientID)/albums?album_type=album"
+        let urlString = "https://api.spotify.com/v1/artists/\(artistID)/albums?album_type=album"
         guard let url = URL(string: urlString) else {
             fatalError("There was a problem unwrapping the URL when trying to get the artist discography from Spotify")
         }

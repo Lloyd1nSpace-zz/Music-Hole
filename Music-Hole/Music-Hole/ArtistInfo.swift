@@ -10,7 +10,6 @@ import Foundation
 
 class ArtistInfo {
     
-    let artistsDataStore = ArtistDataStore.sharedArtistData
     var artistNames: [String] = []
     var artistBio = ""
     
@@ -45,4 +44,5 @@ class ArtistInfo {
         
         return formattedArtistName
     }
+
 }
