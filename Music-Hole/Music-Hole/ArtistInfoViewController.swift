@@ -479,6 +479,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     func expandBio() {
         
         self.artistBioTextView.isScrollEnabled = true
+        self.expandButton.setTitle("Collapse", for: .normal)
         
         UIView.animate(withDuration: 0.3, animations: {
             
@@ -490,6 +491,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     func makeBioSmaller() {
         
         self.artistBioTextView.isScrollEnabled = false
+        self.expandButton.setTitle("Expand", for: .normal)
         
         UIView.animate(withDuration: 0.3, animations: {
             
