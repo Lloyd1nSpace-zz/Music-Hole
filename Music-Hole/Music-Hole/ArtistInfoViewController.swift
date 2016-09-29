@@ -99,19 +99,23 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
+        self.discogButton1.setBackgroundImage(#imageLiteral(resourceName: "drake1"), for: .normal)
         
         self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton2.backgroundColor = UIColor.green
+        self.discogButton2.setBackgroundImage(#imageLiteral(resourceName: "drake2"), for: .normal)
         
         self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton3.backgroundColor = UIColor.green
+        self.discogButton3.setBackgroundImage(#imageLiteral(resourceName: "drake3"), for: .normal)
         
         self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton4.backgroundColor = UIColor.green
+        self.discogButton4.setBackgroundImage(#imageLiteral(resourceName: "drake4"), for: .normal)
         
         self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton5.backgroundColor = UIColor.green
-        
+        self.discogButton5.setBackgroundImage(#imageLiteral(resourceName: "drake5.jpg"), for: .normal)
         
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.artistDiscographyImageStackView)
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.discographyLabelsStackView)
@@ -127,6 +131,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.discogLabel3.text = "test"
         self.discogLabel4.text = "test"
         self.discogLabel5.text = "test"
+        
+        self.discogLabel1.textColor = UIColor.white
+        self.discogLabel2.textColor = UIColor.white
+        self.discogLabel3.textColor = UIColor.white
+        self.discogLabel4.textColor = UIColor.white
+        self.discogLabel5.textColor = UIColor.white
         
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel1)
         self.discographyLabelsStackView.addArrangedSubview(self.discogLabel2)
@@ -226,7 +236,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscogImageLabelStackView.translatesAutoresizingMaskIntoConstraints = false
         self.artistDiscogImageLabelStackView.topAnchor.constraint(equalTo: self.discographyLabel.bottomAnchor).isActive = true
         self.artistDiscogImageLabelStackView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.artistDiscogImageLabelStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/4).isActive = true
+        self.artistDiscogImageLabelStackView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/6).isActive = true
         
         self.artistDiscographyImageStackView.translatesAutoresizingMaskIntoConstraints = false
         self.artistDiscographyImageStackView.topAnchor.constraint(equalTo: self.artistDiscogImageLabelStackView.topAnchor).isActive = true
