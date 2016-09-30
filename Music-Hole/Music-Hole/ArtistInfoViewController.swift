@@ -54,8 +54,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
-        self.getArtistDiscographyWithCompletion(artistID: "Drake") {
-            print("called discography function")
+        self.getArtistDiscographyWithCompletion(artistName: "Drake") { 
+            print("CALLED DISCOGRAPHY FUNCTION")
         }
     }
     
@@ -520,6 +520,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
         let artistID = SpotifyAPIClient.getArtistID(artistName: artistName)
+        print("ArtistName: \(artistName)\n ArtistID: \(artistID)")
         
         SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: artistID) { (allArtistAlbums) in
             
