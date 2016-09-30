@@ -13,7 +13,7 @@ class SpotifyAPIClient {
     static let baseURLString = "https://api.spotify.com/v1/"
     static let store = ArtistDataStore.sharedArtistData
     
-    class func getArtistIDWithCompletion(artistName: String, completion: @escaping()->()) -> String {
+    class func getArtistIDWithCompletion(artistName: String, completion: @escaping(String)->()){
         
         var artistID = ""
         
@@ -22,7 +22,8 @@ class SpotifyAPIClient {
         
         let artistURLString = "https://api.spotify.com/v1/search?q=\(formattedArtistForURL)&type=artist"
         guard let artistURL = URL(string: artistURLString) else {
-            return("could not unwrap artist url string")
+            print("could not unwrap artist url string")
+            return
         }
         
         let session = URLSession.shared
@@ -46,7 +47,7 @@ class SpotifyAPIClient {
                         artistID = matchSpotifyArtistID
                         print("ARTIST ID IN API CALL: \(matchSpotifyArtistID) ... ARTISTID: \(artistID)")
                         
-                        completion()
+                        completion(matchSpotifyArtistID)
                         
                     } else {
                         print("There was problem unwrapping the responseDictionary in the API Client.")
@@ -60,8 +61,7 @@ class SpotifyAPIClient {
         })
         
         task.resume()
-        
-        return(artistID)
+        print("artistID outside of NSURLSession: \(artistID)")
     }
     
     class func getArtistDiscographyWithCompletion(artistID: String, completion: @escaping (NSDictionary) ->() ) {

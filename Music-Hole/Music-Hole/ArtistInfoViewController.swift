@@ -54,7 +54,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
-        self.getArtistDiscographyWithCompletion(artistName: "Drake") { 
+        self.getArtistDiscographyWithCompletion(artistName: "Drake") {
             print("CALLED DISCOGRAPHY FUNCTION")
         }
     }
@@ -519,38 +519,40 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-        let artistID = SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { 
-            print("called artistID function")
-        }
-        
-        print("ArtistName: \(artistName)\n ArtistID: \(artistID)")
-        
-        SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: artistID) { (allArtistAlbums) in
+        SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
-            guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
-                else {
-                    print("could not get list of albums")
-                    return }
-            
-            for album in allAlbums {
-                guard
-                    let albumName = album["name"] as? String,
-                    let albumImages = album["images"] as? [[String:String]],
-                    let albumImageInfo = albumImages[albumImages.count-1] as? [String:String],
-                    let albumImageURLString = albumImageInfo["url"]
-                    else {
-                        print("could not get specific album info")
-                        return
-                }
+            SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
                 
-                let albumImageURL = URL(string: albumImageURLString)
-                let albumImageData = try? Data(contentsOf: albumImageURL!)
-                let finalAlbumImage = UIImage(data: albumImageData!)
-                let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
-                print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
-                self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+                print("ArtistName: \(artistName)\n ArtistID: \(ArtistID)")
+                
+                guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
+                    else {
+                        print("could not get list of albums")
+                        return }
+                
+                for album in allAlbums {
+                    guard
+                        let albumName = album["name"] as? String,
+                        let albumImages = album["images"] as? [[String:String]],
+                        let albumImageInfo = albumImages[albumImages.count-1] as? [String:String],
+                        let albumImageURLString = albumImageInfo["url"]
+                        else {
+                            print("could not get specific album info")
+                            return
+                    }
+                    
+                    let albumImageURL = URL(string: albumImageURLString)
+                    let albumImageData = try? Data(contentsOf: albumImageURL!)
+                    let finalAlbumImage = UIImage(data: albumImageData!)
+                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
+                    print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
+                    self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+                }
             }
+            
         }
+        
+        
     }
-
+    
 }
