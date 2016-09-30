@@ -131,8 +131,8 @@
 		6EF963021D9D89450072ADB7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				A489343B1D918F6E00D6B896 /* Album.swift */,
 				A4D11ABC1D9ECDBD0042A410 /* Artist.swift */,
+				A489343B1D918F6E00D6B896 /* Album.swift */,
 				6E3F93171D4CFABD00E1BF6E /* ArtistDataStore.swift */,
 				6E3F93151D4CFAB500E1BF6E /* ArtistInfo.swift */,
 				6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */,

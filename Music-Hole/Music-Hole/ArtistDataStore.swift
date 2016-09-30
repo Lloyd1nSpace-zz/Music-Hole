@@ -18,7 +18,7 @@ class ArtistDataStore {
     var userSearchText = ""
     var similarArtistImages = [String]()
     var similarArtistsNames = [String]()
-    var artistDiscogphraphy = [Album]()
+    var testArtistAndDiscography = [Artist]() //I am testing the use of custom Artist and Album classes here to clean up code and make things more organized :)
     
     func getArtistNamesWithCompletion(_ completion: @escaping () -> ()) {
         

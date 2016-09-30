@@ -15,8 +15,6 @@ class SpotifyAPIClient {
     
     class func getArtistIDWithCompletion(artistName: String, completion: @escaping(String)->()){
         
-        var artistID = ""
-        
         let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artistName)
         let formattedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
@@ -43,10 +41,11 @@ class SpotifyAPIClient {
                             print("could not unwrap artist information from search")
                             return
                         }
+
+                        print("ARTIST ID IN API CALL: \(matchSpotifyArtistID)")
                         
-                        artistID = matchSpotifyArtistID
-                        print("ARTIST ID IN API CALL: \(matchSpotifyArtistID) ... ARTISTID: \(artistID)")
-                        
+                        let artist = Artist(name: artistName, spotifyID: matchSpotifyArtistID)
+                            
                         completion(matchSpotifyArtistID)
                         
                     } else {

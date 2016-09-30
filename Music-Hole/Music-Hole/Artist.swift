@@ -12,7 +12,7 @@ class Artist {
     
     let name : String
     let spotifyID : String
-    let discography : [Album]
+    var discography : [Album] //this is var b/c there can always be more albums to add to this array 
 //    let bio : String?
 //    let similarArtists : String?
     
@@ -20,5 +20,9 @@ class Artist {
         self.name = name
         self.spotifyID = spotifyID
         self.discography = discography
+    }
+    
+    convenience init(name: String, spotifyID: String){
+        self.init(name: name, spotifyID: spotifyID, discography: [Album]())
     }
 }
