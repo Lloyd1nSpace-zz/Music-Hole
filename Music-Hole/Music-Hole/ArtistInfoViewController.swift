@@ -532,25 +532,43 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 
                 for album in allAlbums {
                     print("SPECIFIC ALBUM IN ALBUM RESULTS: \(album)")
+                    print("album name: \(album["name"])")
+                    print("album images: \(album["images"]?.lastObject)")
                     guard
                         let albumName = album["name"] as? String,
-                        let albumImages = album["images"] as? [[String:String]],
-                        let albumImageInfo = albumImages[albumImages.count-1] as? [String:String],
-                        let albumImageURLString = albumImageInfo["url"]
+                        let albumImageInfo = album["images"]?.lastObject as? [String:AnyObject],
+                        let albumImageURLString = albumImageInfo["url"] as? String
                         else {
                             print("could not get specific album info")
                             return
                     }
                     
+                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
+                                        
                     let albumImageURL = URL(string: albumImageURLString)
                     let albumImageData = try? Data(contentsOf: albumImageURL!)
-                    let finalAlbumImage = UIImage(data: albumImageData!)
-                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
-                    print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
-                    // self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+                    let albumImage = UIImage(data: albumImageData!)
+                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    
+                    for artist in self.artistDataStore.testArtistAndDiscography {
+                        print ("(checking to add album for artist \(artist.name))")
+                        if artist.name == artistName {
+                            print("found a match!")
+                            print("\(addArtistAlbum)")
+                            artist.discography!.append(addArtistAlbum)
+                        }
+                    }
+                    
                 }
             } // end discography call
             
+            print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
+            for artist in self.artistDataStore.testArtistAndDiscography {
+                print("artist name: \(artist.name)")
+                print("artist id: \(artist.spotifyID)")
+                print("discography: \(artist.discography!)")
+            }
+            print("***************************************************")
         } // end artist id call
     
     }
