@@ -548,11 +548,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
                     self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
                 }
-            }
+            } // end discography call
             
-        }
-        
-        
+        } // end artist id call
+    
     }
     
 }

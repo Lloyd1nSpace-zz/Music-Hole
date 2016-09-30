@@ -10,9 +10,10 @@ import Foundation
 
 class Album {
     
+    let albumArtist : String //not sure if we need this if this is required in API parameter
     let albumName : String
     let albumImage : UIImage
-    let albumArtist : String //not sure if we need this if this is required in API parameter
+    
     
     init(albumArtist: String, albumName: String, albumImage: UIImage) {
         self.albumArtist = albumArtist
