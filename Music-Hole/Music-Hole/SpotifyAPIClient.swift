@@ -13,7 +13,7 @@ class SpotifyAPIClient {
     static let baseURLString = "https://api.spotify.com/v1/"
     static let store = ArtistDataStore.sharedArtistData
     
-    class func getArtistID(artistName: String) -> String {
+    class func getArtistIDWithCompletion(artistName: String, completion: @escaping()->()) -> String {
         
         var artistID = ""
         
@@ -44,6 +44,9 @@ class SpotifyAPIClient {
                         }
                         
                         artistID = matchSpotifyArtistID
+                        print("ARTIST ID IN API CALL: \(matchSpotifyArtistID) ... ARTISTID: \(artistID)")
+                        
+                        completion()
                         
                     } else {
                         print("There was problem unwrapping the responseDictionary in the API Client.")

@@ -519,7 +519,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-        let artistID = SpotifyAPIClient.getArtistID(artistName: artistName)
+        let artistID = SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { 
+            print("called artistID function")
+        }
+        
         print("ArtistName: \(artistName)\n ArtistID: \(artistID)")
         
         SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: artistID) { (allArtistAlbums) in
