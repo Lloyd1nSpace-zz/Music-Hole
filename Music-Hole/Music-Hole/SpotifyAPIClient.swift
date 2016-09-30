@@ -45,6 +45,7 @@ class SpotifyAPIClient {
                         print("ARTIST ID IN API CALL: \(matchSpotifyArtistID)")
                         
                         let artist = Artist(name: artistName, spotifyID: matchSpotifyArtistID)
+                        self.store.testArtistAndDiscography.append(artist)
                             
                         completion(matchSpotifyArtistID)
                         
@@ -60,7 +61,6 @@ class SpotifyAPIClient {
         })
         
         task.resume()
-        print("artistID outside of NSURLSession: \(artistID)")
     }
     
     class func getArtistDiscographyWithCompletion(artistID: String, completion: @escaping (NSDictionary) ->() ) {

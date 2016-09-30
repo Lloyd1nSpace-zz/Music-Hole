@@ -523,7 +523,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
                 
-                print("ArtistName: \(artistName)\n ArtistID: \(ArtistID)")
+                print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
                 
                 guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
                     else {
@@ -531,6 +531,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                         return }
                 
                 for album in allAlbums {
+                    print("SPECIFIC ALBUM IN ALBUM RESULTS: \(album)")
                     guard
                         let albumName = album["name"] as? String,
                         let albumImages = album["images"] as? [[String:String]],
@@ -546,7 +547,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     let finalAlbumImage = UIImage(data: albumImageData!)
                     let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: finalAlbumImage!)
                     print("ADDED ALBUM: \(addArtistAlbum.albumName) FOR \(addArtistAlbum.albumArtist)")
-                    self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
+                    // self.artistDataStore.artistDiscogphraphy.append(addArtistAlbum)
                 }
             } // end discography call
             
