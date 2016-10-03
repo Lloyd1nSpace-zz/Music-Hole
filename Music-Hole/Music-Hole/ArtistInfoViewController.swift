@@ -523,15 +523,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-        var duplicateAlbum : Bool = false
+//        var duplicateAlbum : Bool = false
+        
+        var listOfAlbums = [Album]()
+        var listOfAlbumNames = [String]()
+        
+        
         //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
             SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
                 
                 print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
-                
-                var listOfAlbums = [Album]()
                 
                 guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
                     else {
@@ -551,28 +554,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                             return
                     }
                     
-//                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
-                    
                     let albumImageURL = URL(string: albumImageURLString)
                     let albumImageData = try? Data(contentsOf: albumImageURL!)
                     let albumImage = UIImage(data: albumImageData!)
-                    var addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    let addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
-                    if listOfAlbums.count > 0 {
-                        print("current album count: \(listOfAlbums.count)")
-                        for album in listOfAlbums {
-                            if album.albumName == addArtistAlbum.albumName {
-                                duplicateAlbum = true
-                                print("found duplicate")
-                                break
-                            }
-                        }
-                        
-                        if duplicateAlbum == false {
-                            listOfAlbums.append(addArtistAlbum)
-                            print("added album! \(addArtistAlbum.albumName)")
-                        }
-                    } else {
+                    // listOfAlbums.append(addArtistAlbum)
+                    let checkDuplicateAlbumName = addArtistAlbum.albumName
+                    if !listOfAlbumNames.contains(checkDuplicateAlbumName) {
+                        listOfAlbumNames.append(checkDuplicateAlbumName)
                         listOfAlbums.append(addArtistAlbum)
                     }
                 }
