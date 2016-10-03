@@ -437,8 +437,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func expandButtonTapped() {
         
-        print("Expand button tapped!")
-        
         if self.isBioBig() {
             
             self.makeBioSmaller()
