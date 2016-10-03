@@ -12,6 +12,8 @@ import UIKit
 class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
+    var selectedArtist = String()
+    
     var artistScrollView = UIScrollView()
     var contentView = UIView()
     var artistBioTextView = UITextView()
@@ -53,6 +55,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
+        
+        print("selected artist: \(selectedArtist)")
+        
+        self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
+            print("CALLED DISCOGRAPHY FUNCTION")
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -466,7 +474,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 
             }
             
-            let formattedArtistName = ArtistNameViewController().formatArtistName(selectedArtistName: artist)
+            let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artist)
             
             let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
             
@@ -512,4 +520,70 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             self.view.layoutIfNeeded()
         })
     }
+    
+    func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
+        
+        //need to get artistID before getting their discography info
+        SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
+            
+            SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
+                
+                print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
+                
+                var listOfAlbums = [Album]()
+                
+                guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
+                    else {
+                        print("could not get list of albums")
+                        return }
+                
+                for album in allAlbums {
+                    print("SPECIFIC ALBUM IN ALBUM RESULTS: \(album)")
+                    print("album name: \(album["name"])")
+                    print("album images: \(album["images"]?.lastObject)")
+                    guard
+                        let albumName = album["name"] as? String,
+                        let albumImageInfo = album["images"]?.lastObject as? [String:AnyObject],
+                        let albumImageURLString = albumImageInfo["url"] as? String
+                        else {
+                            print("could not get specific album info")
+                            return
+                    }
+                    
+                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
+                                        
+                    let albumImageURL = URL(string: albumImageURLString)
+                    let albumImageData = try? Data(contentsOf: albumImageURL!)
+                    let albumImage = UIImage(data: albumImageData!)
+                    var addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    
+                    listOfAlbums.append(addArtistAlbum)
+                }
+                
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print ("(checking to add album for artist \(artist.name))")
+                    print("number of albums to add: \(listOfAlbums.count)")
+                    if artist.name == artistName {
+                        print("found a match! \(artistName) == \(artist.name)")
+                        print("current artist info: \(artist.discography?.count)")
+                        artist.discography!.append(contentsOf: listOfAlbums)
+                        print("after adding album: \(artist.discography?.count)")
+                    }
+                }
+                
+                print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print("artist name: \(artist.name)")
+                    print("artist id: \(artist.spotifyID)")
+                    for album in artist.discography! {
+                        print("\(album.albumName)")
+                    }
+                }
+                print("***************************************************")
+
+            } // end discography call
+        } // end artist id call
+    
+    }
+    
 }

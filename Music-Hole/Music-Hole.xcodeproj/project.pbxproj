@@ -28,6 +28,7 @@
 		A4C43C151D904D0D004D5D2B /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C43C141D904D0D004D5D2B /* Spotify.framework */; };
 		A4C43C171D904E7B004D5D2B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C43C161D904E7B004D5D2B /* AVFoundation.framework */; };
 		A4C43C191D904E89004D5D2B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4C43C181D904E89004D5D2B /* SystemConfiguration.framework */; };
+		A4D11ABD1D9ECDBD0042A410 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D11ABC1D9ECDBD0042A410 /* Artist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +61,7 @@
 		A4C43C161D904E7B004D5D2B /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		A4C43C181D904E89004D5D2B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A4C43C1A1D904F87004D5D2B /* Music-Hole-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Music-Hole-Bridging-Header.h"; sourceTree = "<group>"; };
+		A4D11ABC1D9ECDBD0042A410 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		E08546A200501CFB8D8B5051 /* Pods-Music-HoleUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleUITests/Pods-Music-HoleUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		EDA7BCDDFF370642FBA86050 /* Pods-Music-Hole.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-Hole.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Music-Hole/Pods-Music-Hole.debug.xcconfig"; sourceTree = "<group>"; };
 		F40D028D0D446D5902BBF9E0 /* Pods_Music_Hole.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Music_Hole.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +131,7 @@
 		6EF963021D9D89450072ADB7 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A4D11ABC1D9ECDBD0042A410 /* Artist.swift */,
 				A489343B1D918F6E00D6B896 /* Album.swift */,
 				6E3F93171D4CFABD00E1BF6E /* ArtistDataStore.swift */,
 				6E3F93151D4CFAB500E1BF6E /* ArtistInfo.swift */,
@@ -144,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				6E3F92E11D4CF93400E1BF6E /* AppDelegate.swift */,
-				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E3F930F1D4CF9B100E1BF6E /* ArtistNameViewController.swift */,
+				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */,
 				6E39F2F71D60EF1E0021CB5C /* SearchViewController.swift */,
 			);
@@ -301,6 +304,7 @@
 				6E3F92E21D4CF93400E1BF6E /* AppDelegate.swift in Sources */,
 				6E39F2F81D60EF1E0021CB5C /* SearchViewController.swift in Sources */,
 				6E3F93181D4CFABD00E1BF6E /* ArtistDataStore.swift in Sources */,
+				A4D11ABD1D9ECDBD0042A410 /* Artist.swift in Sources */,
 				A489343A1D9189BA00D6B896 /* SpotifyAPIOAuthClient.swift in Sources */,
 				6E3F93101D4CF9B100E1BF6E /* ArtistNameViewController.swift in Sources */,
 				A489343C1D918F6E00D6B896 /* Album.swift in Sources */,
