@@ -519,6 +519,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
+        //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
             SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
@@ -553,9 +554,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     for artist in self.artistDataStore.testArtistAndDiscography {
                         print ("(checking to add album for artist \(artist.name))")
                         if artist.name == artistName {
-                            print("found a match!")
+                            print("found a match! \(artistName) == \(artist.name)")
                             print("\(addArtistAlbum)")
+                            print("current artist info: \(artist)")
                             artist.discography!.append(addArtistAlbum)
+                            print("after adding album: \(artist)")
                         }
                     }
                     
