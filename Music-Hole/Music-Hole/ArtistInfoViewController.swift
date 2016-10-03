@@ -523,6 +523,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
+        var duplicateAlbum : Bool = false
         //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
@@ -550,15 +551,30 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                             return
                     }
                     
-                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
-                                        
+//                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
+                    
                     let albumImageURL = URL(string: albumImageURLString)
                     let albumImageData = try? Data(contentsOf: albumImageURL!)
                     let albumImage = UIImage(data: albumImageData!)
-                    var addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    var addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
-                    listOfAlbums.append(addArtistAlbum)
-                    
+                    if listOfAlbums.count > 0 {
+                        print("current album count: \(listOfAlbums.count)")
+                        for album in listOfAlbums {
+                            if album.albumName == addArtistAlbum.albumName {
+                                duplicateAlbum = true
+                                print("found duplicate")
+                                break
+                            }
+                        }
+                        
+                        if duplicateAlbum == false {
+                            listOfAlbums.append(addArtistAlbum)
+                            print("added album! \(addArtistAlbum.albumName)")
+                        }
+                    } else {
+                        listOfAlbums.append(addArtistAlbum)
+                    }
                 }
                 
                 
