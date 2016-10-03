@@ -523,14 +523,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
+//        var duplicateAlbum : Bool = false
+        
+        var listOfAlbums = [Album]()
+        var listOfAlbumNames = [String]()
+        
+        
         //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
             SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
                 
                 print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
-                
-                var listOfAlbums = [Album]()
                 
                 guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
                     else {
@@ -550,18 +554,22 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                             return
                     }
                     
-                    print("ALBUM NAME: \(albumName) \nALBUMIMAGE: \(albumImageInfo) \nALBUMURL: \(albumImageURLString)")
-                                        
                     let albumImageURL = URL(string: albumImageURLString)
                     let albumImageData = try? Data(contentsOf: albumImageURL!)
                     let albumImage = UIImage(data: albumImageData!)
-                    var addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    let addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
-                    listOfAlbums.append(addArtistAlbum)
+                    
+                    let checkDuplicateAlbumName = addArtistAlbum.albumName
+                    if !listOfAlbumNames.contains(checkDuplicateAlbumName) {
+                        listOfAlbumNames.append(checkDuplicateAlbumName)
+                        listOfAlbums.append(addArtistAlbum)
+                    }
                 }
                 
+                
                 for artist in self.artistDataStore.testArtistAndDiscography {
-                    print ("(checking to add album for artist \(artist.name))")
+                    print ("checking to add album for artist \(artist.name)")
                     print("number of albums to add: \(listOfAlbums.count)")
                     if artist.name == artistName {
                         print("found a match! \(artistName) == \(artist.name)")
@@ -583,7 +591,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
 
             } // end discography call
         } // end artist id call
-    
     }
     
 }
