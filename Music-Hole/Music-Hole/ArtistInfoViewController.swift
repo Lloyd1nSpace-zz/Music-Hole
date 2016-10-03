@@ -558,10 +558,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     var addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
                     listOfAlbums.append(addArtistAlbum)
+                    
                 }
                 
+                
                 for artist in self.artistDataStore.testArtistAndDiscography {
-                    print ("(checking to add album for artist \(artist.name))")
+                    print ("checking to add album for artist \(artist.name)")
                     print("number of albums to add: \(listOfAlbums.count)")
                     if artist.name == artistName {
                         print("found a match! \(artistName) == \(artist.name)")

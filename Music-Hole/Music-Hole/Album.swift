@@ -8,11 +8,13 @@
 
 import Foundation
 
-class Album {
+class Album: Hashable, Equatable {
     
     let albumArtist : String //not sure if we need this if this is required in API parameter
     let albumName : String
     let albumImage : UIImage
+    
+    var hashValue: Int { get { return albumName.hashValue } }
     
     
     init(albumArtist: String, albumName: String, albumImage: UIImage) {
@@ -22,7 +24,6 @@ class Album {
     }
 }
 
-extension Album: Equatable {}
-    func ==(lhs: Album, rhs: Album) -> Bool {
-        return lhs.albumName == rhs.albumName
-    }
+func ==(lhs: Album, rhs: Album) -> Bool {
+    return lhs.albumName == rhs.albumName
+}
