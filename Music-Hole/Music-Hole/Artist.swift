@@ -16,7 +16,7 @@ class Artist {
 //    let bio : String?
 //    let similarArtists : String?
     
-    init(name: String, spotifyID: String, discography: [Album]?) {
+    init(name: String, spotifyID: String, discography: [Album]) {
         self.name = name
         self.spotifyID = spotifyID
         self.discography = discography

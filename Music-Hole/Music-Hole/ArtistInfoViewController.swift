@@ -526,6 +526,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 
                 print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
                 
+                var listOfAlbums = [Album]()
+                
                 guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
                     else {
                         print("could not get list of albums")
@@ -549,29 +551,33 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     let albumImageURL = URL(string: albumImageURLString)
                     let albumImageData = try? Data(contentsOf: albumImageURL!)
                     let albumImage = UIImage(data: albumImageData!)
-                    let addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    var addArtistAlbum = Album.init(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
-                    for artist in self.artistDataStore.testArtistAndDiscography {
-                        print ("(checking to add album for artist \(artist.name))")
-                        if artist.name == artistName {
-                            print("found a match! \(artistName) == \(artist.name)")
-                            print("\(addArtistAlbum)")
-                            print("current artist info: \(artist)")
-                            artist.discography!.append(addArtistAlbum)
-                            print("after adding album: \(artist)")
-                        }
-                    }
-                    
+                    listOfAlbums.append(addArtistAlbum)
                 }
+                
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print ("(checking to add album for artist \(artist.name))")
+                    print("number of albums to add: \(listOfAlbums.count)")
+                    if artist.name == artistName {
+                        print("found a match! \(artistName) == \(artist.name)")
+                        print("current artist info: \(artist.discography?.count)")
+                        artist.discography!.append(contentsOf: listOfAlbums)
+                        print("after adding album: \(artist.discography?.count)")
+                    }
+                }
+                
+                print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print("artist name: \(artist.name)")
+                    print("artist id: \(artist.spotifyID)")
+                    for album in artist.discography! {
+                        print("\(album.albumName)")
+                    }
+                }
+                print("***************************************************")
+
             } // end discography call
-            
-            print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
-            for artist in self.artistDataStore.testArtistAndDiscography {
-                print("artist name: \(artist.name)")
-                print("artist id: \(artist.spotifyID)")
-                print("discography: \(artist.discography!)")
-            }
-            print("***************************************************")
         } // end artist id call
     
     }
