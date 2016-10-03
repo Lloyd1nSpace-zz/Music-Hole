@@ -20,5 +20,9 @@ class Album {
         self.albumName = albumName
         self.albumImage = albumImage
     }
-    
 }
+
+extension Album: Equatable {}
+    func ==(lhs: Album, rhs: Album) -> Bool {
+        return lhs.albumName == rhs.albumName
+    }
