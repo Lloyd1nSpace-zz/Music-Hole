@@ -56,10 +56,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
-        print("selected artist: \(selectedArtist)")
-        
         self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
-            print("CALLED DISCOGRAPHY FUNCTION")
+            print("CALLED DISCOGRAPHY FUNCTION FOR \(self.selectedArtist)")
         }
     }
     
@@ -441,6 +439,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.similarButton5.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
         self.similarButton5.backgroundColor = UIColor.green
+    }
+    
+    func displayDiscographyImagesSetup(artist: Artist) {
+        let artistDiscography = artist.discography
+        
     }
     
     @IBAction func expandButtonTapped() {
