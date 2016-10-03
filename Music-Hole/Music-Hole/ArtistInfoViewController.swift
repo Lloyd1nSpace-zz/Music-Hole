@@ -559,7 +559,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     let albumImage = UIImage(data: albumImageData!)
                     let addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
                     
-                    // listOfAlbums.append(addArtistAlbum)
+                    
                     let checkDuplicateAlbumName = addArtistAlbum.albumName
                     if !listOfAlbumNames.contains(checkDuplicateAlbumName) {
                         listOfAlbumNames.append(checkDuplicateAlbumName)
@@ -591,7 +591,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
 
             } // end discography call
         } // end artist id call
-    
     }
     
 }
