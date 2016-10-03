@@ -147,8 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				6E3F92E11D4CF93400E1BF6E /* AppDelegate.swift */,
-				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E3F930F1D4CF9B100E1BF6E /* ArtistNameViewController.swift */,
+				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */,
 				6E39F2F71D60EF1E0021CB5C /* SearchViewController.swift */,
 			);

@@ -12,6 +12,8 @@ import UIKit
 class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
+    var selectedArtist = String()
+    
     var artistScrollView = UIScrollView()
     var contentView = UIView()
     var artistBioTextView = UITextView()
@@ -54,7 +56,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
-        self.getArtistDiscographyWithCompletion(artistName: "Drake") {
+        print("selected artist: \(selectedArtist)")
+        
+        self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
             print("CALLED DISCOGRAPHY FUNCTION")
         }
     }

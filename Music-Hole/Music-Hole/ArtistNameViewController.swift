@@ -49,6 +49,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
+        destination.selectedArtist = selectedArtist
 
         let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: selectedArtist)
 
