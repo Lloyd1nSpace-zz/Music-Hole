@@ -22,6 +22,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var bioLabel = UILabel()
     var expandButton = UIButton()
     var discographyLabel = UILabel()
+    var seeAllDiscogButton = UIButton()
     var artistDiscogImageLabelStackView = UIStackView()
     var artistDiscographyImageStackView = UIStackView()
     var discogButton1 = UIButton()
@@ -104,6 +105,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discographyLabel.text = "Discography"
         self.similarArtistsLabel.text = "Similar Artists"
+        
+        self.seeAllDiscogButton.setTitle("See all", for: .normal)
+        self.seeAllDiscogButton.setTitleColor(UIColor.black, for: .normal)
+        self.seeAllDiscogButton.addTarget(self, action: #selector(self.seeAllDiscogButtonTapped), for: .touchUpInside)
+        self.seeAllDiscogButton.backgroundColor = UIColor.red
+        self.seeAllDiscogButton.layer.cornerRadius = 7
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
@@ -195,9 +202,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistBioTextView)
         self.contentView.addSubview(self.expandButton)
         self.contentView.addSubview(self.discographyLabel)
-        //self.contentView.addSubview(self.artistDiscographyStackView)
-        self.contentView.addSubview(self.similarArtistsLabel)
+        self.contentView.addSubview(self.seeAllDiscogButton)
         self.contentView.addSubview(self.artistDiscogImageLabelStackView)
+        self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistImageLabelStackView)
         
         self.setUpSegues()
@@ -245,12 +252,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
-        self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
+        self.expandButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 150).isActive = true
         
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
+        self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor, constant: 20).isActive = true
         self.discographyLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2).isActive = true
         self.discographyLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
+        
+        self.seeAllDiscogButton.translatesAutoresizingMaskIntoConstraints = false
+        self.seeAllDiscogButton.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor, constant: 20).isActive = true
+        self.seeAllDiscogButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 150).isActive = true
+        self.seeAllDiscogButton.widthAnchor.constraint(equalTo: self.expandButton.widthAnchor).isActive = true
+        self.seeAllDiscogButton.heightAnchor.constraint(equalTo: self.expandButton.heightAnchor).isActive = true
         
         self.artistDiscogImageLabelStackView.translatesAutoresizingMaskIntoConstraints = false
         self.artistDiscogImageLabelStackView.topAnchor.constraint(equalTo: self.discographyLabel.bottomAnchor).isActive = true
@@ -464,6 +477,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             self.expandBio()
         }
+    }
+    
+    @IBAction func seeAllDiscogButtonTapped() {
+        
+        print("See all Discography button tapped!")
     }
     
     @IBAction func discogButtonTapped() {
