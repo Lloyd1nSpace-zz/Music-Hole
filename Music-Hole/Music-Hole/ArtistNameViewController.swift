@@ -11,8 +11,8 @@ import UIKit
 
 class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var artistTableView: UITableView!
     let artistDataStore = ArtistDataStore.sharedArtistData
-    var artistTableView = UITableView()
     let searchBar = SearchViewController().searchBar
     
     override func viewDidLoad() {
@@ -50,18 +50,13 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let destination = ArtistInfoViewController()
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
         destination.selectedArtist = selectedArtist
-
+        
         let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: selectedArtist)
-
+        
         let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
-        
-        //        self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
-        //
-        //             self.navigationController?.show(destination, sender: "")
-        //        }
         
         LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
             guard
@@ -150,15 +145,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistTableView.accessibilityLabel = "tableView"
         self.artistTableView.accessibilityIdentifier = "tableView"
         self.artistTableView.backgroundColor = Constants.mainColor
-        self.artistTableView.register(UITableViewCell.self, forCellReuseIdentifier: "artistName")
-        
-        self.view.addSubview(self.artistTableView)
-        
-        self.artistTableView.translatesAutoresizingMaskIntoConstraints = false
-        self.artistTableView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-        self.artistTableView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
-        self.artistTableView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
-        self.artistTableView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
         
         self.searchButtonSetup()
     }

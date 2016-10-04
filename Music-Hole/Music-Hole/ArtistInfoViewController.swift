@@ -470,10 +470,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         for artist in self.artistDataStore.similarArtistsNames {
             
-            if artist == self.similarArtist1.text || artist == self.similarArtist2.text || artist == self.similarArtist3.text || artist == self.similarArtist4.text || artist == self.similarArtist5.text {
-                
-            }
-            
             let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artist)
             
             let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
