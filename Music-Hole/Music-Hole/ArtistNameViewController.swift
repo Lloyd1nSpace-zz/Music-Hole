@@ -14,7 +14,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var artistTableView: UITableView!
     let artistDataStore = ArtistDataStore.sharedArtistData
     let searchBar = SearchViewController().searchBar
-    //  var selectedArtist = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,13 +117,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.artistTableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
-        
-    }
-    
     
     func searchButtonSetup() {
         

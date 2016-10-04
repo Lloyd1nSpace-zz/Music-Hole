@@ -200,7 +200,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistDiscogImageLabelStackView)
         self.contentView.addSubview(self.similarArtistImageLabelStackView)
         
+        self.setUpSegues()
+        
         self.viewConstraints()
+    }
+    
+    func setUpSegues() {
+        
+        self.shouldPerformSegue(withIdentifier: "similarArtist1", sender: self)
+        self.shouldPerformSegue(withIdentifier: "similarArtist2", sender: self)
+        self.shouldPerformSegue(withIdentifier: "similarArtist3", sender: self)
+        self.shouldPerformSegue(withIdentifier: "similarArtist4", sender: self)
+        self.shouldPerformSegue(withIdentifier: "similarArtist5", sender: self)
     }
     
     func viewConstraints() {
@@ -465,19 +476,85 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         print("Similar artists button tapped!")
         
+        let destination = SimilarArtistViewController()
+        self.navigationController?.show(destination, sender: self)
+        
         // Refresh this VC to reflect the info for the similar artist that was selected.
         
+        //        for artist in self.artistDataStore.similarArtistsNames {
+        //
+        //            let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artist)
+        //            let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
+        //
+        //            self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+        //
+        //                self.navigationController?.show(destination, sender: self)
+        //            }
+        //        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        for artist in self.artistDataStore.similarArtistsNames {
-            
-            let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artist)
-            
-            let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-            
-            self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+        if segue.identifier == "similarArtist1" {
+            if let destination = segue.destination as? SimilarArtistViewController {
                 
-                self.view.reloadInputViews()
+                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist1.text!)
+                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
+                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                    
+                    self.navigationController?.show(destination, sender: self)
+                }
+                
+                destination.artistImage = UIImageView(image: self.artistDataStore.artistImage)
+                destination.artistBioTextView.text = self.artistDataStore.artistBio
+            }
+        } else if segue.identifier == "similarArtist2" {
+            
+            if let destination = segue.destination as? SimilarArtistViewController {
+                
+                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist2.text!)
+                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
+                
+                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                    
+                }
+            }
+            
+        } else if segue.identifier == "similarArtist3" {
+            
+            if let destination = segue.destination as? SimilarArtistViewController {
+                
+                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist3.text!)
+                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
+                
+                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                    
+                }
+            }
+            
+        } else if segue.identifier == "similarArtist4" {
+            
+            if let destination = segue.destination as? SimilarArtistViewController {
+                
+                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist4.text!)
+                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
+                
+                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                    
+                }
+            }
+            
+        } else if segue.identifier == "similarArtist5" {
+            
+            if let destination = segue.destination as? SimilarArtistViewController {
+                
+                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist5.text!)
+                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
+                
+                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                    
+                }
             }
         }
     }
@@ -519,7 +596,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-//        var duplicateAlbum : Bool = false
+        //        var duplicateAlbum : Bool = false
         
         var listOfAlbums = [Album]()
         var listOfAlbumNames = [String]()
@@ -584,7 +661,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     }
                 }
                 print("***************************************************")
-
+                
             } // end discography call
         } // end artist id call
     }
