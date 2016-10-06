@@ -58,6 +58,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
             print("CALLED DISCOGRAPHY FUNCTION FOR \(self.selectedArtist)")
             
@@ -69,7 +72,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             print("populating \(self.artist) images")
             self.artistDiscographyImages(discographyForArtist: self.artist)
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
