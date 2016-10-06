@@ -66,6 +66,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                     self.artist = testArtist
                 }
             }
+            print("populating \(self.artist) images")
+            self.artistDiscographyImages(discographyForArtist: self.artist)
         }
         
     }
@@ -683,27 +685,31 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 }
                 print("***************************************************")
                 
+                completion()
             } // end discography call
+            completion()
         } // end artist id call
     }
     
     func artistDiscographyImages(discographyForArtist: Artist) {
         
+        print("INSIDE FUNCTION -- obtaining discography images for \(discographyForArtist)")
+        
         guard let artistDiscography = discographyForArtist.discography else {
             print("could not unwrap artist discography to populate images")
             return
         }
-        
         var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
         var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
+        
         
         var artistDiscographyInfoDisplay = [(UILabel, UIButton)]()
         for (index, label) in discographyTextLabels.enumerated() {
             artistDiscographyInfoDisplay.append((label, discographyButtons[index]))
         }
         
+        
         for (index, album) in artistDiscography.enumerated() {
-            
             var currentLabel = UILabel()
             var currentButton = UIButton()
             
@@ -715,10 +721,17 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 currentButton.setBackgroundImage(album.albumImage, for: .normal)
                 artistDiscographyInfoDisplay[index] = (currentLabel, currentButton)
             } else {
-                return
+                currentButton = discographyButtons[index]
+                currentButton.backgroundColor = UIColor.clear
+                break
             }
-            
         }
+        
+        print("***** CHECKING DISCOG INFO *****")
+        for info in artistDiscographyInfoDisplay {
+            print("album name: \(info.0.text), album image: \(info.1.description)")
+        }
+        
     }
     
 }
