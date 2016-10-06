@@ -13,6 +13,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var selectedArtist = String()
+    var artist = Artist(name: "", spotifyID: "")
     
     var artistScrollView = UIScrollView()
     var contentView = UIView()
@@ -59,7 +60,14 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
             print("CALLED DISCOGRAPHY FUNCTION FOR \(self.selectedArtist)")
+            
+            for testArtist in self.artistDataStore.testArtistAndDiscography {
+                if testArtist.name == self.selectedArtist {
+                    self.artist = testArtist
+                }
+            }
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,23 +120,23 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
-        self.discogButton1.setBackgroundImage(#imageLiteral(resourceName: "drake1"), for: .normal)
+        self.discogButton1.setBackgroundImage(artist.discography![0].albumImage, for: .normal)
         
         self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton2.backgroundColor = UIColor.green
-        self.discogButton2.setBackgroundImage(#imageLiteral(resourceName: "drake2"), for: .normal)
+        self.discogButton2.setBackgroundImage(artist.discography![1].albumImage, for: .normal)
         
         self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton3.backgroundColor = UIColor.green
-        self.discogButton3.setBackgroundImage(#imageLiteral(resourceName: "drake3"), for: .normal)
+        self.discogButton3.setBackgroundImage(artist.discography![2].albumImage, for: .normal)
         
         self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton4.backgroundColor = UIColor.green
-        self.discogButton4.setBackgroundImage(#imageLiteral(resourceName: "drake4"), for: .normal)
+        self.discogButton4.setBackgroundImage(artist.discography![3].albumImage, for: .normal)
         
         self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton5.backgroundColor = UIColor.green
-        self.discogButton5.setBackgroundImage(#imageLiteral(resourceName: "drake5.jpg"), for: .normal)
+        self.discogButton5.setBackgroundImage(artist.discography![4].albumImage, for: .normal)
         
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.artistDiscographyImageStackView)
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.discographyLabelsStackView)
@@ -617,12 +625,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
         
-        //        var duplicateAlbum : Bool = false
-        
         var listOfAlbums = [Album]()
         var listOfAlbumNames = [String]()
         
-        
+    
         //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             
@@ -685,6 +691,21 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 
             } // end discography call
         } // end artist id call
+    }
+    
+    func artistDiscographyImages(discographyForArtist: Artist) {
+        var artistDiscographyImages = [UIImage]()
+        var discographyLabels = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
+        
+        if let artistDiscography = discographyForArtist.discography {
+            for album in artistDiscography {
+                artistDiscographyImages.append(album.albumImage)
+            }
+        }
+        
+        //compare lengths of both arrays 
+        //fill in empty ones with blank transparent images 
+        
     }
     
 }
