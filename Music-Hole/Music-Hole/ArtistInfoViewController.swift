@@ -689,20 +689,22 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     
     func artistDiscographyImages(discographyForArtist: Artist) {
         
-        var artistDiscographyImages = [UIImage]()
-        var artistDiscographyDictionary = [String:UIImage]()
-        
-        var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
-        var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
-        
         guard let artistDiscography = discographyForArtist.discography else {
             print("could not unwrap artist discography to populate images")
             return
         }
+        var artistDiscographyImages = [UIImage]()
+        
+        var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
+        var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
+        
+        var discographyDictionary = [UILabel : UIButton]()
+        for i in 0...discographyTextLabels.count {
+            discographyDictionary[discographyTextLabels[i]] = discographyButtons[i]
+        }
         
         for album in artistDiscography {
-            // artistDiscographyImages.append(album.albumImage)
-            artistDiscographyDictionary[album.albumName] = album.albumImage
+            artistDiscographyImages.append(album.albumImage)
         }
         
         for (index, discographyButton) in discographyButtons.enumerated() {
@@ -710,8 +712,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 discographyTextLabels[index].text = ""
                 discographyButton.backgroundColor = UIColor.clear
             } else {
-                discographyButton.setBackgroundImage(artistDiscographyImages[index], for: .normal)
-                discographyTextLabels[index].text =
+                let albumImage = artistDiscographyImages[index]
+                discographyButton.setBackgroundImage(albumImage, for: .normal)
+                discographyTextLabels[index].text = ""
             }
         }
         
