@@ -9,7 +9,7 @@
 import UIKit
 //import ChameleonFramework
 
-class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
+class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
     
     let artistDataStore = ArtistDataStore.sharedArtistData
     var selectedArtist = String()
@@ -22,7 +22,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     var bioLabel = UILabel()
     var expandButton = UIButton()
     var discographyLabel = UILabel()
-    var seeAllDiscogButton = UIButton()
     var artistDiscogImageLabelStackView = UIStackView()
     var artistDiscographyImageStackView = UIStackView()
     var discogButton1 = UIButton()
@@ -57,8 +56,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
         
+        print("selected artist: \(selectedArtist)")
+        
         self.getArtistDiscographyWithCompletion(artistName: selectedArtist) {
-            print("CALLED DISCOGRAPHY FUNCTION FOR \(self.selectedArtist)")
+            print("CALLED DISCOGRAPHY FUNCTION")
         }
     }
     
@@ -80,7 +81,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.gray
-        self.artistImage.image = self.artistDataStore.artistImage
+        // self.artistImage.image = self.artistDataStore.artistImage
         //   self.testImage.image = UIImage(named: "drake")
         
         self.bioLabel.text = "Bio"
@@ -89,7 +90,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
         // self.artistBioTextView.backgroundColor = gradientColorScheme
         self.artistBioTextView.backgroundColor = UIColor.yellow
-        self.artistBioTextView.text = self.artistDataStore.artistBio
+        //  self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
         self.view.backgroundColor = Constants.mainColor
@@ -103,12 +104,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discographyLabel.text = "Discography"
         self.similarArtistsLabel.text = "Similar Artists"
-        
-        self.seeAllDiscogButton.setTitle("See all", for: .normal)
-        self.seeAllDiscogButton.setTitleColor(UIColor.black, for: .normal)
-        self.seeAllDiscogButton.addTarget(self, action: #selector(self.seeAllDiscogButtonTapped), for: .touchUpInside)
-        self.seeAllDiscogButton.backgroundColor = UIColor.red
-        self.seeAllDiscogButton.layer.cornerRadius = 7
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
@@ -159,11 +154,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.similarImageButtonSetup()
         
-        self.similarArtist1.text = self.artistDataStore.similarArtistsNames[0]
-        self.similarArtist2.text = self.artistDataStore.similarArtistsNames[1]
-        self.similarArtist3.text = self.artistDataStore.similarArtistsNames[2]
-        self.similarArtist4.text = self.artistDataStore.similarArtistsNames[3]
-        self.similarArtist5.text = self.artistDataStore.similarArtistsNames[4]
+        //        self.similarArtist1.text = self.artistDataStore.similarArtistsNames[0]
+        //        self.similarArtist2.text = self.artistDataStore.similarArtistsNames[1]
+        //        self.similarArtist3.text = self.artistDataStore.similarArtistsNames[2]
+        //        self.similarArtist4.text = self.artistDataStore.similarArtistsNames[3]
+        //        self.similarArtist5.text = self.artistDataStore.similarArtistsNames[4]
         
         self.similarArtist1.textColor = UIColor.white
         self.similarArtist2.textColor = UIColor.white
@@ -200,13 +195,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.artistBioTextView)
         self.contentView.addSubview(self.expandButton)
         self.contentView.addSubview(self.discographyLabel)
-        self.contentView.addSubview(self.seeAllDiscogButton)
-        self.contentView.addSubview(self.artistDiscogImageLabelStackView)
+        //self.contentView.addSubview(self.artistDiscographyStackView)
         self.contentView.addSubview(self.similarArtistsLabel)
+        self.contentView.addSubview(self.artistDiscogImageLabelStackView)
         self.contentView.addSubview(self.similarArtistImageLabelStackView)
         
         self.setUpSegues()
-        
         self.viewConstraints()
     }
     
@@ -250,18 +244,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.expandButton.translatesAutoresizingMaskIntoConstraints = false
         self.expandButton.topAnchor.constraint(equalTo: self.artistBioTextView.bottomAnchor, constant: 10).isActive = true
-        self.expandButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 150).isActive = true
+        self.expandButton.centerXAnchor.constraint(equalTo: self.artistScrollView.centerXAnchor, constant: 150).isActive = true
         
         self.discographyLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor, constant: 20).isActive = true
+        self.discographyLabel.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor).isActive = true
         self.discographyLabel.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1/2).isActive = true
         self.discographyLabel.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1/18).isActive = true
-        
-        self.seeAllDiscogButton.translatesAutoresizingMaskIntoConstraints = false
-        self.seeAllDiscogButton.topAnchor.constraint(equalTo: self.expandButton.bottomAnchor, constant: 20).isActive = true
-        self.seeAllDiscogButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 150).isActive = true
-        self.seeAllDiscogButton.widthAnchor.constraint(equalTo: self.expandButton.widthAnchor).isActive = true
-        self.seeAllDiscogButton.heightAnchor.constraint(equalTo: self.expandButton.heightAnchor).isActive = true
         
         self.artistDiscogImageLabelStackView.translatesAutoresizingMaskIntoConstraints = false
         self.artistDiscogImageLabelStackView.topAnchor.constraint(equalTo: self.discographyLabel.bottomAnchor).isActive = true
@@ -465,11 +453,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarButton5.backgroundColor = UIColor.green
     }
     
-    func displayDiscographyImagesSetup(artist: Artist) {
-        let artistDiscography = artist.discography
-        
-    }
-    
     @IBAction func expandButtonTapped() {
         
         if self.isBioBig() {
@@ -482,11 +465,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    @IBAction func seeAllDiscogButtonTapped() {
-        
-        print("See all Discography button tapped!")
-    }
-    
     @IBAction func discogButtonTapped() {
         
         print("Discography button tapped!")
@@ -497,10 +475,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         print("Similar artists button tapped!")
         
-        let destination = SimilarArtistViewController()
-        self.navigationController?.show(destination, sender: self)
-        
         // Refresh this VC to reflect the info for the similar artist that was selected.
+        
+        let destination = ArtistInfoViewController()
+        self.navigationController?.show(destination, sender: self)
         
         //        for artist in self.artistDataStore.similarArtistsNames {
         //
@@ -517,22 +495,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "similarArtist1" {
-            if let destination = segue.destination as? SimilarArtistViewController {
+            if let destination = segue.destination as? ArtistInfoViewController {
                 
                 let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist1.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
                     
-                    self.navigationController?.show(destination, sender: self)
                 }
-                
-                destination.artistImage = UIImageView(image: self.artistDataStore.artistImage)
-                destination.artistBioTextView.text = self.artistDataStore.artistBio
             }
         } else if segue.identifier == "similarArtist2" {
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+            if let destination = segue.destination as? ArtistInfoViewController {
                 
                 let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist2.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
@@ -542,9 +516,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                 }
             }
             
+            
         } else if segue.identifier == "similarArtist3" {
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+            if let destination = segue.destination as? ArtistInfoViewController {
                 
                 let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist3.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
@@ -556,7 +531,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         } else if segue.identifier == "similarArtist4" {
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+            if let destination = segue.destination as? ArtistInfoViewController {
                 
                 let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist4.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
@@ -568,7 +543,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         } else if segue.identifier == "similarArtist5" {
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+            if let destination = segue.destination as? ArtistInfoViewController {
                 
                 let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist5.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")

@@ -21,6 +21,7 @@
 		6E3F931A1D4CFBF100E1BF6E /* LastFMApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */; };
 		6E6619001D75DB1800FAA0E4 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */; };
 		6E9287C01D7DDD19000A3EB9 /* MyMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */; };
+		6EF418131DA3EEDD001F0BC9 /* SimilarArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EF418121DA3EEDD001F0BC9 /* SimilarArtistViewController.swift */; };
 		A4352CD11D8AF1EC00835BBD /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4352CD01D8AF1EC00835BBD /* Secrets.swift */; };
 		A48934381D9188FC00D6B896 /* SpotifyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48934371D9188FC00D6B896 /* SpotifyAPIClient.swift */; };
 		A489343A1D9189BA00D6B896 /* SpotifyAPIOAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48934391D9189BA00D6B896 /* SpotifyAPIOAuthClient.swift */; };
@@ -52,6 +53,7 @@
 		6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastFMApiClient.swift; sourceTree = "<group>"; };
 		6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 		6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMusicViewController.swift; sourceTree = "<group>"; };
+		6EF418121DA3EEDD001F0BC9 /* SimilarArtistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimilarArtistViewController.swift; sourceTree = "<group>"; };
 		A2418D1DF187C86C8FF914F9 /* Pods-Music-HoleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Music-HoleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Music-HoleTests/Pods-Music-HoleTests.release.xcconfig"; sourceTree = "<group>"; };
 		A4352CD01D8AF1EC00835BBD /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 		A48934371D9188FC00D6B896 /* SpotifyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotifyAPIClient.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */,
 				6E39F2F71D60EF1E0021CB5C /* SearchViewController.swift */,
+				6EF418121DA3EEDD001F0BC9 /* SimilarArtistViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				A489343C1D918F6E00D6B896 /* Album.swift in Sources */,
 				6E3F931A1D4CFBF100E1BF6E /* LastFMApiClient.swift in Sources */,
 				6E3F93121D4CF9C100E1BF6E /* ArtistInfoViewController.swift in Sources */,
+				6EF418131DA3EEDD001F0BC9 /* SimilarArtistViewController.swift in Sources */,
 				6E9287C01D7DDD19000A3EB9 /* MyMusicViewController.swift in Sources */,
 				6E3F93161D4CFAB500E1BF6E /* ArtistInfo.swift in Sources */,
 				A48934381D9188FC00D6B896 /* SpotifyAPIClient.swift in Sources */,
