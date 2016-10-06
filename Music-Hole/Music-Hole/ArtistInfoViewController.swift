@@ -122,23 +122,18 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
-        //self.discogButton1.setBackgroundImage(artist.discography![0].albumImage, for: .normal)
         
         self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton2.backgroundColor = UIColor.green
-        //self.discogButton2.setBackgroundImage(artist.discography![1].albumImage, for: .normal)
         
         self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton3.backgroundColor = UIColor.green
-        //self.discogButton3.setBackgroundImage(artist.discography![2].albumImage, for: .normal)
         
         self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton4.backgroundColor = UIColor.green
-        //self.discogButton4.setBackgroundImage(artist.discography![3].albumImage, for: .normal)
         
         self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton5.backgroundColor = UIColor.green
-        //self.discogButton5.setBackgroundImage(artist.discography![4].albumImage, for: .normal)
         
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.artistDiscographyImageStackView)
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.discographyLabelsStackView)
