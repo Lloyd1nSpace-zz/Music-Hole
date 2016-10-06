@@ -120,23 +120,23 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton1.backgroundColor = UIColor.green
-        self.discogButton1.setBackgroundImage(artist.discography![0].albumImage, for: .normal)
+        //self.discogButton1.setBackgroundImage(artist.discography![0].albumImage, for: .normal)
         
         self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton2.backgroundColor = UIColor.green
-        self.discogButton2.setBackgroundImage(artist.discography![1].albumImage, for: .normal)
+        //self.discogButton2.setBackgroundImage(artist.discography![1].albumImage, for: .normal)
         
         self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton3.backgroundColor = UIColor.green
-        self.discogButton3.setBackgroundImage(artist.discography![2].albumImage, for: .normal)
+        //self.discogButton3.setBackgroundImage(artist.discography![2].albumImage, for: .normal)
         
         self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton4.backgroundColor = UIColor.green
-        self.discogButton4.setBackgroundImage(artist.discography![3].albumImage, for: .normal)
+        //self.discogButton4.setBackgroundImage(artist.discography![3].albumImage, for: .normal)
         
         self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
         self.discogButton5.backgroundColor = UIColor.green
-        self.discogButton5.setBackgroundImage(artist.discography![4].albumImage, for: .normal)
+        //self.discogButton5.setBackgroundImage(artist.discography![4].albumImage, for: .normal)
         
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.artistDiscographyImageStackView)
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.discographyLabelsStackView)
@@ -146,12 +146,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDiscographyImageStackView.addArrangedSubview(self.discogButton3)
         self.artistDiscographyImageStackView.addArrangedSubview(self.discogButton4)
         self.artistDiscographyImageStackView.addArrangedSubview(self.discogButton5)
-        
-        self.discogLabel1.text = "test"
-        self.discogLabel2.text = "test"
-        self.discogLabel3.text = "test"
-        self.discogLabel4.text = "test"
-        self.discogLabel5.text = "test"
         
         self.discogLabel1.textColor = UIColor.white
         self.discogLabel2.textColor = UIColor.white
@@ -694,17 +688,32 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func artistDiscographyImages(discographyForArtist: Artist) {
-        var artistDiscographyImages = [UIImage]()
-        var discographyLabels = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
         
-        if let artistDiscography = discographyForArtist.discography {
-            for album in artistDiscography {
-                artistDiscographyImages.append(album.albumImage)
-            }
+        var artistDiscographyImages = [UIImage]()
+        var artistDiscographyDictionary = [String:UIImage]()
+        
+        var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
+        var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
+        
+        guard let artistDiscography = discographyForArtist.discography else {
+            print("could not unwrap artist discography to populate images")
+            return
         }
         
-        //compare lengths of both arrays 
-        //fill in empty ones with blank transparent images 
+        for album in artistDiscography {
+            // artistDiscographyImages.append(album.albumImage)
+            artistDiscographyDictionary[album.albumName] = album.albumImage
+        }
+        
+        for (index, discographyButton) in discographyButtons.enumerated() {
+            if index > artistDiscographyImages.count-1 {
+                discographyTextLabels[index].text = ""
+                discographyButton.backgroundColor = UIColor.clear
+            } else {
+                discographyButton.setBackgroundImage(artistDiscographyImages[index], for: .normal)
+                discographyTextLabels[index].text =
+            }
+        }
         
     }
     
