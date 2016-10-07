@@ -702,7 +702,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         var artistDiscographyInfoDisplay = [(UILabel, UIButton)]()
         for (index, label) in discographyTextLabels.enumerated() {
-            artistDiscographyInfoDisplay.append((label, discographyButtons[index]))
+            let clearDiscographyButton = discographyButtons[index]
+            OperationQueue.main.addOperation {
+                clearDiscographyButton.backgroundColor = UIColor.clear
+            }
+            artistDiscographyInfoDisplay.append((label, clearDiscographyButton))
         }
         
         
@@ -710,16 +714,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             var currentLabel = UILabel()
             var currentButton = UIButton()
             
-            if index < artistDiscographyInfoDisplay.count-1 {
+            if index <= artistDiscographyInfoDisplay.count-1 {
                 currentLabel = discographyTextLabels[index]
-                currentButton = discographyButtons[index]
-                
                 currentLabel.text = album.albumName
+                
+                currentButton = discographyButtons[index]
                 currentButton.setBackgroundImage(album.albumImage, for: .normal)
+                
                 artistDiscographyInfoDisplay[index] = (currentLabel, currentButton)
             } else {
-                currentButton = discographyButtons[index]
-                currentButton.backgroundColor = UIColor.clear
                 break
             }
         }
