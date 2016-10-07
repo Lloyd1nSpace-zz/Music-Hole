@@ -52,14 +52,11 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         destination.selectedArtist = selectedArtist
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: selectedArtist)
-            // ArtistInfo.formatArtistName(selectedArtistName: selectedArtist)
-        
-        let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
         
-        LastFMApiClient.getArtistBioWithCompletion(selectedArtistForURL, completion: { (artistInfo) in
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName, completion: { (artistInfo) in
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
                 let bioInfo = info["bio"] as? NSDictionary,

@@ -11,7 +11,6 @@ import Foundation
 class URLEncoding {
     
     static let encodingDictionary = [
-        " " : "%20",
        "\"" : "%22",
         "#" : "%23",
         "$"	: "%24",
@@ -168,36 +167,27 @@ class URLEncoding {
     class func encodeArtistName(selectedArtistName: String) -> String {
         var encodedArtistName = ""
         
-        let encodingDictionaryKeys = self.encodingDictionary.keys
         let selectedArtistNameArray = Array(selectedArtistName.characters)
         let selectedArtistNameStringArray = selectedArtistNameArray.map {
             (char) -> String in
             return String(char)
         }
-        
-        print("-- TESTING ENCODING FUNCTION --")
-        print("DICTIONARY KEYS: \(encodingDictionaryKeys)")
-        print("ARTIST NAME ARRAY: \(selectedArtistNameArray)")
-        print("STRING MAP ARTIST NAME: \(selectedArtistNameStringArray)")
-        print("-------------------------------")
-//
-//        for letter in selectedArtistNameStringArray {
-//            if encodingDictionaryKeys.contains(letter) {
-//                encodedArtistName = selectedArtistName.replacingOccurrences(of: letter, with: encodingDictionary[letter]!)
-//            }
-//        }
-//        
-//        if encodedArtistName.characters.count == 0 {
-//            encodedArtistName = selectedArtistName
-//        }
-        
-        if selectedArtistName.contains("+") {
-            encodedArtistName = selectedArtistName.replacingOccurrences(of: "+", with: "%2B")
-        } else if selectedArtistName.contains("é") {
-            encodedArtistName = selectedArtistName.replacingOccurrences(of: "é", with: "%C3%A9")
-        } else {
+
+        //for some reason, this only works for replacing occurrences for one type of symbol. if there are multiple, it only replaces the occurrences for the first type of symbol it encounters 
+        //example: florence + the machine originally replaced spaces with %20 and '+' with %2B, but after going through this loop, the encoded name was "florence%20+%20the%20machine". so i removed " " as a key for the dictionary--it wasn't necessary and for the link, we need to replace spaces with "+" anyway so it works out! may need to further modify this function in the future if an artist has multiple symbols in their name
+        for letter in selectedArtistNameStringArray {            
+            if encodingDictionary.keys.contains(letter) {
+                print("found a match for encoding letter \(letter) and will replace it with \(encodingDictionary[letter]!)")
+                encodedArtistName = selectedArtistName.replacingOccurrences(of: letter, with: encodingDictionary[letter]!)
+            }
+        }
+
+        if encodedArtistName.characters.count == 0 {
             encodedArtistName = selectedArtistName
         }
+        
+        //format name again for URL
+        encodedArtistName = encodedArtistName.replacingOccurrences(of: " ", with: "+")
         
         return encodedArtistName
     }
