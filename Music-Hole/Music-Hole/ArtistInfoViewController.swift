@@ -520,7 +520,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         if segue.identifier == "similarArtist1" {
             if let destination = segue.destination as? SimilarArtistViewController {
                 
-                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist1.text!)
+                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
@@ -535,7 +535,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             if let destination = segue.destination as? SimilarArtistViewController {
                 
-                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist2.text!)
+                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
@@ -547,7 +547,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             if let destination = segue.destination as? SimilarArtistViewController {
                 
-                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist3.text!)
+                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
@@ -559,7 +559,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             if let destination = segue.destination as? SimilarArtistViewController {
                 
-                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist4.text!)
+                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
@@ -571,7 +571,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
             if let destination = segue.destination as? SimilarArtistViewController {
                 
-                let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: self.similarArtist5.text!)
+                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
                 let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
                 
                 self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {

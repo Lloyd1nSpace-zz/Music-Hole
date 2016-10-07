@@ -8,11 +8,11 @@
 
 import Foundation
 
-struct URLEncoding {
+class URLEncoding {
     
-    let encodingDictionary = [
+    static let encodingDictionary = [
         " " : "%20",
-        "\"" : "%22",
+       "\"" : "%22",
         "#" : "%23",
         "$"	: "%24",
         "%" : "%25",
@@ -44,7 +44,7 @@ struct URLEncoding {
         "?" : "%3F",
         "@" : "%40",
         "[" : "%5B",
-        "\\" : "%5C",
+       "\\" : "%5C",
         "]" : "%5D",
         "^" : "%5E",
         "_" : "%5F",
@@ -53,30 +53,21 @@ struct URLEncoding {
         "|" : "%7C",
         "}" : "%7D",
         "~" : "%7E",
-        "`" : "%E2%82%AC",
-        "‚" : "%E2%80%9A",
         "ƒ" : "%C6%92",
         "„" : "%E2%80%9E",
         "…" : "%E2%80%A6",
         "†" : "%E2%80%A0",
         "‡" : "%E2%80%A1",
-        "ˆ" : "%CB%86",
         "‰" : "%E2%80%B0",
         "Š" : "%C5%A0",
-        "‹" : "%E2%80%B9",
         "Œ" : "%C5%92",
         "Ž" : "%C5%BD",
-        "‘" : "%E2%80%98",
-        "’" : "%E2%80%99",
-        "“" : "%E2%80%9C",
-        "”" : "%E2%80%9D",
         "•" : "%E2%80%A2",
         "–" : "%E2%80%93",
         "—" : "%E2%80%94",
         "˜" : "%CB%9C",
         "™" : "%E2%84",
         "š" : "%C5%A1",
-        "›" : "%E2%80",
         "œ" : "%C5%93",
         "ž" : "%C5%BE",
         "Ÿ" : "%C5%B",
@@ -87,7 +78,6 @@ struct URLEncoding {
         "¥" : "%C2%A5",
         "¦" : "%C2%A6",
         "§" : "%C2%A7",
-        "¨" : "%C2%A8",
         "©" : "%C2%A9",
         "ª" : "%C2%AA",
         "«" : "%C2%AB",
@@ -98,7 +88,6 @@ struct URLEncoding {
         "±" : "%C2%B1",
         "²" : "%C2%B2",
         "³" : "%C2%B3",
-        "´" : "%C2%B4",
         "µ" : "%C2%B5",
         "¶" : "%C2%B6",
         "·" : "%C2%B7",
@@ -175,6 +164,43 @@ struct URLEncoding {
         "þ" : "%C3%BE",
         "ÿ" : "%C3%BF"
     ]
+    
+    class func encodeArtistName(selectedArtistName: String) -> String {
+        var encodedArtistName = ""
+        
+        let encodingDictionaryKeys = self.encodingDictionary.keys
+        let selectedArtistNameArray = Array(selectedArtistName.characters)
+        let selectedArtistNameStringArray = selectedArtistNameArray.map {
+            (char) -> String in
+            return String(char)
+        }
+        
+        print("-- TESTING ENCODING FUNCTION --")
+        print("DICTIONARY KEYS: \(encodingDictionaryKeys)")
+        print("ARTIST NAME ARRAY: \(selectedArtistNameArray)")
+        print("STRING MAP ARTIST NAME: \(selectedArtistNameStringArray)")
+        print("-------------------------------")
+//
+//        for letter in selectedArtistNameStringArray {
+//            if encodingDictionaryKeys.contains(letter) {
+//                encodedArtistName = selectedArtistName.replacingOccurrences(of: letter, with: encodingDictionary[letter]!)
+//            }
+//        }
+//        
+//        if encodedArtistName.characters.count == 0 {
+//            encodedArtistName = selectedArtistName
+//        }
+        
+        if selectedArtistName.contains("+") {
+            encodedArtistName = selectedArtistName.replacingOccurrences(of: "+", with: "%2B")
+        } else if selectedArtistName.contains("é") {
+            encodedArtistName = selectedArtistName.replacingOccurrences(of: "é", with: "%C3%A9")
+        } else {
+            encodedArtistName = selectedArtistName
+        }
+        
+        return encodedArtistName
+    }
 }
 
 //encoding reference obtained from: http://www.w3schools.com/tags/ref_urlencode.asp

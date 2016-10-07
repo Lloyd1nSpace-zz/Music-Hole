@@ -15,7 +15,7 @@ class SpotifyAPIClient {
     
     class func getArtistIDWithCompletion(artistName: String, completion: @escaping(String)->()){
         
-        let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artistName)
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: artistName)
         let formattedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
         let artistURLString = "https://api.spotify.com/v1/search?q=\(formattedArtistForURL)&type=artist"

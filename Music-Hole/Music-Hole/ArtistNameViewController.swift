@@ -51,7 +51,8 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
         destination.selectedArtist = selectedArtist
         
-        let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: selectedArtist)
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: selectedArtist)
+            // ArtistInfo.formatArtistName(selectedArtistName: selectedArtist)
         
         let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
         
