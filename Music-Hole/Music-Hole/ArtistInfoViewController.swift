@@ -705,7 +705,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             let clearDiscographyButton = discographyButtons[index]
             OperationQueue.main.addOperation {
                 clearDiscographyButton.backgroundColor = UIColor.clear
-            }
+            } //needed to add this queue b/c there was a delay in changing the background color from green to clear
             artistDiscographyInfoDisplay.append((label, clearDiscographyButton))
         }
         
