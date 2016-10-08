@@ -96,10 +96,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //   self.testImage.image = UIImage(named: "drake")
         
         self.bioLabel.text = "Bio"
-       // let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
+        // let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.artistBioTextView.isSelectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
-      //  self.artistBioTextView.backgroundColor = gradientColorScheme
+        //  self.artistBioTextView.backgroundColor = gradientColorScheme
         self.artistBioTextView.backgroundColor = UIColor.yellow
         self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
@@ -109,7 +109,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.setTitle("Expand", for: .normal)
         self.expandButton.setTitleColor(UIColor.black, for: .normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: .touchUpInside)
-    //    self.expandButton.backgroundColor = UIColor.flatRedColorDark()
+        //    self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
         
@@ -197,19 +197,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistImageLabelStackView)
         
-        self.setUpSegues()
         
         self.viewConstraints()
     }
     
-    func setUpSegues() {
-        
-        self.shouldPerformSegue(withIdentifier: "similarArtist1", sender: self)
-        self.shouldPerformSegue(withIdentifier: "similarArtist2", sender: self)
-        self.shouldPerformSegue(withIdentifier: "similarArtist3", sender: self)
-        self.shouldPerformSegue(withIdentifier: "similarArtist4", sender: self)
-        self.shouldPerformSegue(withIdentifier: "similarArtist5", sender: self)
-    }
     
     func viewConstraints() {
         
@@ -441,11 +432,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             print("There was an issue unwrapping the Data for the images in ArtistInfoVC")
         }
         
-        self.similarButton1.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton2.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton3.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton4.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
-        self.similarButton5.addTarget(self, action: #selector(self.similarArtistButtonTapped), for: .touchUpInside)
+        self.similarButton1.addTarget(self, action: #selector(self.similarArtist1ButtonTapped), for: .touchUpInside)
+        self.similarButton2.addTarget(self, action: #selector(self.similarArtist2ButtonTapped), for: .touchUpInside)
+        self.similarButton3.addTarget(self, action: #selector(self.similarArtist3ButtonTapped), for: .touchUpInside)
+        self.similarButton4.addTarget(self, action: #selector(self.similarArtist4ButtonTapped), for: .touchUpInside)
+        self.similarButton5.addTarget(self, action: #selector(self.similarArtist5ButtonTapped), for: .touchUpInside)
     }
     
     func displayDiscographyImagesSetup(artist: Artist) {
@@ -476,112 +467,448 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    @IBAction func similarArtistButtonTapped() {
+    @IBAction func similarArtist1ButtonTapped() {
         
         print("Similar artists button tapped!")
         
+        let destination = ArtistInfoViewController()
         
-            let destination = SimilarArtistViewController()
-    
-//        destination.artistImage.image
-//            destination.artistBioTextView.text
-//        destination.discogButton1
-//        destination.discogButton2
-//        destination.discogButton3
-//        destination.discogButton4
-//        destination.discogButton5
-//        destination.discogLabel1
-//        destination.discogLabel2
-//        destination.discogLabel3
-//        destination.discogLabel4
-//        destination.discogLabel5
-//        destination.similarButton1
-//        destination.similarButton2
-//        destination.similarButton3
-//        destination.similarButton4
-//        destination.similarButton5
-//destination.similarArtist1
-//        destination.similarArtist2
-//        destination.similarArtist3
-//        destination.similarArtist4
-//        destination.similarArtist5
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
         
-             self.navigationController?.show(destination, sender: self)
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
         
-    
         
-       
-        
-        // Refresh this VC to reflect the info for the similar artist that was selected.
-        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
+            
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+                    
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
+                }
+            }
+            
+            self.navigationController?.show(destination, sender: self)
+            
+        }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+   
+    @IBAction func similarArtist2ButtonTapped() {
         
-        if segue.identifier == "similarArtist1" {
-            if let destination = segue.destination as? SimilarArtistViewController {
-                
-                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
-                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-                
-                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
-                    
-                    self.navigationController?.show(destination, sender: self)
-                }
-                
-                destination.artistImage = UIImageView(image: self.artistDataStore.artistImage)
-                destination.artistBioTextView.text = self.artistDataStore.artistBio
-            }
-        } else if segue.identifier == "similarArtist2" {
+        print("Similar artists button tapped!")
+        
+        let destination = ArtistInfoViewController()
+        
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
+        
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
+        
+        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
             
-            if let destination = segue.destination as? SimilarArtistViewController {
-                
-                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
-                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-                
-                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
-                    
-                }
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
             }
             
-        } else if segue.identifier == "similarArtist3" {
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
                 
-                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
-                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-                
-                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                if let artistNames = artists["name"] as? String {
                     
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
                 }
             }
             
-        } else if segue.identifier == "similarArtist4" {
+            self.navigationController?.show(destination, sender: self)
             
-            if let destination = segue.destination as? SimilarArtistViewController {
+        }
+    }
+
+    @IBAction func similarArtist3ButtonTapped() {
+        
+        print("Similar artists button tapped!")
+        
+        let destination = SimilarArtistViewController()
+        
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
+        
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
+        
+        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
+            
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
                 
-                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
-                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-                
-                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
+                if let artistNames = artists["name"] as? String {
                     
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
                 }
             }
             
-        } else if segue.identifier == "similarArtist5" {
+            self.navigationController?.show(destination, sender: self)
             
-            if let destination = segue.destination as? SimilarArtistViewController {
-                
-                let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
-                let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-                
-                self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
-                    
-                }
-            }
         }
     }
     
+    @IBAction func similarArtist4ButtonTapped() {
+        
+        print("Similar artists button tapped!")
+        
+        let destination = ArtistInfoViewController()
+        
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
+        
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
+        
+        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
+            
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+                    
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
+                }
+            }
+            
+            self.navigationController?.show(destination, sender: self)
+            
+        }
+    }
+    
+    @IBAction func similarArtist5ButtonTapped() {
+        
+        print("Similar artists button tapped!")
+        
+        let destination = ArtistInfoViewController()
+        
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
+        
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
+        
+        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
+            
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+                    
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                    }
+                }
+            }
+            
+            self.navigationController?.show(destination, sender: self)
+            
+        }
+    }
+
+    
+    func passingSimilarDataFwd(formattedArtistName: String) {
+        
+        
+        self.artistDataStore.similarArtistsNames.removeAll()
+        self.artistDataStore.similarArtistImages.removeAll()
+        
+        LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
+            
+            
+            guard
+                let info = artistInfo["artist"] as? NSDictionary,
+                let bioInfo = info["bio"] as? NSDictionary,
+                let bio = bioInfo["content"] as? String,
+                let imageInfo = info["image"] as? [NSDictionary] else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            let imageSize = imageInfo[3]
+            guard
+                let imageURLasString = imageSize["#text"] as? String,
+                let imageURL = URL(string: imageURLasString),
+                let imageData = try? Data(contentsOf: imageURL) else {
+                    fatalError("Couldn't pull the CONTENT from the Artist Info ArtistNameViewController")
+            }
+            
+            self.artistDataStore.artistBio = bio
+            self.artistDataStore.artistImage = UIImage(data: imageData)
+            
+            guard
+                let artistDict = artistInfo["artist"] as? NSDictionary,
+                let similarArtistsDict = artistDict["similar"] as? NSDictionary,
+                let similarArtists = similarArtistsDict["artist"] as? [NSDictionary] else {
+                    fatalError("There was an error unwrapping the similar artists information in the ArtistNameViewController.")
+            }
+            
+            for artists in similarArtists {
+                
+                if let artistNames = artists["name"] as? String {
+                    
+                    self.artistDataStore.similarArtistsNames.append(artistNames)
+                    print("These are the similar artist names: \(self.artistDataStore.similarArtistsNames)")
+                } else {
+                    print("There was an error unwrapping the similar artists Name in the data store.")
+                }
+                
+                if let artistImageDict = artists["image"] as? [NSDictionary] {
+                    
+                    for images in artistImageDict {
+                        
+                        if images["size"] as? String == "large" {
+                            
+                            guard let imageAsString = images["#text"] as? String else {
+                                fatalError("There was a problem unwrapping similar artists images in the data store.")
+                            }
+                            
+                            self.artistDataStore.similarArtistImages.append(imageAsString)
+                            print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
+                        }
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                }
+            }
+            
+            
+        }
+        
+        
+        
+    }
     func isBioBig() -> Bool {
         
         switch self.artistBioTextViewHeightConstraint.constant {
