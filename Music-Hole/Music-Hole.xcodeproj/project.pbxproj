@@ -140,7 +140,6 @@
 				6E3F93171D4CFABD00E1BF6E /* ArtistDataStore.swift */,
 				6E3F93151D4CFAB500E1BF6E /* ArtistInfo.swift */,
 				6E3F93191D4CFBF100E1BF6E /* LastFMApiClient.swift */,
-				6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */,
 				A48934371D9188FC00D6B896 /* SpotifyAPIClient.swift */,
 				A48934391D9189BA00D6B896 /* SpotifyAPIOAuthClient.swift */,
 				A44B34961DA7FC0800020235 /* URLEncoding.swift */,
@@ -155,6 +154,7 @@
 				6E3F930F1D4CF9B100E1BF6E /* ArtistNameViewController.swift */,
 				6E3F93111D4CF9C100E1BF6E /* ArtistInfoViewController.swift */,
 				6E9287BF1D7DDD19000A3EB9 /* MyMusicViewController.swift */,
+				6E6618FF1D75DB1800FAA0E4 /* SearchResultsViewController.swift */,
 				6E39F2F71D60EF1E0021CB5C /* SearchViewController.swift */,
 				6EF418121DA3EEDD001F0BC9 /* SimilarArtistViewController.swift */,
 			);
