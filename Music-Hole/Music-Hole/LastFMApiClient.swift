@@ -8,9 +8,9 @@
 
 import Foundation
 
-class LastFMApiClient: NSObject {
+struct LastFMApiClient {
     
-    class func getArtistNamesWithCompletion(_ completion: @escaping (NSDictionary) -> ()) {
+    static func getArtistNamesWithCompletion(_ completion: @escaping (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.topArtistsAPIURL)&api_key=\(Secrets.lastFMAPIKey)&format=json"
         guard let url = URL(string: urlString) else {
@@ -40,7 +40,7 @@ class LastFMApiClient: NSObject {
         task.resume()
     }
     
-    class func getArtistBioWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
+    static func getArtistBioWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.artistBioURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
         guard let url = URL(string: urlString) else {
@@ -71,7 +71,7 @@ class LastFMApiClient: NSObject {
         task.resume()
     }
     
-    class func searchArtistsWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
+    static func searchArtistsWithCompletion(_ artistName: String, completion: @escaping (NSDictionary) -> ()) {
         
         let urlString = "\(Secrets.searchArtistURL)&artist=\(artistName)&api_key=\(Secrets.lastFMAPIKey)&format=json"
         guard let url = URL(string: urlString) else {
