@@ -57,7 +57,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.createViews()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,6 +87,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.backgroundColor = UIColor.blue
         self.artistScrollView.contentSize = self.contentView.bounds.size
         self.artistScrollView.delaysContentTouches = false
+        
+        self.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -472,6 +473,8 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = ArtistInfoViewController()
+        self.artistDataStore.artistName = self.similarArtist1.text!
+        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
         
@@ -539,12 +542,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         }
     }
-   
+    
     @IBAction func similarArtist2ButtonTapped() {
         
         print("Similar artists button tapped!")
         
         let destination = ArtistInfoViewController()
+        
+        self.artistDataStore.artistName = self.similarArtist2.text!
+        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
         
@@ -612,12 +618,15 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         }
     }
-
+    
     @IBAction func similarArtist3ButtonTapped() {
         
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        
+        self.artistDataStore.artistName = self.similarArtist3.text!
+        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
         
@@ -692,14 +701,17 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         let destination = ArtistInfoViewController()
         
+        self.artistDataStore.artistName = self.similarArtist4.text!
+        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
-            
+        
         LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
             
-
+            
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
                 let bioInfo = info["bio"] as? NSDictionary,
@@ -763,6 +775,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = ArtistInfoViewController()
+        
+        self.artistDataStore.artistName = self.similarArtist5.text!
+        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
         
@@ -893,7 +908,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-
+    
     func isBioBig() -> Bool {
         
         switch self.artistBioTextViewHeightConstraint.constant {

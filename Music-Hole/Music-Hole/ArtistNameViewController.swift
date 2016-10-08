@@ -49,10 +49,10 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let destination = ArtistInfoViewController()
-        let selectedArtist = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
-        destination.selectedArtist = selectedArtist
+        self.artistDataStore.artistName = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
+        destination.selectedArtist = self.artistDataStore.artistName
         
-        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: selectedArtist)
+        let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.artistDataStore.artistName)
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()

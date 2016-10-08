@@ -13,6 +13,7 @@ class ArtistDataStore {
     static let sharedArtistData = ArtistDataStore()
     var topArtists: [String] = []
     var artistSearchResults: [String] = []
+    var artistName = ""
     var artistBio = ""
     var artistImage: UIImage!
     var userSearchText = ""
