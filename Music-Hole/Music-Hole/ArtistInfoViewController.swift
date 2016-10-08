@@ -480,21 +480,40 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         print("Similar artists button tapped!")
         
-        let destination = SimilarArtistViewController()
-        self.navigationController?.show(destination, sender: self)
+        
+            let destination = SimilarArtistViewController()
+    
+//        destination.artistImage.image
+//            destination.artistBioTextView.text
+//        destination.discogButton1
+//        destination.discogButton2
+//        destination.discogButton3
+//        destination.discogButton4
+//        destination.discogButton5
+//        destination.discogLabel1
+//        destination.discogLabel2
+//        destination.discogLabel3
+//        destination.discogLabel4
+//        destination.discogLabel5
+//        destination.similarButton1
+//        destination.similarButton2
+//        destination.similarButton3
+//        destination.similarButton4
+//        destination.similarButton5
+//destination.similarArtist1
+//        destination.similarArtist2
+//        destination.similarArtist3
+//        destination.similarArtist4
+//        destination.similarArtist5
+        
+             self.navigationController?.show(destination, sender: self)
+        
+    
+        
+       
         
         // Refresh this VC to reflect the info for the similar artist that was selected.
         
-        //        for artist in self.artistDataStore.similarArtistsNames {
-        //
-        //            let formattedArtistName = ArtistInfo.formatArtistName(selectedArtistName: artist)
-        //            let selectedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
-        //
-        //            self.artistDataStore.getArtistBioWithCompletion(artistName: selectedArtistForURL) {
-        //
-        //                self.navigationController?.show(destination, sender: self)
-        //            }
-        //        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
