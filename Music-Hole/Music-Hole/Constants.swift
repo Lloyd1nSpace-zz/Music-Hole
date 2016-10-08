@@ -10,9 +10,10 @@
 import UIKit
 
 struct Constants {
-   // static let orangeToYellowColorArray = [UIColor.flatOrangeColorDark(), UIColor.flatOrange(), UIColor.flatYellow(), UIColor.flatYellowColorDark(), UIColor.flatOrange(), UIColor.flatOrangeColorDark()]
-    //static let primaryTextColor = UIColor.flatBlackColorDark()
-    //static let mainColor = UIColor.flatYellowColorDark()
+    
+    //    static let orangeToYellowColorArray = [UIColor.flatOrangeColorDark(), UIColor.flatOrange(), UIColor.flatYellow(), UIColor.flatYellowColorDark(), UIColor.flatOrange(), UIColor.flatOrangeColorDark()]
+    //    static let primaryTextColor = UIColor.flatBlackColorDark()
+    //    static let mainColor = UIColor.flatYellowColorDark()
     
     static let orangeToYellowColorArray = [UIColor.orange, UIColor.yellow, UIColor.orange]
     static let primaryTextColor = UIColor.black

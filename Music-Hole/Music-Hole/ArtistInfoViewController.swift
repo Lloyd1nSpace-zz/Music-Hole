@@ -96,10 +96,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         //   self.testImage.image = UIImage(named: "drake")
         
         self.bioLabel.text = "Bio"
-        //   let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
+       // let gradientColorScheme = UIColor.init(gradientStyle: .topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.artistBioTextView.isSelectable = false
         self.artistBioTextView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 0, right: 10)
-        // self.artistBioTextView.backgroundColor = gradientColorScheme
+      //  self.artistBioTextView.backgroundColor = gradientColorScheme
         self.artistBioTextView.backgroundColor = UIColor.yellow
         self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
@@ -109,7 +109,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.expandButton.setTitle("Expand", for: .normal)
         self.expandButton.setTitleColor(UIColor.black, for: .normal)
         self.expandButton.addTarget(self, action: #selector(self.expandButtonTapped), for: .touchUpInside)
-        // self.expandButton.backgroundColor = UIColor.flatRedColorDark()
+    //    self.expandButton.backgroundColor = UIColor.flatRedColorDark()
         self.expandButton.backgroundColor = UIColor.red
         self.expandButton.layer.cornerRadius = 7
         
@@ -603,7 +603,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         var listOfAlbums = [Album]()
         var listOfAlbumNames = [String]()
         
-    
+        
         //need to get artistID before getting their discography info
         SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
             

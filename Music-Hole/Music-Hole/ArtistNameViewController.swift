@@ -34,8 +34,9 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         let cell = self.artistTableView.dequeueReusableCell(withIdentifier: "artistName", for: indexPath)
         cell.textLabel?.text = self.artistDataStore.topArtists[(indexPath as NSIndexPath).row]
-        //  let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
-        cell.backgroundColor = UIColor.yellow
+        // let cellColor = UIColor.init(gradientStyle: .leftToRight, withFrame: cell.frame, andColors: Constants.orangeToYellowColorArray)
+        //cell.backgroundColor = cellColor
+        cell.backgroundColor = .yellow
         //   let outlineColor = UIColor.flatBlack()
         let outlineColor = UIColor.black
         cell.layer.borderWidth = 0.5
