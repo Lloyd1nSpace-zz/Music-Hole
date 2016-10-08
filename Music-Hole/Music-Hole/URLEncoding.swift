@@ -8,7 +8,7 @@
 
 import Foundation
 
-class URLEncoding {
+struct URLEncoding {
     
     static let encodingDictionary = [
        "\"" : "%22",
@@ -164,7 +164,7 @@ class URLEncoding {
         "ÿ" : "%C3%BF"
     ]
     
-    class func encodeArtistName(selectedArtistName: String) -> String {
+    static func encodeArtistName(selectedArtistName: String) -> String {
         var encodedArtistName = ""
         
         let selectedArtistNameArray = Array(selectedArtistName.characters)

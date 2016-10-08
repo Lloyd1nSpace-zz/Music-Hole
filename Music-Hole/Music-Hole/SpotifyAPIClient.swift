@@ -8,12 +8,12 @@
 
 import Foundation
 
-class SpotifyAPIClient {
+struct SpotifyAPIClient {
     
     static let baseURLString = "https://api.spotify.com/v1/"
     static let store = ArtistDataStore.sharedArtistData
     
-    class func getArtistIDWithCompletion(artistName: String, completion: @escaping(String)->()){
+    static func getArtistIDWithCompletion(artistName: String, completion: @escaping(String)->()){
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: artistName)
         let formattedArtistForURL = formattedArtistName.replacingOccurrences(of: " ", with: "+")
@@ -63,7 +63,7 @@ class SpotifyAPIClient {
         task.resume()
     }
     
-    class func getArtistDiscographyWithCompletion(artistID: String, completion: @escaping (NSDictionary) ->() ) {
+    static func getArtistDiscographyWithCompletion(artistID: String, completion: @escaping (NSDictionary) ->() ) {
         
         let urlString = "https://api.spotify.com/v1/artists/\(artistID)/albums?market=US&album_type=album"
         guard let url = URL(string: urlString) else {
