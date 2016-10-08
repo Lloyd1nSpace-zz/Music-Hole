@@ -696,11 +696,10 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
-        
-        
+            
         LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
             
-            
+
             guard
                 let info = artistInfo["artist"] as? NSDictionary,
                 let bioInfo = info["bio"] as? NSDictionary,
@@ -770,7 +769,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistDataStore.similarArtistsNames.removeAll()
         self.artistDataStore.similarArtistImages.removeAll()
         
-        
         LastFMApiClient.getArtistBioWithCompletion(formattedArtistName) { (artistInfo) in
             
             
@@ -831,7 +829,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             
         }
     }
-
     
     func passingSimilarDataFwd(formattedArtistName: String) {
         
@@ -891,24 +888,12 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
                             self.artistDataStore.similarArtistImages.append(imageAsString)
                             print("These are the similar artist URL Strings: \(self.artistDataStore.similarArtistImages)")
                         }
-                        
-                        
-                        
-                        
                     }
-                    
-                    
-                    
-                    
                 }
             }
-            
-            
         }
-        
-        
-        
     }
+
     func isBioBig() -> Bool {
         
         switch self.artistBioTextViewHeightConstraint.constant {

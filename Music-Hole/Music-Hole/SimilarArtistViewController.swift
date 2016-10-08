@@ -106,19 +106,10 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         self.similarArtistsLabel.text = "Similar Artists"
         
         self.discogButton1.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
-        self.discogButton1.backgroundColor = UIColor.green
-        
         self.discogButton2.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
-        self.discogButton2.backgroundColor = UIColor.green
-        
         self.discogButton3.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
-        self.discogButton3.backgroundColor = UIColor.green
-        
         self.discogButton4.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
-        self.discogButton4.backgroundColor = UIColor.green
-        
         self.discogButton5.addTarget(self, action: #selector(self.discogButtonTapped), for: .touchUpInside)
-        self.discogButton5.backgroundColor = UIColor.green
         
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.artistDiscographyImageStackView)
         self.artistDiscogImageLabelStackView.addArrangedSubview(self.discographyLabelsStackView)
@@ -418,19 +409,14 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         }
         
         self.similarButton1.addTarget(self, action: #selector(self.similarArtist1ButtonTapped), for: .touchUpInside)
-        self.similarButton1.backgroundColor = UIColor.green
         
         self.similarButton2.addTarget(self, action: #selector(self.similarArtist2ButtonTapped), for: .touchUpInside)
-        self.similarButton2.backgroundColor = UIColor.green
         
         self.similarButton3.addTarget(self, action: #selector(self.similarArtist3ButtonTapped), for: .touchUpInside)
-        self.similarButton3.backgroundColor = UIColor.green
         
         self.similarButton4.addTarget(self, action: #selector(self.similarArtist4ButtonTapped), for: .touchUpInside)
-        self.similarButton4.backgroundColor = UIColor.green
         
         self.similarButton5.addTarget(self, action: #selector(self.similarArtist5ButtonTapped), for: .touchUpInside)
-        self.similarButton5.backgroundColor = UIColor.green
     }
     
     @IBAction func expandButtonTapped() {
