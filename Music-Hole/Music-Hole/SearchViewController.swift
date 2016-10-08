@@ -21,6 +21,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     
     func searchBarSetup() {
         
+        self.navigationController?.navigationBar.topItem?.title = "Search"
+        
       //  self.view.backgroundColor = UIColor.init(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: Constants.orangeToYellowColorArray)
         self.view.backgroundColor = UIColor.yellow
         
@@ -31,7 +33,6 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         self.searchBar.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
         self.searchBar.centerYAnchor.constraint(equalTo: self.view.topAnchor, constant: 80).isActive = true
         self.searchBar.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
-    
         
         self.searchBar.barTintColor = Constants.mainColor
         self.searchBar.isTranslucent = true

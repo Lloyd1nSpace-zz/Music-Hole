@@ -198,7 +198,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.contentView.addSubview(self.similarArtistsLabel)
         self.contentView.addSubview(self.similarArtistImageLabelStackView)
         
-        
         self.viewConstraints()
     }
     
@@ -465,6 +464,124 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func discogButtonTapped() {
         
         print("Discography button tapped!")
+        
+    }
+    
+    func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
+        
+        var listOfAlbums = [Album]()
+        var listOfAlbumNames = [String]()
+        
+        
+        //need to get artistID before getting their discography info
+        SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
+            
+            SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
+                
+                print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
+                
+                guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
+                    else {
+                        print("could not get list of albums")
+                        return }
+                
+                for album in allAlbums {
+                    print("SPECIFIC ALBUM IN ALBUM RESULTS: \(album)")
+                    print("album name: \(album["name"])")
+                    print("album images: \(album["images"]?.lastObject)")
+                    guard
+                        let albumName = album["name"] as? String,
+                        let albumImageInfo = album["images"]?.lastObject as? [String:AnyObject],
+                        let albumImageURLString = albumImageInfo["url"] as? String
+                        else {
+                            print("could not get specific album info")
+                            return
+                    }
+                    
+                    let albumImageURL = URL(string: albumImageURLString)
+                    let albumImageData = try? Data(contentsOf: albumImageURL!)
+                    let albumImage = UIImage(data: albumImageData!)
+                    let addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
+                    
+                    
+                    let checkDuplicateAlbumName = addArtistAlbum.albumName
+                    if !listOfAlbumNames.contains(checkDuplicateAlbumName) {
+                        listOfAlbumNames.append(checkDuplicateAlbumName)
+                        listOfAlbums.append(addArtistAlbum)
+                    }
+                }
+                
+                
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print ("checking to add album for artist \(artist.name)")
+                    print("number of albums to add: \(listOfAlbums.count)")
+                    if artist.name == artistName {
+                        print("found a match! \(artistName) == \(artist.name)")
+                        print("current artist info: \(artist.discography?.count)")
+                        artist.discography!.append(contentsOf: listOfAlbums)
+                        print("after adding album: \(artist.discography?.count)")
+                    }
+                }
+                
+                print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
+                for artist in self.artistDataStore.testArtistAndDiscography {
+                    print("artist name: \(artist.name)")
+                    print("artist id: \(artist.spotifyID)")
+                    for album in artist.discography! {
+                        print("\(album.albumName)")
+                    }
+                }
+                print("***************************************************")
+                
+                completion()
+            } // end discography call
+            completion()
+        } // end artist id call
+    }
+    
+    func artistDiscographyImages(discographyForArtist: Artist) {
+        
+        print("INSIDE FUNCTION -- obtaining discography images for \(discographyForArtist)")
+        
+        guard let artistDiscography = discographyForArtist.discography else {
+            print("could not unwrap artist discography to populate images")
+            return
+        }
+        var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
+        var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
+        
+        
+        var artistDiscographyInfoDisplay = [(UILabel, UIButton)]()
+        for (index, label) in discographyTextLabels.enumerated() {
+            let clearDiscographyButton = discographyButtons[index]
+            OperationQueue.main.addOperation {
+                clearDiscographyButton.backgroundColor = UIColor.clear
+            } //needed to add this queue b/c there was a delay in changing the background color from green to clear
+            artistDiscographyInfoDisplay.append((label, clearDiscographyButton))
+        }
+        
+        
+        for (index, album) in artistDiscography.enumerated() {
+            var currentLabel = UILabel()
+            var currentButton = UIButton()
+            
+            if index <= artistDiscographyInfoDisplay.count-1 {
+                currentLabel = discographyTextLabels[index]
+                currentLabel.text = album.albumName
+                
+                currentButton = discographyButtons[index]
+                currentButton.setBackgroundImage(album.albumImage, for: .normal)
+                
+                artistDiscographyInfoDisplay[index] = (currentLabel, currentButton)
+            } else {
+                break
+            }
+        }
+        
+        print("***** CHECKING DISCOG INFO *****")
+        for info in artistDiscographyInfoDisplay {
+            print("album name: \(info.0.text), album image: \(info.1.description)")
+        }
         
     }
     
@@ -944,122 +1061,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         })
     }
     
-    func getArtistDiscographyWithCompletion(artistName: String, completion: @escaping () -> ()) {
-        
-        var listOfAlbums = [Album]()
-        var listOfAlbumNames = [String]()
-        
-        
-        //need to get artistID before getting their discography info
-        SpotifyAPIClient.getArtistIDWithCompletion(artistName: artistName) { (ArtistID) in
-            
-            SpotifyAPIClient.getArtistDiscographyWithCompletion(artistID: ArtistID) { (allArtistAlbums) in
-                
-                print("ArtistName: \(artistName)\nArtistID: \(ArtistID)")
-                
-                guard let allAlbums = allArtistAlbums["items"] as? [[String:AnyObject]]
-                    else {
-                        print("could not get list of albums")
-                        return }
-                
-                for album in allAlbums {
-                    print("SPECIFIC ALBUM IN ALBUM RESULTS: \(album)")
-                    print("album name: \(album["name"])")
-                    print("album images: \(album["images"]?.lastObject)")
-                    guard
-                        let albumName = album["name"] as? String,
-                        let albumImageInfo = album["images"]?.lastObject as? [String:AnyObject],
-                        let albumImageURLString = albumImageInfo["url"] as? String
-                        else {
-                            print("could not get specific album info")
-                            return
-                    }
-                    
-                    let albumImageURL = URL(string: albumImageURLString)
-                    let albumImageData = try? Data(contentsOf: albumImageURL!)
-                    let albumImage = UIImage(data: albumImageData!)
-                    let addArtistAlbum = Album(albumArtist: artistName, albumName: albumName, albumImage: albumImage!)
-                    
-                    
-                    let checkDuplicateAlbumName = addArtistAlbum.albumName
-                    if !listOfAlbumNames.contains(checkDuplicateAlbumName) {
-                        listOfAlbumNames.append(checkDuplicateAlbumName)
-                        listOfAlbums.append(addArtistAlbum)
-                    }
-                }
-                
-                
-                for artist in self.artistDataStore.testArtistAndDiscography {
-                    print ("checking to add album for artist \(artist.name)")
-                    print("number of albums to add: \(listOfAlbums.count)")
-                    if artist.name == artistName {
-                        print("found a match! \(artistName) == \(artist.name)")
-                        print("current artist info: \(artist.discography?.count)")
-                        artist.discography!.append(contentsOf: listOfAlbums)
-                        print("after adding album: \(artist.discography?.count)")
-                    }
-                }
-                
-                print("******** ARTIST & DISCOGRAPHY INFORMATION ********")
-                for artist in self.artistDataStore.testArtistAndDiscography {
-                    print("artist name: \(artist.name)")
-                    print("artist id: \(artist.spotifyID)")
-                    for album in artist.discography! {
-                        print("\(album.albumName)")
-                    }
-                }
-                print("***************************************************")
-                
-                completion()
-            } // end discography call
-            completion()
-        } // end artist id call
-    }
     
-    func artistDiscographyImages(discographyForArtist: Artist) {
-        
-        print("INSIDE FUNCTION -- obtaining discography images for \(discographyForArtist)")
-        
-        guard let artistDiscography = discographyForArtist.discography else {
-            print("could not unwrap artist discography to populate images")
-            return
-        }
-        var discographyButtons = [self.discogButton1, self.discogButton2, self.discogButton3, self.discogButton4, self.discogButton5]
-        var discographyTextLabels = [self.discogLabel1, self.discogLabel2, self.discogLabel3, self.discogLabel4, self.discogLabel5]
-        
-        
-        var artistDiscographyInfoDisplay = [(UILabel, UIButton)]()
-        for (index, label) in discographyTextLabels.enumerated() {
-            let clearDiscographyButton = discographyButtons[index]
-            OperationQueue.main.addOperation {
-                clearDiscographyButton.backgroundColor = UIColor.clear
-            } //needed to add this queue b/c there was a delay in changing the background color from green to clear
-            artistDiscographyInfoDisplay.append((label, clearDiscographyButton))
-        }
-        
-        
-        for (index, album) in artistDiscography.enumerated() {
-            var currentLabel = UILabel()
-            var currentButton = UIButton()
-            
-            if index <= artistDiscographyInfoDisplay.count-1 {
-                currentLabel = discographyTextLabels[index]
-                currentLabel.text = album.albumName
-                
-                currentButton = discographyButtons[index]
-                currentButton.setBackgroundImage(album.albumImage, for: .normal)
-                
-                artistDiscographyInfoDisplay[index] = (currentLabel, currentButton)
-            } else {
-                break
-            }
-        }
-        
-        print("***** CHECKING DISCOG INFO *****")
-        for info in artistDiscographyInfoDisplay {
-            print("album name: \(info.0.text), album image: \(info.1.description)")
-        }
-        
-    }
     
 }

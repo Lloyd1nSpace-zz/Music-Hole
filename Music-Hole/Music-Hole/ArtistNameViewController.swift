@@ -26,6 +26,12 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+             self.navigationController?.navigationBar.topItem?.title = "Top Artists"
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.artistDataStore.topArtists.count
     }
