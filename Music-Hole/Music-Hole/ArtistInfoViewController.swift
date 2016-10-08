@@ -104,7 +104,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistBioTextView.text = self.artistDataStore.artistBio
         self.artistBioTextView.textColor = Constants.primaryTextColor
         self.artistBioTextView.isScrollEnabled = false
-        self.view.backgroundColor = Constants.mainColor
+        self.view.backgroundColor = UIColor.yellow
         
         self.expandButton.setTitle("Expand", for: .normal)
         self.expandButton.setTitleColor(UIColor.black, for: .normal)
