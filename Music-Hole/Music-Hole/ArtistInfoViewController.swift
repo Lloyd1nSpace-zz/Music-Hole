@@ -201,7 +201,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.viewConstraints()
     }
     
-    
     func viewConstraints() {
         
         //    let viewsHeights = self.artistImage.frame.height + self.bioLabel.frame.height + self.artistBioTextView.frame.height + self.discographyLabel.frame.height + self.artistDiscographyImageStackView.frame.height + self.similarArtistsLabel.frame.height + self.similarArtistsImagesStackView.frame.height
@@ -439,11 +438,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.similarButton5.addTarget(self, action: #selector(self.similarArtist5ButtonTapped), for: .touchUpInside)
     }
     
-    func displayDiscographyImagesSetup(artist: Artist) {
-        let artistDiscography = artist.discography
-        
-    }
-    
     @IBAction func expandButtonTapped() {
         
         if self.isBioBig() {
@@ -456,6 +450,42 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    
+    func isBioBig() -> Bool {
+        
+        switch self.artistBioTextViewHeightConstraint.constant {
+            
+        case 125:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func expandBio() {
+        
+        self.artistBioTextView.isScrollEnabled = true
+        self.expandButton.setTitle("Collapse", for: .normal)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.artistBioTextViewHeightConstraint.constant += 125
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    func makeBioSmaller() {
+        
+        self.artistBioTextView.isScrollEnabled = false
+        self.expandButton.setTitle("Expand", for: .normal)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.artistBioTextViewHeightConstraint.constant -= 125
+            self.view.layoutIfNeeded()
+        })
+    }
+    
     @IBAction func seeAllDiscogButtonTapped() {
         
         print("See all Discography button tapped!")
@@ -464,6 +494,11 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func discogButtonTapped() {
         
         print("Discography button tapped!")
+        
+    }
+    
+    func displayDiscographyImagesSetup(artist: Artist) {
+        let artistDiscography = artist.discography
         
     }
     
@@ -1025,42 +1060,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-    
-    func isBioBig() -> Bool {
-        
-        switch self.artistBioTextViewHeightConstraint.constant {
-            
-        case 125:
-            return true
-        default:
-            return false
-        }
-    }
-    
-    func expandBio() {
-        
-        self.artistBioTextView.isScrollEnabled = true
-        self.expandButton.setTitle("Collapse", for: .normal)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            self.artistBioTextViewHeightConstraint.constant += 125
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    func makeBioSmaller() {
-        
-        self.artistBioTextView.isScrollEnabled = false
-        self.expandButton.setTitle("Expand", for: .normal)
-        
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            self.artistBioTextViewHeightConstraint.constant -= 125
-            self.view.layoutIfNeeded()
-        })
-    }
-    
     
     
 }

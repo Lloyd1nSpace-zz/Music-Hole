@@ -59,6 +59,8 @@ class ArtistDataStore {
             }
             
             self.artistBio = bio
+            
+            print("This is the artist bio: \(self.artistBio)")
             self.artistImage = UIImage(data: imageData)
             
             guard

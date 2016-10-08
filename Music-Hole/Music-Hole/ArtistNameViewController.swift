@@ -23,7 +23,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         self.artistDataStore.getArtistNamesWithCompletion {
             self.artistTableView.reloadData()
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -147,8 +146,6 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.artistTableView.delegate = self
         self.artistTableView.dataSource = self
-        self.artistTableView.accessibilityLabel = "tableView"
-        self.artistTableView.accessibilityIdentifier = "tableView"
         self.artistTableView.backgroundColor = Constants.mainColor
         
         self.searchButtonSetup()
