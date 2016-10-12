@@ -28,7 +28,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-             self.navigationController?.navigationBar.topItem?.title = "Top Artists"
+             self.navigationItem.title = "Top Artists"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -142,7 +142,7 @@ class ArtistNameViewController: UIViewController, UITableViewDelegate, UITableVi
         
         self.view.backgroundColor = Constants.mainColor
         self.navigationController?.navigationBar.backgroundColor = Constants.mainColor
-        self.navigationController?.navigationBar.topItem?.title = "Top Artists"
+        self.navigationItem.title = "Top Artists"
         
         self.artistTableView.delegate = self
         self.artistTableView.dataSource = self

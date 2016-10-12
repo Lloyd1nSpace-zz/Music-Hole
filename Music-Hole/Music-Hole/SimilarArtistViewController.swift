@@ -442,6 +442,8 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        self.artistDataStore.artistName = self.similarArtist1.text!
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
         
@@ -515,6 +517,8 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        self.artistDataStore.artistName = self.similarArtist2.text!
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
         
@@ -588,6 +592,8 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        self.artistDataStore.artistName = self.similarArtist3.text!
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
         
@@ -661,6 +667,8 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        self.artistDataStore.artistName = self.similarArtist4.text!
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
         
@@ -734,6 +742,8 @@ class SimilarArtistViewController: UIViewController, UIScrollViewDelegate {
         print("Similar artists button tapped!")
         
         let destination = SimilarArtistViewController()
+        self.artistDataStore.artistName = self.similarArtist5.text!
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
         

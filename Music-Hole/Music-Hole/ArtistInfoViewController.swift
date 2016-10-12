@@ -88,7 +88,9 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         self.artistScrollView.contentSize = self.contentView.bounds.size
         self.artistScrollView.delaysContentTouches = false
         
-        self.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        self.navigationItem.title = self.artistDataStore.artistName
+        
+    //    self.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
         
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
@@ -626,7 +628,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         let destination = ArtistInfoViewController()
         self.artistDataStore.artistName = self.similarArtist1.text!
-        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist1.text!)
         
@@ -702,7 +704,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         let destination = ArtistInfoViewController()
         
         self.artistDataStore.artistName = self.similarArtist2.text!
-        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist2.text!)
         
@@ -778,7 +780,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         let destination = SimilarArtistViewController()
         
         self.artistDataStore.artistName = self.similarArtist3.text!
-        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist3.text!)
         
@@ -854,7 +856,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         let destination = ArtistInfoViewController()
         
         self.artistDataStore.artistName = self.similarArtist4.text!
-        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist4.text!)
         
@@ -929,7 +931,7 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         let destination = ArtistInfoViewController()
         
         self.artistDataStore.artistName = self.similarArtist5.text!
-        destination.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
+        destination.navigationItem.title = self.artistDataStore.artistName
         
         let formattedArtistName = URLEncoding.encodeArtistName(selectedArtistName: self.similarArtist5.text!)
         
