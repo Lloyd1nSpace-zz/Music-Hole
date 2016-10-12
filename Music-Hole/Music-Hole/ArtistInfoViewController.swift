@@ -90,8 +90,6 @@ class ArtistInfoViewController: UIViewController, UIScrollViewDelegate {
         
         self.navigationItem.title = self.artistDataStore.artistName
         
-    //    self.navigationController?.navigationBar.topItem?.title = self.artistDataStore.artistName
-        
         self.artistImage.layer.masksToBounds = true
         self.artistImage.layer.cornerRadius = 8
         self.artistImage.backgroundColor = UIColor.gray
